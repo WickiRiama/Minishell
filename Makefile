@@ -6,7 +6,7 @@
 #    By: mriant <mriant@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 13:49:10 by mriant            #+#    #+#              #
-#    Updated: 2022/06/14 14:17:00 by mriant           ###   ########.fr        #
+#    Updated: 2022/06/14 18:49:17 by mriant           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,11 +34,14 @@ build/%.o: srcs/%.c
 	mkdir -p build
 	${CC} ${CFLAGS} -c $< -o $@ ${IFLAGS}
 
+.PHONY: clean
 clean:
 	rm -rf ${OBJS} ${DEPS} build
 
+.PHONY: fclean
 fclean: clean
 	rm -rf ${NAME}
 
+.PHONY: re
 re: fclean
 	make -C. 
