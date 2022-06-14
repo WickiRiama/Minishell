@@ -6,7 +6,7 @@
 #    By: mriant <mriant@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 13:49:10 by mriant            #+#    #+#              #
-#    Updated: 2022/06/14 14:17:00 by mriant           ###   ########.fr        #
+#    Updated: 2022/06/14 17:45:20 by mriant           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME = minishell
 LIBFT = libft/libft.a
 
 SRCS = ${addprefix srcs/, \
-	minishell.c}
+	minishell.c \
+	parsing.c}
 
 OBJS = ${SRCS:srcs/%.c=build/%.o}
 DEPS = ${SRCS:srcs/%.c=build/%.d}
@@ -22,7 +23,7 @@ DEPS = ${SRCS:srcs/%.c=build/%.d}
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 IFLAGS = -I./includes -I./libft -MMD
-LFLAGS = -L./libft -lft
+LFLAGS = -L./libft -lft -lreadline
 
 ${NAME}: ${LIBFT} ${OBJS}
 	${CC} ${CFLAGS} ${OBJS} -o ${NAME} ${LFLAGS}
