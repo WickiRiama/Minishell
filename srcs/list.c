@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 15:58:33 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/16 16:22:37 by mriant           ###   ########.fr       */
+/*   Updated: 2022/06/16 16:49:33 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_lstadd_back_minishell(t_token **alst, t_token *new)
 {
 	t_token	*last;
 
+	if (!new)
+		return ;
 	if (!(*alst))
 		*alst = new;
 	else
