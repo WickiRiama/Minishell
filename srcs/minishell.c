@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/14 17:37:30 by mriant           ###   ########.fr       */
+/*   Updated: 2022/06/16 17:34:53 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	main(void)
 	char	*input;
 
 	input = readline("$>");
-	ft_parse(input);
 	free(input);
 	return (0);
 }
