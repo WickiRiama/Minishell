@@ -6,7 +6,7 @@
 #    By: mriant <mriant@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 13:49:10 by mriant            #+#    #+#              #
-#    Updated: 2022/06/14 17:45:20 by mriant           ###   ########.fr        #
+#    Updated: 2022/06/16 16:05:31 by mriant           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,8 @@ NAME = minishell
 LIBFT = libft/libft.a
 
 SRCS = ${addprefix srcs/, \
+	list.c \
+	list_utils.c \
 	minishell.c \
 	parsing.c}
 
