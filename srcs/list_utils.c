@@ -6,14 +6,14 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 16:03:34 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/16 16:20:46 by mriant           ###   ########.fr       */
+/*   Updated: 2022/06/17 12:13:13 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 
-void	ft_lstdelone_minishell(t_token *lst, void (*del)(void *))
+void	ft_lstdelone_msh(t_token *lst, void (*del)(void *))
 {
 	if (del)
 	{
@@ -23,7 +23,7 @@ void	ft_lstdelone_minishell(t_token *lst, void (*del)(void *))
 	free(lst);
 }
 
-void	ft_lstclear_minishell(t_token **lst, void (*del)(void *))
+void	ft_lstclear_msh(t_token **lst, void (*del)(void *))
 {
 	t_token	*temp1;
 	t_token	*temp2;
@@ -38,7 +38,7 @@ void	ft_lstclear_minishell(t_token **lst, void (*del)(void *))
 	*lst = NULL;
 }
 
-t_token	*ft_lstlast_minishell(t_token *lst)
+t_token	*ft_lstlast_msh(t_token *lst)
 {
 	if (!lst)
 		return (NULL);
@@ -47,7 +47,7 @@ t_token	*ft_lstlast_minishell(t_token *lst)
 	return (lst);
 }
 
-int	ft_lstsize_minishell(t_token *lst)
+int	ft_lstsize_msh(t_token *lst)
 {
 	int	i;
 

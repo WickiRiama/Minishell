@@ -6,14 +6,14 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 15:58:33 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/16 16:49:33 by mriant           ###   ########.fr       */
+/*   Updated: 2022/06/17 12:12:56 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 
-void	ft_lstadd_back_minishell(t_token **alst, t_token *new)
+void	ft_lstadd_back_msh(t_token **alst, t_token *new)
 {
 	t_token	*last;
 
@@ -29,14 +29,14 @@ void	ft_lstadd_back_minishell(t_token **alst, t_token *new)
 	}
 }
 
-void	ft_lstadd_front_minishell(t_token **alst, t_token *new)
+void	ft_lstadd_front_msh(t_token **alst, t_token *new)
 {
 	new->next = *alst;
 	(*alst)->prev = new;
 	*alst = new;
 }
 
-t_token	*ft_lstnew_minishell(char *type, char *token)
+t_token	*ft_lstnew_msh(char *type, char *token)
 {
 	t_token	*new;
 
