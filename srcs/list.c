@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 15:58:33 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/17 12:12:56 by mriant           ###   ########.fr       */
+/*   Updated: 2022/06/20 14:54:55 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_lstadd_back_msh(t_token **alst, t_token *new)
 		*alst = new;
 	else
 	{
-		last = ft_lstlast(*alst);
+		last = ft_lstlast_msh(*alst);
 		last->next = new;
 		new->prev = last;
 	}

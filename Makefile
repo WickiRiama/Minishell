@@ -6,7 +6,7 @@
 #    By: mriant <mriant@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 13:49:10 by mriant            #+#    #+#              #
-#    Updated: 2022/06/17 12:21:33 by mriant           ###   ########.fr        #
+#    Updated: 2022/06/20 12:12:29 by mriant           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ SRCS = ${addprefix srcs/, \
 	list.c \
 	list_utils.c \
 	minishell.c \
-	parsing.c}
+	parsing.c \
+	tokenisation.c}
 
 OBJS = ${SRCS:srcs/%.c=build/%.o}
 DEPS = ${SRCS:srcs/%.c=build/%.d}
