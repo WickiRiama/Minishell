@@ -17,57 +17,39 @@
 t_token	*ft_tokenisation(char *input)
 {
 	unsigned int	i;
-	int				squoted;
-	int				dquoted;
-	int				operator;
 	unsigned int	start;
 	char			*token;
 	t_token			*tokens;
+	t_state			state;
 
 	i = 0;
-	squoted = 0;
-	dquoted = 0;
 	start = 0;
-	operator = 0;
+	ft_init_state(&state);
 	tokens = NULL;
 	if (!input || input[0] == '\0')
 		return (NULL);
 	while(input[i])
 	{
-		if (operator == 1 && ft_isquoted(squoted, dquoted) == 0 && input[i] != '<' && input[i] != '>')
+		// Reconnaissance si precedent < et deuxieme >
+		if (state.operator == 1 && state.squoted + state.dquoted == 0 && input[i] != '<' && input[i] != '>')
 		{
 			token = ft_substr(input, start, i - start);
-			ft_lstadd_back_msh(&tokens, ft_lstnew_msh("operator", token));
-			operator = 0;
-			start = i;
+			if (token)
+				ft_lstadd_back_msh(&tokens, ft_lstnew_msh("operator", token));
+			state.operator = 0;
+			start = i + 1;
 		}
-		else if (input[i] == '\'')
-		{
-			if (ft_isquoted(squoted, dquoted) == 0)
-				squoted = 1;
-			else if (squoted == 1)
-				squoted = 0;
-		}
-		else if (input[i] == '"')
-		{
-			if (ft_isquoted(squoted, dquoted) == 0)
-				dquoted = 1;
-			else if (dquoted == 1)
-				dquoted = 0;
-		}
-		else if (squoted == 0 && input[i] == '$')
-		{	// mark parameter expamsion
-			i += 0;
-		}
-		else if (ft_isquoted(squoted, dquoted) == 0 && operator == 0 && (input[i] == '<' || input[i] == '>'))
+		else if (input[i] == '\'' || input[i] == '"')
+			ft_isquoted(input[i], &state);
+		else if (state.squoted + state.dquoted == 0 && state.operator == 0 && (input[i] == '<' || input[i] == '>'))
 		{
 			token = ft_substr(input, start, i - start);
-			if (token && token[0])
+			if (token)
 				ft_lstadd_back_msh(&tokens, ft_lstnew_msh("undefined", token));
 			start = i;
-			operator = 1;
+			state.operator = 1;
 		}
-		else if (ft_isquoted(squoted, dquoted) == 0 && input[i] == ' ')
+		else if (state.squoted + state.dquoted == 0 && input[i] == ' ')
 		{
 			token = ft_substr(input, start, i - start);
 			if (token)
@@ -78,9 +60,10 @@ t_token	*ft_tokenisation(char *input)
 		}
 		i++;
 	}
-	if (ft_isquoted(squoted, dquoted) == 1)
+	if (state.squoted + state.dquoted == 1)
 	{
-		ft_fprintf(2, "Error. There is an unclosed quote.\n");
+		ft_lstclear_msh(&tokens, &free);
+		ft_fprintf(2, "Syntax error. There is an unclosed quote.\n");
 		return (NULL);
 	}
 	token = ft_substr(input, start, i - start);

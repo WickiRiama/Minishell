@@ -13,11 +13,31 @@
 #include <stdlib.h>
 #include "minishell.h"
 
-int	ft_isquoted(int squoted, int dquoted)
+void	ft_isquoted(char c, t_state *state)
 {
-	if (squoted == 1 || dquoted == 1)
-		return (1);
-	return (0);
+	if (c == '\'')
+	{
+		if (state->squoted + state->dquoted == 0)
+			state->squoted = 1;
+		else if (state->squoted == 1)
+			state->squoted = 0;
+	}
+	else
+	{
+		if (state->squoted + state->dquoted == 0)
+			state->dquoted = 1;
+		else if (state->dquoted == 1)
+			state->dquoted = 0;
+	}
+}
+
+void	ft_init_state(t_state *state)
+{
+	state->dquoted = 0;
+	state->operator = 0;
+	state->squoted = 0;
+}
+
 void	ft_trim_empty_token(t_token *tokens)
 {
 	t_token	*temp;

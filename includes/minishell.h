@@ -34,7 +34,14 @@ t_token	*ft_lstnew_msh(char *type, char *token);
 // Tokenisation
 //==============================================================================
 
-int	ft_isquoted(int squoted, int dquoted);
+typedef struct s_state
+{
+	int		squoted;
+	int		dquoted;
+	int		operator;
+}			t_state;
+void	ft_init_state(t_state *state);
+void	ft_isquoted(char c, t_state *state);
 t_token	*ft_tokenisation(char *input);
 void	ft_trim_empty_token(t_token *tokens);
 
