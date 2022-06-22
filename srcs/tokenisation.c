@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 12:11:49 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/22 11:59:20 by mriant           ###   ########.fr       */
+/*   Updated: 2022/06/22 12:24:22 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,26 @@ t_token	*ft_tokenisation(char *input)
 		else if (ft_isquoted(squoted, dquoted) == 0 && operator == 0 && (input[i] == '<' || input[i] == '>'))
 		{
 			token = ft_substr(input, start, i - start);
-			ft_lstadd_back_msh(&tokens, ft_lstnew_msh("undefined", token));
+			if (token && token[0])
+				ft_lstadd_back_msh(&tokens, ft_lstnew_msh("undefined", token));
 			start = i;
 			operator = 1;
 		}
 		else if (ft_isquoted(squoted, dquoted) == 0 && input[i] == ' ')
 		{
 			token = ft_substr(input, start, i - start);
-			ft_lstadd_back_msh(&tokens, ft_lstnew_msh("undefined", token));
+			if (token)
+				ft_lstadd_back_msh(&tokens, ft_lstnew_msh("undefined", token));
 			while (input[i + 1] == ' ')
 				i++;
 			start = i + 1;
 		}
 		i++;
+	}
+	if (ft_isquoted(squoted, dquoted) == 1)
+	{
+		ft_fprintf(2, "Error. There is an unclosed quote.\n");
+		return (NULL);
 	}
 	token = ft_substr(input, start, i - start);
 	ft_lstadd_back_msh(&tokens, ft_lstnew_msh("undefined", token));
