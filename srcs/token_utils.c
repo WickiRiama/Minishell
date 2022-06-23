@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:38:12 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/22 16:30:29 by mriant           ###   ########.fr       */
+/*   Updated: 2022/06/23 18:33:30 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ void	ft_isquoted(char c, t_state *state)
 void	ft_init_state(t_state *state)
 {
 	state->dquoted = 0;
-	state->operator = 0;
 	state->squoted = 0;
+	state->i = 0;
+	state->start = 0;
 }
 
 void	ft_trim_empty_token(t_token *tokens)

@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 12:11:49 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/23 11:28:44 by mriant           ###   ########.fr       */
+/*   Updated: 2022/06/23 18:28:11 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,47 +32,56 @@ int	ft_add_token(t_token **tokens, unsigned int start, unsigned int i, char *inp
 	return (0);
 }
 
+int	ft_is_operator(char c)
+{
+	if (c == '<' || c == '>' || c == '|')
+		return (1);
+	return (0);
+}
+
+int	ft_cut_operator(t_token **tokens, t_state *state, char *input)
+{
+	char	c;
+
+	c = input[state->i];
+	if (ft_add_token(tokens, state->start, state->i, input) == 1)
+		return (1);
+	state->start = state->i;
+	if ((c == '<' || c == '>') && c == input[state->i + 1])
+		state->i++;
+	if (ft_add_token(tokens, state->start, state->i + 1, input) == 1)
+		return (1);
+	state->start = state->i + 1;
+	return (0);
+}
+
 t_token	*ft_tokenisation(char *input)
 {
-	unsigned int	i;
-	unsigned int	start;
 	t_token			*tokens;
 	t_state			state;
 
-	i = 0;
-	start = 0;
 	ft_init_state(&state);
 	tokens = NULL;
 	if (!input || input[0] == '\0')
 		return (NULL);
-	while(input[i])
+	while(input[state.i])
 	{
-		// Reconnaissance si precedent < et deuxieme >
-		if (state.operator == 1 && state.squoted + state.dquoted == 0 && input[i] != '<' && input[i] != '>')
+		if (state.squoted + state.dquoted == 0 && ft_is_operator(input[state.i]))
 		{
-			if (ft_add_token(&tokens, start, i, input) == 1)
+			if (ft_cut_operator(&tokens, &state, input) == 1)
 				return (NULL);
-			state.operator = 0;
-			start = i + 1;
 		}
-		else if (input[i] == '\'' || input[i] == '"')
-			ft_isquoted(input[i], &state);
-		else if (state.squoted + state.dquoted == 0 && state.operator == 0 && (input[i] == '<' || input[i] == '>'))
+		else if (input[state.i] == '\'' || input[state.i] == '"')
+			ft_isquoted(input[state.i], &state);
+		else if (state.squoted + state.dquoted == 0 && input[state.i] == ' ')
 		{
-			if (ft_add_token(&tokens, start, i, input) == 1)
+			if (ft_add_token(&tokens, state.start, state.i, input) == 1)
 				return (NULL);
-			start = i;
-			state.operator = 1;
+			while (input[state.i + 1] == ' ')
+				state.i++;
+			state.start = state.i + 1;
 		}
-		else if (state.squoted + state.dquoted == 0 && input[i] == ' ')
-		{
-			if (ft_add_token(&tokens, start, i, input) == 1)
-				return (NULL);
-			while (input[i + 1] == ' ')
-				i++;
-			start = i + 1;
-		}
-		i++;
+		state.i++;
 	}
 	if (state.squoted + state.dquoted == 1)
 	{
@@ -80,13 +89,7 @@ t_token	*ft_tokenisation(char *input)
 		ft_fprintf(2, "Syntax error. There is an unclosed quote.\n");
 		return (NULL);
 	}
-	if (state.operator == 1)
-	{
-		ft_lstclear_msh(&tokens, &free);
-		ft_fprintf(2, "Syntax error near unexpected token `newline'\n");
-		return (NULL);
-	}
-	if (ft_add_token(&tokens, start, i, input) == 1)
+	if (ft_add_token(&tokens, state.start, state.i, input) == 1)
 		return (NULL);
 	ft_trim_empty_token(tokens);
 	return (tokens);

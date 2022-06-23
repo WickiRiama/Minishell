@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/22 15:39:02 by mriant           ###   ########.fr       */
+/*   Updated: 2022/06/23 18:27:45 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ t_token	*ft_lstnew_msh(char *type, char *token);
 
 typedef struct s_state
 {
-	int		squoted;
-	int		dquoted;
-	int		operator;
+	int				squoted;
+	int				dquoted;
+	unsigned int	i;
+	unsigned int	start;
 }			t_state;
 void	ft_init_state(t_state *state);
 void	ft_isquoted(char c, t_state *state);
