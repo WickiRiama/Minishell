@@ -80,6 +80,12 @@ t_token	*ft_tokenisation(char *input)
 		ft_fprintf(2, "Syntax error. There is an unclosed quote.\n");
 		return (NULL);
 	}
+	if (state.operator == 1)
+	{
+		ft_lstclear_msh(&tokens, &free);
+		ft_fprintf(2, "Syntax error near unexpected token `newline'\n");
+		return (NULL);
+	}
 	if (ft_add_token(&tokens, start, i, input) == 1)
 		return (NULL);
 	ft_trim_empty_token(tokens);
