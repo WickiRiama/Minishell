@@ -6,7 +6,7 @@
 #    By: mriant <mriant@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 13:49:10 by mriant            #+#    #+#              #
-#    Updated: 2022/06/22 11:56:21 by mriant           ###   ########.fr        #
+#    Updated: 2022/06/24 09:34:21 by mriant           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRCS = ${addprefix srcs/, \
 	list.c \
 	list_utils.c \
 	minishell.c \
-	parsing.c \
+	token_types.c \
 	token_utils.c \
 	tokenisation.c}
 

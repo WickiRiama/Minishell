@@ -6,12 +6,14 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/23 18:27:45 by mriant           ###   ########.fr       */
+/*   Updated: 2022/06/24 09:33:33 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+typedef unsigned int	t_ui;
 
 //==============================================================================
 // Lists
@@ -41,7 +43,12 @@ typedef struct s_state
 	unsigned int	i;
 	unsigned int	start;
 }			t_state;
+int		ft_add_token(t_token **tokens, t_ui start, t_ui i, char *input);
+int		ft_cut_blank(t_token **tokens, t_state *state, char *input);
+int		ft_cut_operator(t_token **tokens, t_state *state, char *input);
 void	ft_init_state(t_state *state);
+int		ft_is_blank(char c);
+int		ft_is_operator(char c);
 void	ft_isquoted(char c, t_state *state);
 t_token	*ft_tokenisation(char *input);
 void	ft_trim_empty_token(t_token *tokens);

@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 16:03:34 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/22 15:30:01 by mriant           ###   ########.fr       */
+/*   Updated: 2022/06/24 09:19:13 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,7 @@
 void	ft_lstdelone_msh(t_token *lst, void (*del)(void *))
 {
 	if (del)
-	{
-		// del(lst->type);
 		del(lst->token);
-	}
 	if (lst->prev)
 		lst->prev->next = lst->next;
 	if (lst->next)
