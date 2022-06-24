@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/24 08:43:06 by mriant           ###   ########.fr       */
+/*   Updated: 2022/06/24 12:06:53 by sle-huec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	main(void)
 	input = readline("$>");
 	tokens = ft_tokenisation(input);
 	ft_print_list(tokens);
+	ft_cd(input);
 	free(input);
 	ft_lstclear_msh(&tokens, &free);
 	return (0);

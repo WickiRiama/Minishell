@@ -6,7 +6,7 @@
 #    By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 13:49:10 by mriant            #+#    #+#              #
-#    Updated: 2022/06/24 12:15:32 by sle-huec         ###   ########.fr        #
+#    Updated: 2022/06/24 15:18:36 by sle-huec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ SRCS = ${addprefix srcs/, \
 	token_types.c \
 	token_utils.c \
 	tokenisation.c \
-	pwd.c}
+	pwd.c \
+	cd.c}
 
 OBJS = ${SRCS:srcs/%.c=build/%.o}
 DEPS = ${SRCS:srcs/%.c=build/%.d}
