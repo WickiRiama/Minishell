@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/24 08:43:06 by mriant           ###   ########.fr       */
+/*   Updated: 2022/06/24 15:10:20 by sle-huec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,15 @@ void	ft_print_list(t_token *list)
 int	main(void)
 {
 	char	*input;
-	t_token	*tokens;
+	// t_token	*tokens;
 
 	input = readline("$>");
-	tokens = ft_tokenisation(input);
-	ft_print_list(tokens);
+	// tokens = ft_tokenisation(input);
+	// ft_print_list(tokens);
+	ft_pwd();
+	ft_cd(input);
+	ft_pwd();
 	free(input);
-	ft_lstclear_msh(&tokens, &free);
+	// ft_lstclear_msh(&tokens, &free);
 	return (0);
 }

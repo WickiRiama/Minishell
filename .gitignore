@@ -3,3 +3,5 @@
 build
 minishell
 .vscode
+test
+test.c

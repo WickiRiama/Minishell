@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/24 10:19:54 by mriant           ###   ########.fr       */
+/*   Updated: 2022/06/24 15:20:05 by sle-huec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,12 @@ int		ft_is_operator(char c);
 void	ft_isquoted(char c, t_state *state);
 t_token	*ft_tokenisation(char *input);
 t_token	*ft_trim_empty_token(t_token *tokens);
+
+//==============================================================================
+// builtins
+//==============================================================================
+
+int	ft_pwd(void);
+int	ft_cd(char *path);
 
 #endif

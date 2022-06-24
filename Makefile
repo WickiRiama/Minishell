@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mriant <mriant@student.42.fr>              +#+  +:+       +#+         #
+#    By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 13:49:10 by mriant            #+#    #+#              #
-#    Updated: 2022/06/24 09:34:21 by mriant           ###   ########.fr        #
+#    Updated: 2022/06/24 15:18:36 by sle-huec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,9 @@ SRCS = ${addprefix srcs/, \
 	minishell.c \
 	token_types.c \
 	token_utils.c \
-	tokenisation.c}
+	tokenisation.c \
+	pwd.c \
+	cd.c}
 
 OBJS = ${SRCS:srcs/%.c=build/%.o}
 DEPS = ${SRCS:srcs/%.c=build/%.d}
