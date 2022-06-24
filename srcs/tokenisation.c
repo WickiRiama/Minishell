@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 12:11:49 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/24 09:31:09 by mriant           ###   ########.fr       */
+/*   Updated: 2022/06/24 10:23:59 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_check_token(t_token **tokens, t_state *state)
 		ft_fprintf(2, "Syntax error. There is an unclosed quote.\n");
 		return (1);
 	}
-	ft_trim_empty_token(*tokens);
+	*tokens = ft_trim_empty_token(*tokens);
 	return (0);
 }
 

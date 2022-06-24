@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:38:12 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/24 09:25:19 by mriant           ###   ########.fr       */
+/*   Updated: 2022/06/24 10:22:47 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@ void	ft_init_state(t_state *state)
 	state->start = 0;
 }
 
-void	ft_trim_empty_token(t_token *tokens)
+t_token	*ft_trim_empty_token(t_token *tokens)
 {
 	t_token	*temp;
+	t_token	*last;
 
+	last = NULL;
 	while (tokens)
 	{
 		if (tokens->token[0] == '\0')
@@ -35,8 +37,14 @@ void	ft_trim_empty_token(t_token *tokens)
 			ft_lstdelone_msh(temp, &free);
 		}
 		else
+		{
+			last = tokens;
 			tokens = tokens->next;
+		}
 	}
+	while (last->prev)
+		last = last->prev;
+	return (last);
 }
 
 int	ft_add_token(t_token **tokens, t_ui start, t_ui i, char *input)
