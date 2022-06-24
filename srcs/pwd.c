@@ -6,7 +6,7 @@
 /*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 12:15:00 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/06/24 14:32:33 by sle-huec         ###   ########.fr       */
+/*   Updated: 2022/06/24 14:55:26 by sle-huec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_pwd(void)
 	ft_pwd = getcwd(NULL, 0);
 	if (!ft_pwd)
 		return (1);
-	ft_fprintf("%s\n", ft_pwd);
+	ft_fprintf(2, "%s\n", ft_pwd);
 	free (ft_pwd);
 	return (0);
 }
