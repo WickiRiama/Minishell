@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/24 08:43:06 by mriant           ###   ########.fr       */
+/*   Updated: 2022/06/25 10:03:35 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,24 @@ void	ft_print_list(t_token *list)
 	}
 }
 
-int	main(void)
+int	main(int ac, char **av, char **envp)
 {
 	char	*input;
 	t_token	*tokens;
 
+	if (ac != 1)
+		return (1);
+	(void) av;
 	input = readline("$>");
 	tokens = ft_tokenisation(input);
+	if (!tokens)
+	{
+		ft_lstclear_msh(&tokens, &free);
+		free(input);
+		return (1);
+	}
 	ft_print_list(tokens);
+	ft_wexpanse(&tokens, envp);
 	free(input);
 	ft_lstclear_msh(&tokens, &free);
 	return (0);

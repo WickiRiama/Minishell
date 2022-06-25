@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/24 10:19:54 by mriant           ###   ########.fr       */
+/*   Updated: 2022/06/25 09:54:49 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,11 @@ int		ft_is_operator(char c);
 void	ft_isquoted(char c, t_state *state);
 t_token	*ft_tokenisation(char *input);
 t_token	*ft_trim_empty_token(t_token *tokens);
+
+//==============================================================================
+// Word expansion
+//==============================================================================
+
+void	ft_wexpanse(t_token **tokens, char **envp);
 
 #endif
