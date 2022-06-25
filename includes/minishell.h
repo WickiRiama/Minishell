@@ -6,7 +6,11 @@
 /*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/06/24 15:20:05 by sle-huec         ###   ########.fr       */
+=======
+/*   Updated: 2022/06/25 09:54:49 by mriant           ###   ########.fr       */
+>>>>>>> Add a functionnal environment variable expansion
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +63,11 @@ t_token	*ft_trim_empty_token(t_token *tokens);
 
 int	ft_pwd(void);
 int	ft_cd(char *path);
+
+//==============================================================================
+// Word expansion
+//==============================================================================
+
+void	ft_wexpanse(t_token **tokens, char **envp);
 
 #endif

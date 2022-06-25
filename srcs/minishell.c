@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/24 15:10:20 by sle-huec         ###   ########.fr       */
+/*   Updated: 2022/06/27 11:33:38 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,28 @@ void	ft_print_list(t_token *list)
 	}
 }
 
-int	main(void)
+int	main(int ac, char **av, char **envp)
 {
 	char	*input;
-	// t_token	*tokens;
+	t_token	*tokens;
 
+	if (ac != 1)
+		return (1);
+	(void) av;
 	input = readline("$>");
-	// tokens = ft_tokenisation(input);
-	// ft_print_list(tokens);
 	ft_pwd();
 	ft_cd(input);
-	ft_pwd();
+	ft_pwd();	
+	tokens = ft_tokenisation(input);
+	if (!tokens)
+	{
+		ft_lstclear_msh(&tokens, &free);
+		free(input);
+		return (1);
+	}
+	ft_wexpanse(&tokens, envp);
+	ft_print_list(tokens);
 	free(input);
-	// ft_lstclear_msh(&tokens, &free);
+	ft_lstclear_msh(&tokens, &free);
 	return (0);
 }
