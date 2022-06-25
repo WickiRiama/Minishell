@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 11:32:25 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/25 10:57:46 by mriant           ###   ########.fr       */
+/*   Updated: 2022/06/25 16:10:40 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,41 @@
 #include "minishell.h"
 #include "libft.h"
 
+static void	ft_clean(char *error, void *ptr1, void *ptr2, void *ptr3)
+{
+	if (error)
+		ft_fprintf(2, "%s\n", error);
+	free (ptr1);
+	free (ptr2);
+	free (ptr3);
+}
+
 char	*ft_find_var(char *var, char **envp)
 {
 	int		i;
 	int		j;
 	char	*result;
 
-	if (!envp)
-		result = ft_calloc(sizeof(char), 1);
-	else
+	result = ft_calloc(sizeof(char), 1);
+	i = 0;
+	while (envp && envp[i])
 	{
-		i = 0;
-		while (envp[i])
+		j = 0;
+		while (var[j] == envp[i][j])
+			j++;
+		if (var[j] == '\0' && envp[i][j] == '=')
 		{
-			j = 0;
-			while (var[j] == envp[i][j])
-				j++;
-			if (var[j] == '\0' && envp[i][j] == '=')
-			{
-				result = ft_substr(envp[i], j + 1, ft_strlen(envp[i]));
-				if (!result)
-					ft_fprintf(2, "System error. Malloc failed.\n");
-				break;
-			}
-			i++;
+			free(result);
+			result = ft_substr(envp[i], j + 1, ft_strlen(envp[i]));
+			break ;
 		}
-		if (!envp[i])
-			result = ft_calloc(sizeof(char), 1);
+		i++;
 	}
 	free(var);
 	return (result);
 }
 
-int	ft_is_name(char	c, t_state *state)
+int	ft_is_name(char c, t_state *state)
 {
 	if (state->i != state->start && (ft_isalnum(c) || c == '_'))
 		return (1);
@@ -55,13 +57,31 @@ int	ft_is_name(char	c, t_state *state)
 	return (0);
 }
 
+char	*ft_extended_token(char *src, char *env_var, int start_var, int end_var)
+{
+	size_t	res_len;
+	size_t	var_len;
+	char	*result;
+
+	var_len = ft_strlen(env_var);
+	res_len = ft_strlen(src) + var_len;
+	result = ft_calloc(sizeof(char), (res_len + 1));
+	if (!result)
+	{
+		ft_fprintf(2, "System error. Malloc failed.");
+		return (NULL);
+	}
+	ft_strlcpy(result, src, start_var);
+	ft_strlcpy(result + start_var - 1, env_var, var_len + 1);
+	ft_strlcpy(result + start_var + var_len - 1, src + end_var, res_len);
+	return (result);
+}
+
 char	*ft_isenv(char *src, t_state *state, char **envp)
 {
 	char	*result;
 	char	*env_var;
-	size_t	len;
 
-	len = ft_strlen(src);
 	state->i++;
 	state->start = state->i;
 	while (ft_is_name(src[state->i], state))
@@ -69,31 +89,33 @@ char	*ft_isenv(char *src, t_state *state, char **envp)
 	env_var = ft_substr(src, state->start, state->i - state->start);
 	if (!env_var)
 	{
-		free(src);
-		ft_fprintf(2, "System error. Malloc failed.\n");
+		ft_clean("System error. Malloc failed.", src, NULL, NULL);
 		return (NULL);
 	}
 	env_var = ft_find_var(env_var, envp);
 	if (!env_var)
 	{
-		free(src);
+		ft_clean("System error. Malloc failed.", src, NULL, NULL);
 		return (NULL);
 	}
-	len += ft_strlen(env_var);
-	result = malloc(sizeof(char) * (len + 1));
-	if (!result)
-	{
-		free(src);
-		ft_fprintf(2, "System error. Malloc failed.\n");
-		return (NULL);
-	}
-	ft_strlcpy(result, src, state->start);
-	ft_strlcpy(result + state->start - 1, env_var, ft_strlen(env_var) + 1);
-	ft_strlcpy(result + state->start + ft_strlen(env_var) - 1, src + state->i, len);
-	ft_printf("result= %s\n", result);
-	free(env_var);
-	free(src);
-	return (result = env_var);
+	result = ft_extended_token(src, env_var, state->start, state->i);
+	state->i = state->start - 1 + ft_strlen(env_var) - 1;
+	ft_clean(NULL, src, env_var, NULL);
+	return (result);
+}
+
+char	*ft_isexitcode(char *src, t_state *state)
+{
+	char	*result;
+	char	*exit_code;
+
+	state->start = state->i + 1;
+	state->i += 2;
+	exit_code = ft_itoa(g_exitcode);
+	result = ft_extended_token(src, exit_code, state->start, state->i);
+	state->i = state->start - 1 + ft_strlen(exit_code) - 1;
+	ft_clean(NULL, src, exit_code, NULL);
+	return (result);
 }
 
 char	*ft_env_expanse(char *token, char **envp)
@@ -106,10 +128,15 @@ char	*ft_env_expanse(char *token, char **envp)
 		if (token[state.i] == '\'' || token[state.i] == '"')
 			ft_isquoted(token[state.i], &state);
 		else if (state.squoted == 0 && token[state.i] == '$')
-			token = ft_isenv(token, &state, envp);
-		state.i ++;
+		{
+			if (token[state.i + 1] == '?')
+				token = ft_isexitcode(token, &state);
+			else
+				token = ft_isenv(token, &state, envp);
+		}
+		state.i++;
 	}
-	return (NULL);
+	return (token);
 }
 
 void	ft_wexpanse(t_token **tokens, char **envp)
@@ -119,8 +146,7 @@ void	ft_wexpanse(t_token **tokens, char **envp)
 	temp = *tokens;
 	while (temp)
 	{
-		// temp->token = ft_excode_expanse
 		temp->token = ft_env_expanse(temp->token, envp);
-		temp = temp->next;		
+		temp = temp->next;
 	}
 }
