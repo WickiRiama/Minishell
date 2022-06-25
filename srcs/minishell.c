@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/27 11:33:38 by mriant           ###   ########.fr       */
+/*   Updated: 2022/06/27 11:37:12 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 
 #include "minishell.h"
 #include "libft.h"
+
+int	g_exitcode;
 
 void	ft_print_list(t_token *list)
 {

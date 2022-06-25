@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/06/24 15:20:05 by sle-huec         ###   ########.fr       */
-=======
-/*   Updated: 2022/06/25 09:54:49 by mriant           ###   ########.fr       */
->>>>>>> Add a functionnal environment variable expansion
+/*   Updated: 2022/06/27 11:37:50 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +14,7 @@
 # define MINISHELL_H
 
 typedef unsigned int	t_ui;
+extern int				g_exitcode;
 
 //==============================================================================
 // Lists
