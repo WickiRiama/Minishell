@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/24 15:20:05 by sle-huec         ###   ########.fr       */
+/*   Updated: 2022/06/27 11:44:22 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 typedef unsigned int	t_ui;
+extern int				g_exitcode;
 
 //==============================================================================
 // Lists
@@ -59,5 +60,14 @@ t_token	*ft_trim_empty_token(t_token *tokens);
 
 int	ft_pwd(void);
 int	ft_cd(char *path);
+
+//==============================================================================
+// Word expansion
+//==============================================================================
+
+char	*ft_extd_token(char *src, char *env_var, int start_var, int end_var);
+char	*ft_find_var(char *var, char **envp);
+int		ft_is_name(char c, t_state *state);
+int		ft_wexpanse(t_token **tokens, char **envp);
 
 #endif
