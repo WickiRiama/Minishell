@@ -6,7 +6,7 @@
 #    By: mriant <mriant@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 13:49:10 by mriant            #+#    #+#              #
-#    Updated: 2022/06/24 11:19:33 by mriant           ###   ########.fr        #
+#    Updated: 2022/06/27 11:17:39 by mriant           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ SRCS = ${addprefix srcs/, \
 	token_types.c \
 	token_utils.c \
 	tokenisation.c \
-	word_expansion.c}
+	word_expansion.c \
+	word_expansion_utils.c}
 
 OBJS = ${SRCS:srcs/%.c=build/%.o}
 DEPS = ${SRCS:srcs/%.c=build/%.d}
