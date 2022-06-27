@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/27 11:43:51 by mriant           ###   ########.fr       */
+/*   Updated: 2022/06/27 13:56:51 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,25 +38,28 @@ int	main(int ac, char **av, char **envp)
 	if (ac != 1)
 		return (1);
 	(void) av;
-	input = readline("$>");
-	ft_pwd();
-	ft_cd(input);
-	ft_pwd();	
-	tokens = ft_tokenisation(input);
-	if (!tokens)
+	while (1)
 	{
-		ft_lstclear_msh(&tokens, &free);
+		input = readline("$>");
+		// ft_pwd();
+		// ft_cd(input);
+		// ft_pwd();
+		tokens = ft_tokenisation(input);
+		if (!tokens)
+		{
+			ft_lstclear_msh(&tokens, &free);
+			free(input);
+			return (1);
+		}
+		if (ft_wexpanse(&tokens, envp))
+		{
+			ft_lstclear_msh(&tokens, &free);
+			free(input);
+			return (1);
+		}
+		ft_print_list(tokens);
 		free(input);
-		return (1);
-	}
-	if (ft_wexpanse(&tokens, envp))
-	{
 		ft_lstclear_msh(&tokens, &free);
-		free(input);
-		return (1);
 	}
-	ft_print_list(tokens);
-	free(input);
-	ft_lstclear_msh(&tokens, &free);
 	return (0);
 }
