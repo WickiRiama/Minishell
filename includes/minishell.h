@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/25 14:32:17 by mriant           ###   ########.fr       */
+/*   Updated: 2022/06/27 11:01:20 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,6 @@ t_token	*ft_trim_empty_token(t_token *tokens);
 // Word expansion
 //==============================================================================
 
-void	ft_wexpanse(t_token **tokens, char **envp);
+int	ft_wexpanse(t_token **tokens, char **envp);
 
 #endif
