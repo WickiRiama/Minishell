@@ -1,0 +1,10 @@
+Hello pouet "hello pouet" 'hello pouet'
+"Hello $USER 'pouet $USER'"
+'Hello $USER "pouet $USER"'
+Hello << >> < > pouet
+Hello<<<>>><>pouet
+"Hello < pouet"
+Hello | pouet
+"Hello | pouet"
+Hi"Hello pouet"Hi
+$USERi $USER/test test$USER
