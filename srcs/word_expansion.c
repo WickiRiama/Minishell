@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 11:32:25 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/25 16:10:40 by mriant           ###   ########.fr       */
+/*   Updated: 2022/06/27 11:00:50 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,12 +134,14 @@ char	*ft_env_expanse(char *token, char **envp)
 			else
 				token = ft_isenv(token, &state, envp);
 		}
+		if (!token)
+			return (NULL);
 		state.i++;
 	}
 	return (token);
 }
 
-void	ft_wexpanse(t_token **tokens, char **envp)
+int	ft_wexpanse(t_token **tokens, char **envp)
 {
 	t_token	*temp;
 
@@ -147,6 +149,12 @@ void	ft_wexpanse(t_token **tokens, char **envp)
 	while (temp)
 	{
 		temp->token = ft_env_expanse(temp->token, envp);
+		if (!temp->token)
+		{
+			ft_lstclear_msh(tokens, &free);
+			return (1);
+		}
 		temp = temp->next;
 	}
+	return (0);
 }

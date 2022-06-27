@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/27 11:37:12 by mriant           ###   ########.fr       */
+/*   Updated: 2022/06/27 11:39:09 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,12 @@ int	main(int ac, char **av, char **envp)
 		free(input);
 		return (1);
 	}
-	ft_wexpanse(&tokens, envp);
+	if (ft_wexpanse(&tokens, envp))
+	{
+		ft_lstclear_msh(&tokens, &free);
+		free(input);
+		return (1);
+	}
 	ft_print_list(tokens);
 	free(input);
 	ft_lstclear_msh(&tokens, &free);
