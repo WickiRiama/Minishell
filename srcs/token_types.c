@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 09:22:11 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/24 09:23:10 by mriant           ###   ########.fr       */
+/*   Updated: 2022/06/28 15:25:39 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,16 @@ int	ft_is_blank(char c)
 	if (c == ' ' || c == '\t')
 		return (1);
 	return (0);
+}
+
+void	ft_token_types(t_token *tokens)
+{
+	while (tokens)
+	{
+		if (ft_strcmp(tokens->type, "operator") == 0)
+			ft_op_type();
+		else
+			ft_word_type();
+		tokens = tokens->next;
+	}
 }
