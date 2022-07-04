@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/27 11:44:22 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/04 13:19:47 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,23 @@ extern int				g_exitcode;
 //==============================================================================
 // Lists
 //==============================================================================
-
+typedef enum e_types
+{
+	WORD,
+	OPERATOR,
+	LESS,
+	GREAT,
+	DLESS,
+	DGREAT,
+	INFILE,
+	OUTFILE,
+	DELIM,
+	APP_FILE,
+	PIPE
+}			t_types;
 typedef struct s_token
 {
-	char			*type;
+	t_types			type;
 	char			*token;
 	struct s_token	*prev;
 	struct s_token	*next;
@@ -31,7 +44,7 @@ void	ft_lstadd_back_msh(t_token **alst, t_token *new);
 void	ft_lstclear_msh(t_token **lst, void (*del)(void *));
 void	ft_lstdelone_msh(t_token *lst, void (*del)(void *));
 t_token	*ft_lstlast_msh(t_token *lst);
-t_token	*ft_lstnew_msh(char *type, char *token);
+t_token	*ft_lstnew_msh(t_types type, char *token);
 
 //==============================================================================
 // Tokenisation
