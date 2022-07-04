@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 09:22:11 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/28 18:23:26 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/04 08:51:14 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,16 @@ void	ft_redirin_type(t_token *tokens)
 	if (ft_strcmp(tokens->token, "<") == 0)
 	{
 		ft_strlcpy(tokens->type, "redir_from", ft_strlen("redir_from") + 1);
-		if (tokens->next)
+		if (tokens->next && ft_strcmp(tokens->next->type, "operator") != 0)
 			ft_strlcpy(tokens->next->type, "infile", ft_strlen("infile") + 1);
 	}
 	else if (ft_strcmp(tokens->token, "<<") == 0)
 	{
 		ft_strlcpy(tokens->type, "here_doc", ft_strlen("here_doc") + 1);
-		if (tokens->next)
+		if (tokens->next && ft_strcmp(tokens->next->type, "operator") != 0)
 			ft_strlcpy(tokens->next->type, "delim", ft_strlen("delim") + 1);
 	}
-	if (!tokens->next)
+	if (!tokens->next || ft_strcmp(tokens->next->type, "operator") == 0)
 		ft_error("Syntax error");
 }
 
@@ -67,16 +67,16 @@ void	ft_redirout_type(t_token *tokens)
 	else if (ft_strcmp(tokens->token, ">") == 0)
 	{
 		ft_strlcpy(tokens->type, "redir_to", ft_strlen("redir_to") + 1);
-		if (tokens->next)
+		if (tokens->next && ft_strcmp(tokens->next->type, "operator") != 0)
 			ft_strlcpy(tokens->next->type, "outfile", ft_strlen("outfile") + 1);
 	}
 	else if (ft_strcmp(tokens->token, ">>") == 0)
 	{
 		ft_strlcpy(tokens->type, "append", ft_strlen("append") + 1);
-		if (tokens->next)
+		if (tokens->next && ft_strcmp(tokens->next->type, "operator") != 0)
 			ft_strlcpy(tokens->next->type, "app_file", ft_strlen("app_file") + 1);
 	}
-	if (!tokens->next)
+	if (!tokens->next || ft_strcmp(tokens->next->type, "operator") == 0)
 		ft_error("Syntax error");
 }
 
