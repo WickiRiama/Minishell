@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/04 21:02:33 by sam              ###   ########.fr       */
+/*   Updated: 2022/07/04 21:24:45 by sam              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	ft_print_list(t_token *list)
 		list = list->next;
 	}
 }
+
+
 
 int	main(int ac, char **av, char **envp)
 {

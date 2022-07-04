@@ -1,3 +1,4 @@
+/*
 //here : include header 
 
 #include <string.h>
@@ -12,3 +13,4 @@ int	ft_exit(char **input)
 
 
 }
+*/
