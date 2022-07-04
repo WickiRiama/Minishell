@@ -6,7 +6,7 @@
 /*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/06 13:30:19 by sle-huec         ###   ########.fr       */
+/*   Updated: 2022/07/06 13:30:51 by sle-huec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	ft_print_list(t_token *list)
 		list = list->next;
 	}
 }
+
+
 
 int	main(int ac, char **av, char **envp)
 {

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mriant <mriant@student.42.fr>              +#+  +:+       +#+         #
+#    By: sam <sam@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 13:49:10 by mriant            #+#    #+#              #
-#    Updated: 2022/07/04 15:51:17 by mriant           ###   ########.fr        #
+#    Updated: 2022/07/04 21:10:14 by sam              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS = ${addprefix srcs/, \
 	tokenisation.c \
 	pwd.c \
 	cd.c \
+	exit.c \
 	word_expansion.c \
 	word_expansion_utils.c}
 
