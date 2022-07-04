@@ -6,7 +6,7 @@
 #    By: mriant <mriant@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 13:49:10 by mriant            #+#    #+#              #
-#    Updated: 2022/06/27 11:44:50 by mriant           ###   ########.fr        #
+#    Updated: 2022/07/04 15:51:17 by mriant           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME = minishell
 LIBFT = libft/libft.a
 
 SRCS = ${addprefix srcs/, \
+	is_token.c \
 	list.c \
 	list_utils.c \
 	minishell.c \
