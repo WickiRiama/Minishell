@@ -6,90 +6,92 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 09:22:11 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/04 13:17:50 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/04 15:50:55 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "libft.h"
 
-void	ft_isquoted(char c, t_state *state)
+void	ft_synt_err(char *token)
 {
-	if (c == '\'')
-	{
-		if (state->squoted + state->dquoted == 0)
-			state->squoted = 1;
-		else if (state->squoted == 1)
-			state->squoted = 0;
-	}
-	else
-	{
-		if (state->squoted + state->dquoted == 0)
-			state->dquoted = 1;
-		else if (state->dquoted == 1)
-			state->dquoted = 0;
-	}
+	ft_fprintf(2, "Syntax error near unexpected token '%s'\n", token);
 }
 
-int	ft_is_operator(char c)
+int	ft_redirin_type(t_token *tokens)
 {
-	if (c == '<' || c == '>' || c == '|')
-		return (1);
-	return (0);
-}
-
-int	ft_is_blank(char c)
-{
-	if (c == ' ' || c == '\t')
-		return (1);
-	return (0);
-}
-
-void	ft_redirin_type(t_token *tokens)
-{
-	if (tokens->token[1] == '\0')
+	if (tokens->token[1] == '\0'
+		&& tokens->next && tokens->next->type != OPERATOR)
 	{
 		tokens->type = LESS;
-		if (tokens->next && tokens->next->type != OPERATOR)
-			tokens->next->type = INFILE;
+		tokens->next->type = INFILE;
+		return (0);
 	}
-	else if (tokens->token[1] == '<')
+	else if (tokens->token[1] == '<'
+		&& tokens->next && tokens->next->type != OPERATOR)
 	{
 		tokens->type = DLESS;
-		if (tokens->next && tokens->next->type != OPERATOR)
-			tokens->next->type = DELIM;
+		tokens->next->type = DELIM;
+		return (0);
 	}
-	if (!tokens->next || tokens->next->type == OPERATOR)
-		ft_error("Syntax error");
+	if (!tokens->next)
+		ft_synt_err("newline");
+	else if (tokens->next->type == OPERATOR)
+		ft_synt_err(tokens->next->token);
+	return (1);
 }
 
-void	ft_redirout_type(t_token *tokens)
+int	ft_redirout_type(t_token *tokens)
 {
-	if (tokens->token[1] == '\0')
+	if (tokens->token[1] == '\0'
+		&& tokens->next && tokens->next->type != OPERATOR)
 	{
 		tokens->type = GREAT;
-		if (tokens->next && tokens->next->type != OPERATOR)
-			tokens->next->type = OUTFILE;
+		tokens->next->type = OUTFILE;
+		return (0);
 	}
-	else if (tokens->token[1] == '>')
+	else if (tokens->token[1] == '>'
+		&& tokens->next && tokens->next->type != OPERATOR)
 	{
 		tokens->type = DGREAT;
-		if (tokens->next && tokens->next->type != OPERATOR)
-			tokens->next->type = APP_FILE;
+		tokens->next->type = APP_FILE;
+		return (0);
 	}
-	if (!tokens->next || tokens->next->type == OPERATOR)
-		ft_error("Syntax error");
+	if (!tokens->next)
+		ft_synt_err("newline");
+	else if (tokens->next->type == OPERATOR)
+		ft_synt_err(tokens->next->token);
+	return (1);
 }
 
-void	ft_token_types(t_token *tokens)
+int	ft_pipe_type(t_token *tokens)
 {
+	tokens->type = PIPE;
+	if (!tokens->prev || tokens->prev->type == PIPE || !tokens->next)
+	{
+		ft_synt_err(tokens->token);
+		return (1);
+	}
+	return (0);
+}
+
+int	ft_token_types(t_token *tokens)
+{
+	int	ret;
+
+	if (tokens->type == QUOTE_ERR)
+		return (1);
 	while (tokens)
 	{
 		if (tokens->token[0] == '<')
-			ft_redirin_type(tokens);
+			ret = ft_redirin_type(tokens);
 		if (tokens->token[0] == '>')
-			ft_redirout_type(tokens);
-		else
-			ft_word_type();
+			ret = ft_redirout_type(tokens);
+		if (tokens->token[0] == '|')
+			ret = ft_pipe_type(tokens);
+		if (ret == 1)
+			return (1);
 		tokens = tokens->next;
 	}
+	return (0);
 }

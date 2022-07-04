@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 12:11:49 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/28 18:08:43 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/04 15:34:03 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,26 @@ int	ft_token_list(t_token **tokens, t_state *state, char *input)
 	return (0);
 }
 
-int	ft_check_token(t_token **tokens, t_state *state)
+void	ft_check_token(t_token **tokens, t_state *state)
 {
-	if (state->squoted + state->dquoted == 1)
+	if (state->squoted == 1)
 	{
-		ft_lstclear_msh(tokens, &free);
-		ft_fprintf(2, "Syntax error. There is an unclosed quote.\n");
-		return (1);
+		ft_fprintf(2, "Syntax error: unclosed quote '''.\n");
+		(*tokens)->type = QUOTE_ERR;
 	}
-	*tokens = ft_trim_empty_token(*tokens);
-	return (0);
+	else if (state->dquoted == 1)
+	{
+		ft_fprintf(2, "Syntax error: unclosed quote '\"'.\n");
+		(*tokens)->type = QUOTE_ERR;
+	}
+	else
+		*tokens = ft_trim_empty_token(*tokens);
 }
 
 t_token	*ft_tokenisation(char *input)
 {
-	t_token			*tokens;
-	t_state			state;
+	t_token	*tokens;
+	t_state	state;
 
 	ft_init_state(&state);
 	tokens = NULL;
@@ -66,7 +70,6 @@ t_token	*ft_tokenisation(char *input)
 		return (NULL);
 	if (ft_token_list(&tokens, &state, input))
 		return (NULL);
-	if (ft_check_token(&tokens, &state))
-		return (NULL);
+	ft_check_token(&tokens, &state);
 	return (tokens);
 }

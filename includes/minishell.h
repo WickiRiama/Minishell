@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/04 13:19:47 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/04 15:47:56 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef enum e_types
 {
 	WORD,
 	OPERATOR,
+	QUOTE_ERR,
 	LESS,
 	GREAT,
 	DLESS,
@@ -65,14 +66,15 @@ int		ft_is_blank(char c);
 int		ft_is_operator(char c);
 void	ft_isquoted(char c, t_state *state);
 t_token	*ft_tokenisation(char *input);
+int		ft_token_types(t_token *tokens);
 t_token	*ft_trim_empty_token(t_token *tokens);
 
 //==============================================================================
 // builtins
 //==============================================================================
 
-int	ft_pwd(void);
-int	ft_cd(char *path);
+int		ft_pwd(void);
+int		ft_cd(char *path);
 
 //==============================================================================
 // Word expansion
