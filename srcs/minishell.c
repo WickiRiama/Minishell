@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/06 12:00:55 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/06 13:28:37 by sle-huec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		input = readline("$>");
-		// ft_pwd();
-		// ft_cd(input);
-		// ft_pwd();
+		ft_pwd();
+		ft_cd(input);
+		ft_pwd();
 		tokens = ft_tokenisation(input);
 		if (!tokens)
 		{
