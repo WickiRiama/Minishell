@@ -1,4 +1,4 @@
-/*
+
 //here : include header 
 
 #include <string.h>
@@ -7,10 +7,8 @@
 #include "libft.h"
 #include "minishell.h"
 
-int	ft_exit(char **input)
+int	ft_exit(void)
 {
-	
-
-
+	exit(EXIT_SUCCESS);
 }
-*/
+

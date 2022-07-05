@@ -6,7 +6,7 @@
 /*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/06 13:30:51 by sle-huec         ###   ########.fr       */
+/*   Updated: 2022/07/06 13:32:20 by sle-huec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,24 @@ void	ft_print_list(t_token *list)
 	}
 }
 
+void	found_and_run_cmd(t_token *tokens)
+{
+	int	nl;
 
+	nl = 0;
+	if (ft_strcmp(tokens->token, "cd"))
+		ft_cd(&tokens->next->token);
+	else if (ft_strcmp(tokens->token, "echo"))
+	{
+		if (ft_strcmp(tokens->next->token, "-n"))
+			nl = 1;
+		ft_echo(&tokens->next->token, nl);
+	}
+	else if (ft_strcmp(tokens->token, "pwd"))
+		ft_pwd();
+	if (ft_strcmp(tokens->token, "exit"))
+		ft_exit();
+}
 
 int	main(int ac, char **av, char **envp)
 {
@@ -43,9 +60,7 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		input = readline("$>");
-		// ft_pwd();
-		// ft_cd(&av[1]);
-		// ft_pwd();
+		found_and_run_cmd(tokens);
 		tokens = ft_tokenisation(input);
 		if (!tokens)
 		{
