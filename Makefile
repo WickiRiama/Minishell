@@ -6,7 +6,7 @@
 #    By: sam <sam@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 13:49:10 by mriant            #+#    #+#              #
-#    Updated: 2022/07/04 21:10:14 by sam              ###   ########.fr        #
+#    Updated: 2022/07/05 18:32:53 by sam              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS = ${addprefix srcs/, \
 	pwd.c \
 	cd.c \
 	exit.c \
+	echo.c \
 	word_expansion.c \
 	word_expansion_utils.c}
 

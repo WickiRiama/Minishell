@@ -6,7 +6,7 @@
 /*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/06 13:30:06 by sle-huec         ###   ########.fr       */
+/*   Updated: 2022/07/06 13:31:26 by sle-huec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ t_token	*ft_trim_empty_token(t_token *tokens);
 
 int		ft_pwd(void);
 int		ft_cd(char **path);
+int		ft_echo(char **input, int nl);
 
 //==============================================================================
 // Word expansion
