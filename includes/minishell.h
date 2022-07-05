@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/05 18:34:21 by sam              ###   ########.fr       */
+/*   Updated: 2022/07/05 21:20:55 by sam              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,11 @@ t_token	*ft_trim_empty_token(t_token *tokens);
 int		ft_pwd(void);
 int		ft_cd(char **path);
 int		ft_echo(char **input, int nl);
+int		ft_exit(void);
+
+//test
+void	found_and_run_cmd(t_token *s_token);
+//test
 
 //==============================================================================
 // Word expansion
