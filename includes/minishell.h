@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/04 15:47:56 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/06 12:09:22 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int		ft_cd(char *path);
 char	*ft_extd_token(char *src, char *env_var, int start_var, int end_var);
 char	*ft_find_var(char *var, char **envp);
 int		ft_is_name(char c, t_state *state);
+char	*ft_rm_quote(char *token);
 int		ft_wexpanse(t_token **tokens, char **envp);
 
 #endif

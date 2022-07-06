@@ -8,3 +8,4 @@ Hello | pouet
 "Hello | pouet"
 Hi"Hello pouet"Hi
 $USERi $USER/test test$USER
+h"hello"i "pouet'hi'" 'pouet' '"hi"'

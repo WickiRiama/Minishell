@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 09:22:11 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/04 15:50:55 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/06 09:21:35 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int	ft_token_types(t_token *tokens)
 {
 	int	ret;
 
+	ret = 0;
 	if (tokens->type == QUOTE_ERR)
 		return (1);
 	while (tokens)
