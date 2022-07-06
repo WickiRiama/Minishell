@@ -6,7 +6,7 @@
 /*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:48:14 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/07/06 12:16:01 by sle-huec         ###   ########.fr       */
+/*   Updated: 2022/07/06 13:22:18 by sle-huec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_echo(char **input)
 	while (input[i])
 	{
 		ft_printf("%s", input[i]);
-		if (i + 1)
+		if (input[i + 1])
 			ft_printf("%c", ' ');
 		i++;
 	}
