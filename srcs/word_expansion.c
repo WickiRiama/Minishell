@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 11:32:25 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/04 16:27:02 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/06 12:07:27 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*ft_exp_env(char *src, t_state *state, char **envp)
 	}
 	result = ft_extd_token(src, env_var, state->start, state->i);
 	state->i = state->start - 1 + ft_strlen(env_var) - 1;
-	ft_clean(NULL, src, env_var, NULL);
+	free(env_var);
 	return (result);
 }
 
@@ -60,7 +60,7 @@ char	*ft_exp_exitcode(char *src, t_state *state)
 	exit_code = ft_itoa(g_exitcode);
 	result = ft_extd_token(src, exit_code, state->start, state->i);
 	state->i = state->start - 1 + ft_strlen(exit_code) - 1;
-	ft_clean(NULL, src, exit_code, NULL);
+	free(exit_code);
 	return (result);
 }
 
@@ -77,7 +77,7 @@ char	*ft_token_expanse(char *token, char **envp)
 		{
 			if (token[state.i + 1] == '?')
 				token = ft_exp_exitcode(token, &state);
-			else if (ft_isalpha(token[state.i + 1]) 
+			else if (ft_isalpha(token[state.i + 1])
 				|| token[state.i + 1] == '_')
 				token = ft_exp_env(token, &state, envp);
 		}
@@ -96,6 +96,12 @@ int	ft_wexpanse(t_token **tokens, char **envp)
 	while (temp)
 	{
 		temp->token = ft_token_expanse(temp->token, envp);
+		if (!temp->token)
+		{
+			ft_lstclear_msh(tokens, &free);
+			return (1);
+		}
+		temp->token = ft_rm_quote(temp->token);
 		if (!temp->token)
 		{
 			ft_lstclear_msh(tokens, &free);

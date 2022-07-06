@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 11:13:46 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/27 11:21:22 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/06 12:07:37 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,32 @@ char	*ft_extd_token(char *src, char *env_var, int start_var, int end_var)
 	ft_strlcpy(result, src, start_var);
 	ft_strlcpy(result + start_var - 1, env_var, var_len + 1);
 	ft_strlcpy(result + start_var + var_len - 1, src + end_var, res_len);
+	free(src);
 	return (result);
+}
+
+char	*ft_rm_quote(char *token)
+{
+	int	i;
+
+	i = 0;
+	while (token && token[i])
+	{
+		if (token[i] == '"')
+		{
+			token = ft_extd_token(token, "\0", i + 1, i + 1);
+			i--;
+			while (token && token[i + 1] && token[i + 1] != '"')
+				i++;
+		}
+		else if (token[i] == '\'')
+		{
+			token = ft_extd_token(token, "\0", i + 1, i + 1);
+			i--;
+			while (token && token[i + 1] && token[i + 1] != '\'')
+				i++;
+		}
+		i++;
+	}
+	return (token);
 }

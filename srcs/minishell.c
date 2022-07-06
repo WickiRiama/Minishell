@@ -6,11 +6,11 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/04 15:45:13 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/06 12:00:55 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//Compile with --suppressions=.ignore_readline to ignore readline leaks
+//Use with --suppressions=.ignore_readline to ignore readline leaks
 
 #include <stdio.h>
 #include <readline/readline.h>
