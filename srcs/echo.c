@@ -3,20 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sam <sam@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:48:14 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/07/05 19:05:18 by sam              ###   ########.fr       */
+/*   Updated: 2022/07/06 12:16:01 by sle-huec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
 
-int	ft_echo(char **input, int nl)
+int	ft_echo(char **input)
 {	
-	ft_printf("%s", *input);
-	if (nl)
+	int	nl;
+	int	i;
+
+	nl = 0;
+	i = 1;
+	if (ft_strcmp(input[1], "-n") == 0)
+	{
+		nl = 1;
+		i++;
+	}
+	while (input[i])
+	{
+		ft_printf("%s", input[i]);
+		if (i + 1)
+			ft_printf("%c", ' ');
+		i++;
+	}
+	if (nl == 0)
 		ft_printf("\n");
 	return (0);
 }

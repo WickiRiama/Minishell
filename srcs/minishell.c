@@ -6,7 +6,7 @@
 /*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/06 13:33:11 by sle-huec         ###   ########.fr       */
+/*   Updated: 2022/07/06 13:33:55 by sle-huec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,29 @@ void	ft_print_list(t_token *list)
 	}
 }
 
-void	found_and_run_cmd(t_token *tokens)
+void	found_and_run_cmd(t_token **tokens, char *input)
 {
-	int	nl;
+	int		i;
+	char	**path = ft_split(input, ' ');
 
-	nl = 0;
-	if (ft_strcmp(tokens->token, "cd") == 0)
-		ft_cd(&tokens->next->token);
-	else if (ft_strcmp(tokens->token, "echo") == 0)
-	{
-		if (ft_strcmp(tokens->next->token, "-n") == 0)
-			nl = 1;
-		ft_echo(&tokens->next->token, nl);
-	}
-	else if (ft_strcmp(tokens->token, "pwd") == 0)
+	if (!path)
+		return ;
+	if (ft_strcmp(path[0], "cd") == 0)
+		ft_cd(path);
+	else if (ft_strcmp(path[0], "echo") == 0)
+		ft_echo(path);
+	else if (ft_strcmp(path[0], "pwd") == 0)
 		ft_pwd();
-	else if (ft_strcmp(tokens->token, "exit") == 0)
+	else if (ft_strcmp(path[0], "exit") == 0)
 	{
-		ft_lstclear_msh(&tokens, &free);
-		exit(EXIT_SUCCESS);
+		i = 0;
+		while (path[i])
+		{
+			free(path[i]);
+			i++;
+		}
+		free(path);
+		ft_exit(tokens, input);
 	}
 }
 
@@ -82,7 +86,7 @@ int	main(int ac, char **av, char **envp)
 			free(input);
 			return (1);
 		}
-		found_and_run_cmd(tokens);
+		found_and_run_cmd(&tokens, input);
 		// ft_print_list(tokens);
 		free(input);
 		ft_lstclear_msh(&tokens, &free);
