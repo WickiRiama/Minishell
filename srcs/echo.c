@@ -1,29 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/24 12:15:00 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/07/06 10:19:12 by sle-huec         ###   ########.fr       */
+/*   Created: 2022/06/24 15:48:14 by sle-huec          #+#    #+#             */
+/*   Updated: 2022/07/06 13:22:18 by sle-huec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <string.h>
-#include <stdlib.h>
 #include "libft.h"
 #include "minishell.h"
 
-int	ft_pwd(void)
-{
-	char	*ft_pwd;
+int	ft_echo(char **input)
+{	
+	int	nl;
+	int	i;
 
-	ft_pwd = getcwd(NULL, 0);
-	if (!ft_pwd)
-		return (1);
-	ft_fprintf(2, "%s\n", ft_pwd);
-	free (ft_pwd);
+	nl = 0;
+	i = 1;
+	if (ft_strcmp(input[1], "-n") == 0)
+	{
+		nl = 1;
+		i++;
+	}
+	while (input[i])
+	{
+		ft_printf("%s", input[i]);
+		if (input[i + 1])
+			ft_printf("%c", ' ');
+		i++;
+	}
+	if (nl == 0)
+		ft_printf("\n");
 	return (0);
 }

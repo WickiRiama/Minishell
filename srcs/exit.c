@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/24 12:15:00 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/07/06 10:19:12 by sle-huec         ###   ########.fr       */
+/*   Created: 2022/07/06 13:25:07 by sle-huec          #+#    #+#             */
+/*   Updated: 2022/07/06 13:25:16 by sle-huec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include <string.h>
+#include <unistd.h>
 #include <stdlib.h>
 #include "libft.h"
 #include "minishell.h"
 
-int	ft_pwd(void)
+int	ft_exit(t_token **tokens, char *input)
 {
-	char	*ft_pwd;
-
-	ft_pwd = getcwd(NULL, 0);
-	if (!ft_pwd)
-		return (1);
-	ft_fprintf(2, "%s\n", ft_pwd);
-	free (ft_pwd);
-	return (0);
+	ft_lstclear_msh(tokens, &free);
+	free(input);
+	exit(EXIT_SUCCESS);
 }

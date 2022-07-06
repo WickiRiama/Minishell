@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/06 12:00:55 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/06 13:35:17 by sle-huec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,32 @@ void	ft_print_list(t_token *list)
 	}
 }
 
+void	found_and_run_cmd(t_token **tokens, char *input)
+{
+	int		i;
+	char	**path = ft_split(input, ' ');
+
+	if (!path)
+		return ;
+	if (ft_strcmp(path[0], "cd") == 0)
+		ft_cd(path);
+	else if (ft_strcmp(path[0], "echo") == 0)
+		ft_echo(path);
+	else if (ft_strcmp(path[0], "pwd") == 0)
+		ft_pwd();
+	else if (ft_strcmp(path[0], "exit") == 0)
+	{
+		i = 0;
+		while (path[i])
+		{
+			free(path[i]);
+			i++;
+		}
+		free(path);
+		ft_exit(tokens, input);
+	}
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	char	*input;
@@ -41,9 +67,6 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		input = readline("$>");
-		// ft_pwd();
-		// ft_cd(input);
-		// ft_pwd();
 		tokens = ft_tokenisation(input);
 		if (!tokens)
 		{
@@ -63,7 +86,8 @@ int	main(int ac, char **av, char **envp)
 			free(input);
 			return (1);
 		}
-		ft_print_list(tokens);
+		found_and_run_cmd(&tokens, input);
+		// ft_print_list(tokens);
 		free(input);
 		ft_lstclear_msh(&tokens, &free);
 	}

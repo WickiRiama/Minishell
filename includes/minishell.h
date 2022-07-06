@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/06 12:09:22 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/06 13:35:25 by sle-huec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,9 @@ t_token	*ft_trim_empty_token(t_token *tokens);
 //==============================================================================
 
 int		ft_pwd(void);
-int		ft_cd(char *path);
+int		ft_cd(char **path);
+int		ft_echo(char **input);
+int		ft_exit(t_token **tokens, char *input);
 
 //==============================================================================
 // Word expansion
