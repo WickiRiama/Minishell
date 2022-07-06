@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sam <sam@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/05 21:36:50 by sam              ###   ########.fr       */
+/*   Updated: 2022/07/06 09:54:27 by sle-huec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,21 @@ void	found_and_run_cmd(t_token *tokens)
 	int	nl;
 
 	nl = 0;
-	if (ft_strcmp(tokens->token, "cd"))
+	if (ft_strcmp(tokens->token, "cd") == 0)
 		ft_cd(&tokens->next->token);
-	else if (ft_strcmp(tokens->token, "echo"))
+	else if (ft_strcmp(tokens->token, "echo") == 0)
 	{
-		if (ft_strcmp(tokens->next->token, "-n"))
+		if (ft_strcmp(tokens->next->token, "-n") == 0)
 			nl = 1;
 		ft_echo(&tokens->next->token, nl);
 	}
-	else if (ft_strcmp(tokens->token, "pwd"))
+	else if (ft_strcmp(tokens->token, "pwd") == 0)
 		ft_pwd();
-	if (ft_strcmp(tokens->token, "exit"))
-		ft_exit();
+	else if (ft_strcmp(tokens->token, "exit") == 0)
+	{
+		ft_lstclear_msh(&tokens, &free);
+		exit(EXIT_SUCCESS);
+	}
 }
 
 int	main(int ac, char **av, char **envp)
@@ -60,7 +63,6 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		input = readline("$>");
-		found_and_run_cmd(tokens);
 		tokens = ft_tokenisation(input);
 		if (!tokens)
 		{
@@ -80,7 +82,8 @@ int	main(int ac, char **av, char **envp)
 			free(input);
 			return (1);
 		}
-		ft_print_list(tokens);
+		found_and_run_cmd(tokens);
+		// ft_print_list(tokens);
 		free(input);
 		ft_lstclear_msh(&tokens, &free);
 	}
