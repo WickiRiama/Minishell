@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/07 09:21:55 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/07 15:30:07 by sle-huec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,8 @@ void	ft_print_list(t_token *list)
 	}
 }
 
-void	found_and_run_cmd(t_token **tokens, char *input)
+void	found_and_run_cmd(t_token **tokens, char *input, char **env)
 {
-	int		i;
 	char	**path = ft_split(input, ' ');
 
 	if (!path)
@@ -43,27 +42,27 @@ void	found_and_run_cmd(t_token **tokens, char *input)
 		ft_echo(path);
 	else if (ft_strcmp(path[0], "pwd") == 0)
 		ft_pwd();
+	else if (ft_strcmp(path[0], "env") == 0)
+		display_env(env);
 	else if (ft_strcmp(path[0], "exit") == 0)
 	{
-		i = 0;
-		while (path[i])
-		{
-			free(path[i]);
-			i++;
-		}
-		free(path);
-		ft_exit(tokens, input);
+		free_tab(path);
+		ft_exit(tokens, input, env);
 	}
 }
 
 int	main(int ac, char **av, char **envp)
 {
 	char	*input;
+	char	**env;
 	t_token	*tokens;
 
 	if (ac != 1)
 		return (1);
 	(void) av;
+	env = copy_envp_in_tab(envp);
+	if (!env)
+		return (1);
 	while (1)
 	{
 		input = readline("$>");
@@ -77,6 +76,7 @@ int	main(int ac, char **av, char **envp)
 		{
 			ft_lstclear_msh(&tokens, &free);
 			free(input);
+			free_tab(env);
 			return (1);
 		}
 		if (ft_token_types(tokens))
@@ -85,16 +85,18 @@ int	main(int ac, char **av, char **envp)
 			free(input);
 			continue ;
 		}
-		if (ft_wexpanse(&tokens, envp))
+		if (ft_wexpanse(&tokens, env))
 		{
 			ft_lstclear_msh(&tokens, &free);
 			free(input);
+			free_tab(env);
 			return (1);
 		}
-		found_and_run_cmd(&tokens, input);
+		found_and_run_cmd(&tokens, input, env);
 		// ft_print_list(tokens);
 		free(input);
 		ft_lstclear_msh(&tokens, &free);
 	}
+	free_tab(env);
 	return (0);
 }
