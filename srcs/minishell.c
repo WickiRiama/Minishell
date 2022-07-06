@@ -6,7 +6,7 @@
 /*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/07 15:30:07 by sle-huec         ###   ########.fr       */
+/*   Updated: 2022/07/07 15:30:45 by sle-huec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	found_and_run_cmd(t_token **tokens, char *input, char **env)
 		free_tab(path);
 		ft_exit(tokens, input, env);
 	}
+	free_tab(path);
 }
 
 int	main(int ac, char **av, char **envp)
