@@ -7,7 +7,9 @@
 #include "libft.h"
 #include "minishell.h"
 
-int	ft_exit(void)
+int	ft_exit(t_token **tokens, char *input)
 {
+	ft_lstclear_msh(tokens, &free);
+	free(input);
 	exit(EXIT_SUCCESS);
 }

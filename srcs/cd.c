@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sam <sam@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 11:03:57 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/07/05 21:34:37 by sam              ###   ########.fr       */
+/*   Updated: 2022/07/06 11:12:31 by sle-huec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 int	ft_cd(char **path)
 {
-	if (chdir(*path) < 0)
+	if (chdir(path[1]) < 0)
 	{
 		ft_fprintf(2, "cd : %s: %s\n", strerror(errno), *path);
 		return (1);
