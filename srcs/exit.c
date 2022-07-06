@@ -11,4 +11,3 @@ int	ft_exit(void)
 {
 	exit(EXIT_SUCCESS);
 }
-
