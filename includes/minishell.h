@@ -6,7 +6,11 @@
 /*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/07/07 12:11:58 by sle-huec         ###   ########.fr       */
+=======
+/*   Updated: 2022/07/07 09:56:45 by mriant           ###   ########.fr       */
+>>>>>>> Add a structure to hold all informations about one command and a structure to hold informations about pipes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +99,25 @@ char	*ft_find_var(char *var, char **envp);
 int		ft_is_name(char c, t_state *state);
 char	*ft_rm_quote(char *token);
 int		ft_wexpanse(t_token **tokens, char **envp);
+
+//==============================================================================
+// Parsing
+//==============================================================================
+
+typedef struct s_pipe
+{
+	int				pipe_in;
+	int				pipe_out;
+	struct s_pipe	*prev;
+	struct s_pipe	*next;	
+}				t_pipe;
+typedef struct s_exec
+{
+	char 			**cmd;
+	int				infile;
+	int				outfile;
+	struct s_exec	*prev;
+	struct s_exec	*next;
+}			t_exec;
 
 #endif
