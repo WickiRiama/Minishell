@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/07 15:31:20 by sle-huec         ###   ########.fr       */
+/*   Updated: 2022/07/07 16:20:35 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@
 
 int	g_exitcode;
 
-void	ft_print_list(t_token *list)
+void	ft_print_list(t_dlist *list)
 {
 	while (list)
 	{
-		ft_printf("token: %s, type: %d\n", list->token, list->type);
+		ft_printf("token: %s, type: %d\n",
+			((t_token *)list->cont)->token, ((t_token *)list->cont)->type);
 		list = list->next;
 	}
 }
@@ -56,7 +57,7 @@ int	main(int ac, char **av, char **envp)
 {
 	char	*input;
 	char	**env;
-	t_token	*tokens;
+	t_dlist	*tokens;
 
 	if (ac != 1)
 		return (1);

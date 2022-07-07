@@ -7,10 +7,14 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*   Updated: 2022/07/07 12:11:58 by sle-huec         ###   ########.fr       */
 =======
 /*   Updated: 2022/07/07 09:56:45 by mriant           ###   ########.fr       */
 >>>>>>> Add a structure to hold all informations about one command and a structure to hold informations about pipes
+=======
+/*   Updated: 2022/07/07 12:16:50 by mriant           ###   ########.fr       */
+>>>>>>> Start to modify lists functions to be able to use them on different double lists.
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +27,23 @@ extern int				g_exitcode;
 //==============================================================================
 // Lists
 //==============================================================================
+
+typedef struct s_dlist
+{
+	void			*cont;
+	struct s_dlist	*prev;
+	struct s_dlist	*next;
+}			t_dlist;
+void	ft_lstadd_back_msh(t_dlist **alst, t_dlist *new);
+void	ft_lstclear_msh(t_dlist **lst, void (*del)(void *));
+void	ft_lstdelone_msh(t_dlist *lst, void (*del)(void *));
+t_dlist	*ft_lstlast_msh(t_dlist *lst);
+t_dlist	*ft_lstnew_msh(void *content);
+
+//==============================================================================
+// Tokenisation
+//==============================================================================
+
 typedef enum e_types
 {
 	WORD,
@@ -41,20 +62,8 @@ typedef enum e_types
 typedef struct s_token
 {
 	t_types			type;
-	char			*token;
-	struct s_token	*prev;
-	struct s_token	*next;
+	char			*text;
 }			t_token;
-void	ft_lstadd_back_msh(t_token **alst, t_token *new);
-void	ft_lstclear_msh(t_token **lst, void (*del)(void *));
-void	ft_lstdelone_msh(t_token *lst, void (*del)(void *));
-t_token	*ft_lstlast_msh(t_token *lst);
-t_token	*ft_lstnew_msh(t_types type, char *token);
-
-//==============================================================================
-// Tokenisation
-//==============================================================================
-
 typedef struct s_state
 {
 	int				squoted;
@@ -62,16 +71,17 @@ typedef struct s_state
 	unsigned int	i;
 	unsigned int	start;
 }			t_state;
-int		ft_add_token(t_token **tokens, t_ui start, t_ui i, char *input);
-int		ft_cut_blank(t_token **tokens, t_state *state, char *input);
-int		ft_cut_operator(t_token **tokens, t_state *state, char *input);
+int		ft_add_token(t_dlist **tokens, t_ui start, t_ui i, char *input);
+int		ft_cut_blank(t_dlist **tokens, t_state *state, char *input);
+int		ft_cut_operator(t_dlist **tokens, t_state *state, char *input);
+void	ft_del_token(void *content);
 void	ft_init_state(t_state *state);
 int		ft_is_blank(char c);
 int		ft_is_operator(char c);
 void	ft_isquoted(char c, t_state *state);
-t_token	*ft_tokenisation(char *input);
-int		ft_token_types(t_token *tokens);
-t_token	*ft_trim_empty_token(t_token *tokens);
+t_dlist	*ft_dlistisation(char *input);
+int		ft_dlist_types(t_dlist *tokens);
+t_dlist	*ft_trim_empty_token(t_dlist *tokens);
 
 //==============================================================================
 // builtins
@@ -108,16 +118,12 @@ typedef struct s_pipe
 {
 	int				pipe_in;
 	int				pipe_out;
-	struct s_pipe	*prev;
-	struct s_pipe	*next;	
 }				t_pipe;
 typedef struct s_exec
 {
-	char 			**cmd;
+	char			**cmd;
 	int				infile;
 	int				outfile;
-	struct s_exec	*prev;
-	struct s_exec	*next;
 }			t_exec;
 
 #endif
