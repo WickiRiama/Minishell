@@ -6,7 +6,11 @@
 /*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/07/06 13:35:17 by sle-huec         ###   ########.fr       */
+=======
+/*   Updated: 2022/07/07 09:12:42 by mriant           ###   ########.fr       */
+>>>>>>> Fixed a bug where the Minishell quit when a empty input was passed to readline.
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +71,11 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		input = readline("$>");
+		if (input && input[0] == '\0')
+		{
+			free(input);
+			continue ;
+		}
 		tokens = ft_tokenisation(input);
 		if (!tokens)
 		{
