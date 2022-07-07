@@ -6,12 +6,11 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 15:50:04 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/04 15:50:38 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/07 13:53:58 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "libft.h"
 
 void	ft_isquoted(char c, t_state *state)
 {

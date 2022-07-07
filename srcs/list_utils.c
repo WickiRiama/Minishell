@@ -6,12 +6,13 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 16:03:34 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/07 10:51:23 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/07 13:55:10 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+
 #include "minishell.h"
-#include "libft.h"
 
 void	ft_lstdelone_msh(t_dlist *lst, void (*del)(void *))
 {

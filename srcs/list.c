@@ -6,12 +6,13 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 15:58:33 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/07 10:49:50 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/07 13:55:49 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+
 #include "minishell.h"
-#include "libft.h"
 
 void	ft_lstadd_back_msh(t_dlist **alst, t_dlist *new)
 {

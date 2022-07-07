@@ -6,13 +6,12 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/07 16:20:35 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/07 16:22:14 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //Use with --suppressions=.ignore_readline to ignore readline leaks
 
-#include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 
@@ -26,7 +25,7 @@ void	ft_print_list(t_dlist *list)
 	while (list)
 	{
 		ft_printf("token: %s, type: %d\n",
-			((t_token *)list->cont)->token, ((t_token *)list->cont)->type);
+			((t_token *)list->cont)->text, ((t_token *)list->cont)->type);
 		list = list->next;
 	}
 }
