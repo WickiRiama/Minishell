@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/24 11:03:57 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/07/06 16:17:49 by sle-huec         ###   ########.fr       */
+/*   Created: 2022/07/06 15:18:56 by sle-huec          #+#    #+#             */
+/*   Updated: 2022/07/06 15:52:35 by sle-huec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include <unistd.h>
-#include <errno.h>
-#include "libft.h"
-#include "minishell.h"
+#include <stdlib.h>
 
-int	ft_cd(char **path)
+void	free_tab(char **tab)
 {
-	if (!path || !path[1])
-		return (1);
-	if (chdir(path[1]) < 0)
+	int	i;
+
+	i = 0;
+	if (!tab)
+		return ;
+	while (tab[i])
 	{
-		ft_fprintf(2, "cd : %s: %s\n", strerror(errno), *path);
-		return (1);
+		free(tab[i]);
+		i++;
 	}
-	return (0);
+	free(tab);
 }
