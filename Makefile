@@ -6,7 +6,11 @@
 #    By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 13:49:10 by mriant            #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2022/07/06 15:26:39 by sle-huec         ###   ########.fr        #
+=======
+#    Updated: 2022/07/07 13:42:42 by mriant           ###   ########.fr        #
+>>>>>>> Add include ${DEP} to Makefile
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,4 +64,6 @@ fclean: clean
 
 .PHONY: re
 re: fclean
-	make -C. 
+	make -C.
+
+-include ${DEP}
