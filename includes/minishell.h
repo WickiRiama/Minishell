@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/07 16:23:11 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/07 16:57:34 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,23 @@ extern int				g_exitcode;
 //==============================================================================
 // Lists
 //==============================================================================
+
+typedef struct s_dlist
+{
+	void			*cont;
+	struct s_dlist	*prev;
+	struct s_dlist	*next;
+}
+void	ft_lstadd_back_msh(t_token **alst, t_token *new);
+void	ft_lstclear_msh(t_token **lst, void (*del)(void *));
+void	ft_lstdelone_msh(t_token *lst, void (*del)(void *));
+t_token	*ft_lstlast_msh(t_token *lst);
+t_token	*ft_lstnew_msh(t_types type, char *token);
+
+//==============================================================================
+// Tokenisation
+//==============================================================================
+
 typedef enum e_types
 {
 	WORD,
@@ -37,20 +54,8 @@ typedef enum e_types
 typedef struct s_token
 {
 	t_types			type;
-	char			*token;
-	struct s_token	*prev;
-	struct s_token	*next;
+	char			*text;
 }			t_token;
-void	ft_lstadd_back_msh(t_token **alst, t_token *new);
-void	ft_lstclear_msh(t_token **lst, void (*del)(void *));
-void	ft_lstdelone_msh(t_token *lst, void (*del)(void *));
-t_token	*ft_lstlast_msh(t_token *lst);
-t_token	*ft_lstnew_msh(t_types type, char *token);
-
-//==============================================================================
-// Tokenisation
-//==============================================================================
-
 typedef struct s_state
 {
 	int				squoted;
