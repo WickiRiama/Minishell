@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/11 10:30:10 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/11 16:14:30 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,5 +122,8 @@ typedef struct s_exec
 	struct s_exec	*prev;
 	struct s_exec	*next;
 }			t_exec;
+t_dlist	*ft_cmd_orga(t_dlist *tokens, t_dlist **pipes);
+void	ft_del_blocks(void *content);
+void	ft_del_pipes(void *content);
 
 #endif

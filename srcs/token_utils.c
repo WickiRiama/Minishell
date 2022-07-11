@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:38:12 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/11 10:29:34 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/11 16:41:29 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	ft_del_token(void *content)
 
 	token = (t_token *)content;
 	free(token->text);
+	free(content);
 }
 
 t_dlist	*ft_trim_empty_token(t_dlist *tokens)

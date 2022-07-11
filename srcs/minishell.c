@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/11 10:26:58 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/11 16:34:03 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,28 @@
 
 int	g_exitcode;
 
-void	ft_print_list(t_dlist *list)
+void	ft_print_list(t_dlist *list, t_dlist *pipes)
 {
+	int	i;
+
 	while (list)
 	{
-		ft_printf("token: %s, type: %d\n",
-			((t_token *)list->cont)->text, ((t_token *)list->cont)->type);
+		i = 0;
+		ft_printf("command :\n");
+		while (((t_exec *)list->cont)->cmd[i])
+		{
+			ft_printf("   %s\n", ((t_exec *)list->cont)->cmd[i]);
+			i++;
+		}
+		ft_printf("infile :%d\n", ((t_exec *)list->cont)->infile);
+		ft_printf("outfile :%d\n", ((t_exec *)list->cont)->outfile);
 		list = list->next;
+	}
+	while (pipes)
+	{
+		ft_printf("pipein :%d\n", ((t_pipe *)pipes->cont)->pipe_in);
+		ft_printf("pipeout :%d\n", ((t_pipe *)pipes->cont)->pipe_out);
+		pipes = pipes->next;
 	}
 }
 
@@ -57,6 +72,8 @@ int	main(int ac, char **av, char **envp)
 	char	*input;
 	char	**env;
 	t_dlist	*tokens;
+	t_dlist	*blocks;
+	t_dlist	*pipes;
 
 	if (ac != 1)
 		return (1);
@@ -66,8 +83,10 @@ int	main(int ac, char **av, char **envp)
 		return (1);
 	while (1)
 	{
-		input = readline("$>");
-		if (input && input[0] == '\0')
+		input = readline("$> ");
+		if (!input)
+			break;
+		if (input[0] == '\0')
 		{
 			free(input);
 			continue ;
@@ -75,7 +94,6 @@ int	main(int ac, char **av, char **envp)
 		tokens = ft_tokenisation(input);
 		if (!tokens)
 		{
-			ft_lstclear_msh(&tokens, &free);
 			free(input);
 			free_tab(env);
 			return (1);
@@ -93,10 +111,21 @@ int	main(int ac, char **av, char **envp)
 			free_tab(env);
 			return (1);
 		}
-		found_and_run_cmd(&tokens, input, env);
-		// ft_print_list(tokens);
+		pipes = NULL;
+		blocks = ft_cmd_orga(tokens, &pipes);
+		if (!blocks)
+		{
+			ft_lstclear_msh(&tokens, &free);
+			free(input);
+			free_tab(env);
+			return (1);
+		}
+		// found_and_run_cmd(&tokens, input, env);
+		ft_print_list(blocks, pipes);
 		free(input);
-		ft_lstclear_msh(&tokens, &free);
+		ft_lstclear_msh(&tokens, &ft_del_token);
+		ft_lstclear_msh(&blocks, &ft_del_blocks);
+		ft_lstclear_msh(&pipes, &ft_del_pipes);
 	}
 	free_tab(env);
 	return (0);
