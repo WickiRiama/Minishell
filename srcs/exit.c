@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 13:25:07 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/07/07 15:20:48 by sle-huec         ###   ########.fr       */
+/*   Updated: 2022/07/11 10:30:52 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	check_arg_and_get_status(char **input)
 	return (0);
 }
 
-int	ft_exit(t_token **tokens, char **input, char **env)
+int	ft_exit(t_dlist **tokens, char **input, char **env)
 {
 	int	status;
 

@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/07 16:57:34 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/11 10:30:10 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ typedef struct s_dlist
 	void			*cont;
 	struct s_dlist	*prev;
 	struct s_dlist	*next;
-}
-void	ft_lstadd_back_msh(t_token **alst, t_token *new);
-void	ft_lstclear_msh(t_token **lst, void (*del)(void *));
-void	ft_lstdelone_msh(t_token *lst, void (*del)(void *));
-t_token	*ft_lstlast_msh(t_token *lst);
-t_token	*ft_lstnew_msh(t_types type, char *token);
+}			t_dlist;
+void	ft_lstadd_back_msh(t_dlist **alst, t_dlist *new);
+void	ft_lstclear_msh(t_dlist **lst, void (*del)(void *));
+void	ft_lstdelone_msh(t_dlist *lst, void (*del)(void *));
+t_dlist	*ft_lstlast_msh(t_dlist *lst);
+t_dlist	*ft_lstnew_msh(void *content);
 
 //==============================================================================
 // Tokenisation
@@ -63,16 +63,18 @@ typedef struct s_state
 	unsigned int	i;
 	unsigned int	start;
 }			t_state;
-int		ft_add_token(t_token **tokens, t_ui start, t_ui i, char *input);
-int		ft_cut_blank(t_token **tokens, t_state *state, char *input);
-int		ft_cut_operator(t_token **tokens, t_state *state, char *input);
+int		ft_add_token(t_dlist **tokens, t_ui start, t_ui i, char *input);
+int		ft_cut_blank(t_dlist **tokens, t_state *state, char *input);
+int		ft_cut_operator(t_dlist **tokens, t_state *state, char *input);
+void	ft_del_token(void *content);
 void	ft_init_state(t_state *state);
 int		ft_is_blank(char c);
 int		ft_is_operator(char c);
 void	ft_isquoted(char c, t_state *state);
-t_token	*ft_tokenisation(char *input);
-int		ft_token_types(t_token *tokens);
-t_token	*ft_trim_empty_token(t_token *tokens);
+int		ft_token_types(t_dlist *tokens);
+t_dlist	*ft_tokenisation(char *input);
+int		ft_dlist_types(t_dlist *tokens);
+t_dlist	*ft_trim_empty_token(t_dlist *tokens);
 
 //==============================================================================
 // builtins
@@ -81,7 +83,7 @@ t_token	*ft_trim_empty_token(t_token *tokens);
 int		ft_pwd(void);
 int		ft_cd(char **path);
 int		ft_echo(char **input);
-int		ft_exit(t_token **tokens, char **input, char **env);
+int		ft_exit(t_dlist **tokens, char **input, char **env);
 char	**copy_envp_in_tab(char **envp);
 void	display_env(char **env);
 
@@ -99,7 +101,7 @@ char	*ft_extd_token(char *src, char *env_var, int start_var, int end_var);
 char	*ft_find_var(char *var, char **envp);
 int		ft_is_name(char c, t_state *state);
 char	*ft_rm_quote(char *token);
-int		ft_wexpanse(t_token **tokens, char **envp);
+int		ft_wexpanse(t_dlist **tokens, char **envp);
 
 //==============================================================================
 // Parsing

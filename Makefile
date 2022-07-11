@@ -3,14 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+         #
+#    By: mriant <mriant@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 13:49:10 by mriant            #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2022/07/06 15:26:39 by sle-huec         ###   ########.fr        #
-=======
-#    Updated: 2022/07/07 13:42:42 by mriant           ###   ########.fr        #
->>>>>>> Add include ${DEP} to Makefile
+#    Updated: 2022/07/11 11:12:56 by mriant           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +28,7 @@ SRCS = ${addprefix srcs/, \
 	unset.c \
 	exit.c \
 	echo.c \
+	parsing.c \
 	utils.c \
 	word_expansion.c \
 	word_expansion_utils.c}

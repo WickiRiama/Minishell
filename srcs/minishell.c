@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/07 16:22:14 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/11 10:26:58 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_print_list(t_dlist *list)
 	}
 }
 
-void	found_and_run_cmd(t_token **tokens, char *input, char **env)
+void	found_and_run_cmd(t_dlist **tokens, char *input, char **env)
 {
 	char	**path = ft_split(input, ' ');
 
