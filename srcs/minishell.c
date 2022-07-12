@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/11 16:34:03 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/12 16:44:47 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	main(int ac, char **av, char **envp)
 	{
 		input = readline("$> ");
 		if (!input)
-			break;
+			break ;
 		if (input[0] == '\0')
 		{
 			free(input);

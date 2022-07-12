@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/11 16:14:30 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/12 16:36:51 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,18 +112,23 @@ typedef struct s_pipe
 	int				pipe_in;
 	int				pipe_out;
 	struct s_pipe	*prev;
-	struct s_pipe	*next;	
+	struct s_pipe	*next;
 }				t_pipe;
 typedef struct s_exec
 {
-	char 			**cmd;
+	char			**cmd;
 	int				infile;
 	int				outfile;
 	struct s_exec	*prev;
 	struct s_exec	*next;
 }			t_exec;
+int		ft_add_block(t_dlist *tokens, t_dlist **blocks);
+int		ft_add_pipe(t_dlist **pipes);
 t_dlist	*ft_cmd_orga(t_dlist *tokens, t_dlist **pipes);
+int		ft_copy_tab(char **dest, char **src);
 void	ft_del_blocks(void *content);
 void	ft_del_pipes(void *content);
+void	ft_open_redir(t_dlist *tokens, t_exec *blocks);
+char	**ft_update_cmd(char **cmd, char *new);
 
 #endif
