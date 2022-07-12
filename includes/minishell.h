@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/12 16:36:51 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/12 17:35:46 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ int		ft_wexpanse(t_dlist **tokens, char **envp);
 
 typedef struct s_pipe
 {
-	int				pipe_in;
-	int				pipe_out;
+	int				pipe_to_read_from;
+	int				pipe_to_write_to;
 	struct s_pipe	*prev;
 	struct s_pipe	*next;
 }				t_pipe;

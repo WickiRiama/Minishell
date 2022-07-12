@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/12 16:44:47 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/12 17:36:53 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	ft_print_list(t_dlist *list, t_dlist *pipes)
 	}
 	while (pipes)
 	{
-		ft_printf("pipein :%d\n", ((t_pipe *)pipes->cont)->pipe_in);
-		ft_printf("pipeout :%d\n", ((t_pipe *)pipes->cont)->pipe_out);
+		ft_printf("pipe read :%d\n", ((t_pipe *)pipes->cont)->pipe_to_read_from);
+		ft_printf("pipe write :%d\n", ((t_pipe *)pipes->cont)->pipe_to_write_to);
 		pipes = pipes->next;
 	}
 }
