@@ -20,13 +20,11 @@ int	ft_echo(char **input)
 
 	nl = 0;
 	i = 1;
-
 	if (ft_strcmp(input[1], "-n") == 0)
 	{
 		nl = 1;
 		i++;
 	}
-
 	while (input[i])
 	{
 		ft_printf("%s", input[i]);

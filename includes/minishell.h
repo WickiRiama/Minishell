@@ -80,12 +80,29 @@ t_dlist	*ft_trim_empty_token(t_dlist *tokens);
 // builtins
 //==============================================================================
 
+typedef struct s_env
+{
+	char			*var;
+	struct s_env	*next;
+	struct s_env	*prev;
+}			t_env;
+
 int		ft_pwd(void);
-int		ft_cd(char **path);
+int		ft_cd(char **path, t_env **env);
 int		ft_echo(char **input);
-int		ft_exit(t_dlist **tokens, char **input, char **env);
-char	**copy_envp_in_tab(char **envp);
-void	display_env(char **env);
+int		ft_exit(t_token **tokens, char **input, t_env **env);
+char	*get_env_var(char **envp, t_env **env);
+void	display_env(t_env *env);
+
+//==============================================================================
+// utils_list_env
+//==============================================================================
+
+t_env	*ft_lstnew_env(char *env_var);
+t_env	*ft_lstlast_env(t_env *lst);
+void	ft_lstadd_back_env(t_env **alst, t_env *new);
+void	ft_lstclear_env(t_env **lst, void (*del)(void *));
+void	ft_lstdelone_env(t_env *lst, void (*del)(void *));
 
 //==============================================================================
 // utils
@@ -101,7 +118,7 @@ char	*ft_extd_token(char *src, char *env_var, int start_var, int end_var);
 char	*ft_find_var(char *var, char **envp);
 int		ft_is_name(char c, t_state *state);
 char	*ft_rm_quote(char *token);
-int		ft_wexpanse(t_dlist **tokens, char **envp);
+int		ft_wexpanse(t_token **tokens, t_env **envp);
 
 //==============================================================================
 // Parsing

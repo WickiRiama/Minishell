@@ -16,8 +16,9 @@
 #include "libft.h"
 #include "minishell.h"
 
-int	ft_cd(char **path, char **env)
+int	ft_cd(char **path, t_env **env)
 {
+	(void)env;
 	if (!path || !path[1])
 		return (1);
 	if (chdir(path[1]) < 0)

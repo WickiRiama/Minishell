@@ -32,6 +32,7 @@ SRCS = ${addprefix srcs/, \
 	parsing.c \
 	pipes_list.c \
 	utils.c \
+	utils_list_env.c \
 	word_expansion.c \
 	word_expansion_utils.c}
 

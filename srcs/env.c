@@ -13,42 +13,31 @@
 #include "libft.h"
 #include "minishell.h"
 
-char	**copy_envp_in_tab(char **envp)
+char	*get_env_var(char **envp, t_env **env)
 {
-	char	**env;
 	int		i;
+	t_env	*env_var;
 
 	i = 0;
 	while (envp[i])
-		i++;
-	env = malloc(sizeof(*envp) * (i + 1));
-	if (!env)
-		ft_fprintf(2, "System error. Malloc failed.\n");
-	i = 0;
-	while (env && envp[i])
 	{
-		env[i] = ft_strdup(envp[i]);
-		if (!env[i])
+		env_var = ft_lstnew_env(envp[i]);
+		if (!env_var)
 		{
 			ft_fprintf(2, "System error. Malloc failed.\n");
-			free_tab(env);
 			return (NULL);
 		}
+		ft_lstadd_back_env(env, env_var);
 		i++;
 	}
-	if (env)
-		env[i] = NULL;
-	return (env);
+	return (0);
 }
 
-void	display_env(char **env)
+void	display_env(t_env *env)
 {
-	int	i;
-
-	i = 0;
-	while (env[i])
+	while (env)
 	{
-		ft_printf("%s\n", env[i]);
-		i++;
+		ft_printf("%s\n", env->var);
+		env = env->next;
 	}
 }

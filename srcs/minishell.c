@@ -42,14 +42,14 @@ void	ft_print_list(t_dlist *list, t_dlist *pipes)
 	}
 }
 
-void	found_and_run_cmd(t_dlist **tokens, char *input, char **env)
+void	found_and_run_cmd(t_token **tokens, char *input, t_env *env)
 {
 	char	**path = ft_split(input, ' ');
 
 	if (!path)
 		return ;
 	if (ft_strcmp(path[0], "cd") == 0)
-		ft_cd(path);
+		ft_cd(path, &env);
 	else if (ft_strcmp(path[0], "echo") == 0)
 		ft_echo(path);
 	else if (ft_strcmp(path[0], "pwd") == 0)
@@ -58,7 +58,7 @@ void	found_and_run_cmd(t_dlist **tokens, char *input, char **env)
 		display_env(env);
 	else if (ft_strcmp(path[0], "exit") == 0)
 	{
-		ft_exit(tokens, path, env);
+		ft_exit(tokens, path, &env);
 		// free_tab(path);
 	}
 	free_tab(path);
@@ -66,14 +66,14 @@ void	found_and_run_cmd(t_dlist **tokens, char *input, char **env)
 
 int	main(int ac, char **av, char **envp)
 {
-	char	**env;
 	t_dlist	*blocks;
 	t_dlist	*pipes;
+	t_env	*env;
 
 	if (ac != 1)
 		return (1);
 	(void) av;
-	env = copy_envp_in_tab(envp);
+	get_env_var(envp, &env);
 	if (!env)
 		return (1);
 	while (1)
@@ -83,7 +83,7 @@ int	main(int ac, char **av, char **envp)
 		if (!blocks)
 		{
 			ft_lstclear_msh(&pipes, &ft_del_pipes);
-			free_tab(env);
+			ft_lstclear_env(&env, &free);
 			return (1);
 		}
 		// found_and_run_cmd(&tokens, input, env);
@@ -91,6 +91,6 @@ int	main(int ac, char **av, char **envp)
 		ft_lstclear_msh(&blocks, &ft_del_blocks);
 		ft_lstclear_msh(&pipes, &ft_del_pipes);
 	}
-	free_tab(env);
+	ft_lstclear_env(&env, &free);
 	return (0);
 }
