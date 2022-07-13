@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/13 10:02:40 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/13 13:29:35 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	free_tab(char **tab);
 //==============================================================================
 
 char	*ft_extd_token(char *src, char *env_var, int start_var, int end_var);
-char	*ft_find_var(char *var, t_env **envp);
+char	*ft_find_var(char *var, t_env *envp);
 int		ft_is_name(char c, t_state *state);
 char	*ft_rm_quote(char *token);
 int		ft_wexpanse(t_dlist **tokens, t_env **envp);

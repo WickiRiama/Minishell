@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 11:32:25 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/07 14:00:04 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/13 13:29:57 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*ft_exp_env(char *src, t_state *state, t_env **envp)
 		ft_clean("System error. Malloc failed.", src, NULL, NULL);
 		return (NULL);
 	}
-	env_var = ft_find_var(env_var, envp);
+	env_var = ft_find_var(env_var, *envp);
 	if (!env_var)
 	{
 		ft_clean("System error. Malloc failed.", src, NULL, NULL);

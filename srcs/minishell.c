@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/13 10:37:48 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/13 13:42:49 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	ft_print_list(t_dlist *list, t_dlist *pipes)
 void	found_and_run_cmd(char **cmd, t_env *env, t_dlist **blocks,
 t_dlist **pipes)
 {
-
 	if (ft_strcmp(cmd[0], "cd") == 0)
 		ft_cd(cmd, &env);
 	else if (ft_strcmp(cmd[0], "echo") == 0)
@@ -56,7 +55,6 @@ t_dlist **pipes)
 		display_env(env);
 	else if (ft_strcmp(cmd[0], "exit") == 0)
 		ft_exit(cmd, blocks, pipes, &env);
-	free_tab(cmd);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -68,9 +66,11 @@ int	main(int ac, char **av, char **envp)
 	if (ac != 1)
 		return (1);
 	(void) av;
+	env = NULL;
 	get_env_var(envp, &env);
-	// if (!env)
-	// 	return (1);
+	if (!env)
+		return (1);
+	while (1)
 	{
 		pipes = NULL;
 		blocks = ft_parsing(&pipes, &env);
