@@ -6,7 +6,7 @@
 /*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 11:03:57 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/07/06 16:17:49 by sle-huec         ###   ########.fr       */
+/*   Updated: 2022/07/07 16:39:26 by sle-huec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 #include "libft.h"
 #include "minishell.h"
 
-int	ft_cd(char **path)
+int	ft_cd(char **path, t_env **env)
 {
+	(void)env;
 	if (!path || !path[1])
 		return (1);
 	if (chdir(path[1]) < 0)
