@@ -136,5 +136,6 @@ int	ft_executor(t_dlist	*blocks, t_dlist *pipes, t_env *env, char **envp)
 			i = wait(&status);
 		}
 	}
+	g_exitcode = WEXITSTATUS(result);
 	return (WEXITSTATUS(result));
 }
