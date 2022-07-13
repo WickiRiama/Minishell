@@ -93,6 +93,7 @@ int		ft_echo(char **input);
 int		ft_exit(char **cmd, t_dlist **blocks, t_dlist **pipes, t_env **env);
 char	*get_env_var(char **envp, t_env **env);
 void	display_env(t_env *env);
+void	ft_unset(char **cmd, t_env **env);
 
 //==============================================================================
 // utils_list_env
@@ -128,16 +129,12 @@ typedef struct s_pipe
 {
 	int				pipe_to_read_from;
 	int				pipe_to_write_to;
-	struct s_pipe	*prev;
-	struct s_pipe	*next;
 }				t_pipe;
 typedef struct s_exec
 {
 	char			**cmd;
 	int				infile;
 	int				outfile;
-	struct s_exec	*prev;
-	struct s_exec	*next;
 }			t_exec;
 int		ft_add_block(t_dlist *tokens, t_dlist **blocks);
 int		ft_add_pipe(t_dlist **pipes);

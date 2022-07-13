@@ -12,6 +12,7 @@
 
 #include <stdlib.h>
 #include "minishell.h"
+#include "libft.h"
 
 t_env	*ft_lstnew_env(char *env_var)
 {
@@ -20,7 +21,12 @@ t_env	*ft_lstnew_env(char *env_var)
 	new = malloc(sizeof(t_env));
 	if (!new)
 		return (NULL);
-	new->var = env_var;
+	new->var = ft_strdup(env_var);
+	if (!env_var)
+	{	
+		free(new);
+		return (NULL);
+	}
 	new->prev = NULL;
 	new->next = NULL;
 	return (new);

@@ -53,6 +53,8 @@ t_dlist **pipes)
 		ft_pwd();
 	else if (ft_strcmp(cmd[0], "env") == 0)
 		display_env(env);
+	else if (ft_strcmp(cmd[0], "unset") == 0)
+		ft_unset(cmd, &env);
 	else if (ft_strcmp(cmd[0], "exit") == 0)
 		ft_exit(cmd, blocks, pipes, &env);
 }
@@ -81,7 +83,7 @@ int	main(int ac, char **av, char **envp)
 			return (1);
 		}
 		found_and_run_cmd(((t_exec *)blocks->cont)->cmd, env, &blocks, &pipes);
-		// ft_print_list(blocks, pipes);
+		ft_print_list(blocks, pipes);
 		ft_lstclear_msh(&blocks, &ft_del_blocks);
 		ft_lstclear_msh(&pipes, &ft_del_pipes);
 	}
