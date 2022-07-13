@@ -6,39 +6,33 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 11:13:46 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/07 13:59:26 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/13 13:29:16 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 
-char	*ft_find_var(char *var, t_env **envp)
+char	*ft_find_var(char *var, t_env *envp)
 {
-	// int		i;
-	// int		j;
-	(void)var;
-	(void)envp;
-	
+	int		j;
 	char	*result;
 
 	result = ft_calloc(sizeof(char), 1);
-	// ICI FAIRE PARCOURT DE LIST AVEC T_ENV
-
-	// while (envp && envp[i])
-	// {
-	// 	j = 0;
-	// 	while (var[j] == envp[i][j])
-	// 		j++;
-	// 	if (var[j] == '\0' && envp[i][j] == '=')
-	// 	{
-	// 		free(result);
-	// 		result = ft_substr(envp[i], j + 1, ft_strlen(envp[i]));
-	// 		break ;
-	// 	}
-	// 	i++;
-	// }
-	// free(var);
+	while (envp)
+	{
+		j = 0;
+		while (var[j] == envp->var[j])
+			j++;
+		if (var[j] == '\0' && envp->var[j] == '=')
+		{
+			free(result);
+			result = ft_substr(envp->var, j + 1, ft_strlen(envp->var));
+			break ;
+		}
+		envp = envp->next;
+	}
+	free(var);
 	return (result);
 }
 
