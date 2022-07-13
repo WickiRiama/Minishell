@@ -42,7 +42,6 @@ void	ft_print_list(t_dlist *list, t_dlist *pipes)
 	}
 }
 
-
 int	main(int ac, char **av, char **envp)
 {
 	t_env	*env;

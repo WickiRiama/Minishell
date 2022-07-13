@@ -13,6 +13,9 @@
 #include "libft.h"
 #include "minishell.h"
 
+
+
+
 char	*get_env_var(char **envp, t_env **env)
 {
 	int		i;
