@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+         #
+#    By: mriant <mriant@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 13:49:10 by mriant            #+#    #+#              #
-#    Updated: 2022/07/06 15:26:39 by sle-huec         ###   ########.fr        #
+#    Updated: 2022/07/12 16:27:07 by mriant           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME = minishell
 LIBFT = libft/libft.a
 
 SRCS = ${addprefix srcs/, \
+	blocks_list.c \
 	is_token.c \
 	list.c \
 	list_utils.c \
@@ -28,6 +29,8 @@ SRCS = ${addprefix srcs/, \
 	unset.c \
 	exit.c \
 	echo.c \
+	parsing.c \
+	pipes_list.c \
 	utils.c \
 	word_expansion.c \
 	word_expansion_utils.c}
@@ -60,4 +63,6 @@ fclean: clean
 
 .PHONY: re
 re: fclean
-	make -C. 
+	make -C.
+
+-include ${DEP}

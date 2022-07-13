@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 11:32:25 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/06 12:07:27 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/07 14:00:04 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,23 +88,25 @@ char	*ft_token_expanse(char *token, char **envp)
 	return (token);
 }
 
-int	ft_wexpanse(t_token **tokens, char **envp)
+int	ft_wexpanse(t_dlist **tokens, char **envp)
 {
-	t_token	*temp;
+	t_dlist	*temp;
 
 	temp = *tokens;
 	while (temp)
 	{
-		temp->token = ft_token_expanse(temp->token, envp);
-		if (!temp->token)
+		((t_token *)temp->cont)->text = \
+			ft_token_expanse(((t_token *)temp->cont)->text, envp);
+		if (!((t_token *)temp->cont)->text)
 		{
-			ft_lstclear_msh(tokens, &free);
+			ft_lstclear_msh(tokens, &ft_del_token);
 			return (1);
 		}
-		temp->token = ft_rm_quote(temp->token);
-		if (!temp->token)
+		((t_token *)temp->cont)->text = \
+			ft_rm_quote(((t_token *)temp->cont)->text);
+		if (!((t_token *)temp->cont)->text)
 		{
-			ft_lstclear_msh(tokens, &free);
+			ft_lstclear_msh(tokens, &ft_del_token);
 			return (1);
 		}
 		temp = temp->next;

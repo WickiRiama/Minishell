@@ -6,15 +6,51 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 12:11:49 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/04 15:34:03 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/07 13:59:08 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+
 #include "minishell.h"
 #include "libft.h"
 
-int	ft_token_list(t_token **tokens, t_state *state, char *input)
+int	ft_cut_operator(t_dlist **tokens, t_state *state, char *input)
+{
+	char	c;
+
+	c = input[state->i];
+	if (ft_add_token(tokens, state->start, state->i, input) == 1)
+	{
+		ft_lstclear_msh(tokens, &ft_del_token);
+		return (1);
+	}
+	state->start = state->i;
+	if ((c == '<' || c == '>') && c == input[state->i + 1])
+		state->i++;
+	if (ft_add_token(tokens, state->start, state->i + 1, input) == 1)
+	{
+		ft_lstclear_msh(tokens, &ft_del_token);
+		return (1);
+	}
+	state->start = state->i + 1;
+	return (0);
+}
+
+int	ft_cut_blank(t_dlist **tokens, t_state *state, char *input)
+{
+	if (ft_add_token(tokens, state->start, state->i, input) == 1)
+	{
+		ft_lstclear_msh(tokens, &ft_del_token);
+		return (1);
+	}
+	while (input[state->i + 1] == ' ')
+		state->i++;
+	state->start = state->i + 1;
+	return (0);
+}
+
+int	ft_token_list(t_dlist **tokens, t_state *state, char *input)
 {
 	while (input[state->i])
 	{
@@ -36,32 +72,31 @@ int	ft_token_list(t_token **tokens, t_state *state, char *input)
 	}
 	if (ft_add_token(tokens, state->start, state->i, input) == 1)
 	{
-		ft_lstclear_msh(tokens, &free);
-		ft_fprintf(2, "System error. Malloc failed.\n");
+		ft_lstclear_msh(tokens, &ft_del_token);
 		return (1);
 	}
 	return (0);
 }
 
-void	ft_check_token(t_token **tokens, t_state *state)
+void	ft_check_token(t_dlist **tokens, t_state *state)
 {
 	if (state->squoted == 1)
 	{
 		ft_fprintf(2, "Syntax error: unclosed quote '''.\n");
-		(*tokens)->type = QUOTE_ERR;
+		((t_token *)(*tokens)->cont)->type = QUOTE_ERR;
 	}
 	else if (state->dquoted == 1)
 	{
 		ft_fprintf(2, "Syntax error: unclosed quote '\"'.\n");
-		(*tokens)->type = QUOTE_ERR;
+		((t_token *)(*tokens)->cont)->type = QUOTE_ERR;
 	}
 	else
 		*tokens = ft_trim_empty_token(*tokens);
 }
 
-t_token	*ft_tokenisation(char *input)
+t_dlist	*ft_tokenisation(char *input)
 {
-	t_token	*tokens;
+	t_dlist	*tokens;
 	t_state	state;
 
 	ft_init_state(&state);

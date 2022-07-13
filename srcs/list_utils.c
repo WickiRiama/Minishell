@@ -6,17 +6,18 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 16:03:34 by mriant            #+#    #+#             */
-/*   Updated: 2022/06/24 09:19:13 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/07 13:55:10 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "libft.h"
+#include <stdlib.h>
 
-void	ft_lstdelone_msh(t_token *lst, void (*del)(void *))
+#include "minishell.h"
+
+void	ft_lstdelone_msh(t_dlist *lst, void (*del)(void *))
 {
 	if (del)
-		del(lst->token);
+		del(lst->cont);
 	if (lst->prev)
 		lst->prev->next = lst->next;
 	if (lst->next)
@@ -24,10 +25,10 @@ void	ft_lstdelone_msh(t_token *lst, void (*del)(void *))
 	free(lst);
 }
 
-void	ft_lstclear_msh(t_token **lst, void (*del)(void *))
+void	ft_lstclear_msh(t_dlist **lst, void (*del)(void *))
 {
-	t_token	*temp1;
-	t_token	*temp2;
+	t_dlist	*temp1;
+	t_dlist	*temp2;
 
 	temp2 = *lst;
 	while (temp2)
@@ -39,7 +40,7 @@ void	ft_lstclear_msh(t_token **lst, void (*del)(void *))
 	*lst = NULL;
 }
 
-t_token	*ft_lstlast_msh(t_token *lst)
+t_dlist	*ft_lstlast_msh(t_dlist *lst)
 {
 	if (!lst)
 		return (NULL);
@@ -48,7 +49,7 @@ t_token	*ft_lstlast_msh(t_token *lst)
 	return (lst);
 }
 
-int	ft_lstsize_msh(t_token *lst)
+int	ft_lstsize_msh(t_dlist *lst)
 {
 	int	i;
 

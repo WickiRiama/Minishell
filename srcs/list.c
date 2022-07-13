@@ -6,16 +6,17 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 15:58:33 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/04 13:19:28 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/07 13:55:49 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "libft.h"
+#include <stdlib.h>
 
-void	ft_lstadd_back_msh(t_token **alst, t_token *new)
+#include "minishell.h"
+
+void	ft_lstadd_back_msh(t_dlist **alst, t_dlist *new)
 {
-	t_token	*last;
+	t_dlist	*last;
 
 	if (!new)
 		return ;
@@ -29,22 +30,21 @@ void	ft_lstadd_back_msh(t_token **alst, t_token *new)
 	}
 }
 
-void	ft_lstadd_front_msh(t_token **alst, t_token *new)
+void	ft_lstadd_front_msh(t_dlist **alst, t_dlist *new)
 {
 	new->next = *alst;
 	(*alst)->prev = new;
 	*alst = new;
 }
 
-t_token	*ft_lstnew_msh(t_types type, char *token)
+t_dlist	*ft_lstnew_msh(void *content)
 {
-	t_token	*new;
+	t_dlist	*new;
 
-	new = malloc(sizeof(t_token));
+	new = malloc(sizeof(t_dlist));
 	if (!new)
 		return (NULL);
-	new->type = type;
-	new->token = token;
+	new->cont = content;
 	new->prev = NULL;
 	new->next = NULL;
 	return (new);

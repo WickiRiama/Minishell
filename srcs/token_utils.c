@@ -6,11 +6,12 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:38:12 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/04 13:53:31 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/11 16:41:29 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+
 #include "minishell.h"
 #include "libft.h"
 
@@ -22,19 +23,28 @@ void	ft_init_state(t_state *state)
 	state->start = 0;
 }
 
-t_token	*ft_trim_empty_token(t_token *tokens)
+void	ft_del_token(void *content)
 {
-	t_token	*temp;
-	t_token	*last;
+	t_token	*token;
+
+	token = (t_token *)content;
+	free(token->text);
+	free(content);
+}
+
+t_dlist	*ft_trim_empty_token(t_dlist *tokens)
+{
+	t_dlist	*temp;
+	t_dlist	*last;
 
 	last = NULL;
 	while (tokens)
 	{
-		if (tokens->token[0] == '\0')
+		if (((t_token *)tokens->cont)->text[0] == '\0')
 		{
 			temp = tokens;
 			tokens = tokens->next;
-			ft_lstdelone_msh(temp, &free);
+			ft_lstdelone_msh(temp, &ft_del_token);
 		}
 		else
 		{
@@ -47,62 +57,47 @@ t_token	*ft_trim_empty_token(t_token *tokens)
 	return (last);
 }
 
-int	ft_add_token(t_token **tokens, t_ui start, t_ui i, char *input)
+t_token	*ft_init_token(t_ui start, t_ui i, char *input)
 {
-	char	*token;
-	t_token	*new;
+	t_token	*token;
 
-	token = ft_substr(input, start, i - start);
+	token = malloc(sizeof(t_token) * 1);
 	if (!token)
 	{
-		ft_lstclear_msh(tokens, &free);
 		ft_fprintf(2, "System error. Malloc failed.\n");
-		return (1);
+		return (NULL);
 	}
-	if (token[0] == '<' || token[0] == '>' || token[0] == '|')
-		new = ft_lstnew_msh(OPERATOR, token);
+	token->text = ft_substr(input, start, i - start);
+	if (!token->text)
+	{
+		ft_fprintf(2, "System error. Malloc failed.\n");
+		free(token);
+		return (NULL);
+	}
+	if (token->text[0] == '<' || token->text[0] == '>' || token->text[0] == '|')
+		token->type = OPERATOR;
 	else
-		new = ft_lstnew_msh(WORD, token);
+		token->type = WORD;
+	return (token);
+}
+
+int	ft_add_token(t_dlist **tokens, t_ui start, t_ui i, char *input)
+{
+	t_token	*token;
+	t_dlist	*new;
+
+	token = ft_init_token(start, i, input);
+	if (!token)
+	{
+		ft_lstclear_msh(tokens, &ft_del_token);
+		return (1);
+	}
+	new = ft_lstnew_msh(token);
 	if (!new)
+	{
+		ft_lstclear_msh(tokens, &ft_del_token);
 		return (1);
+	}
 	ft_lstadd_back_msh(tokens, new);
-	return (0);
-}
-
-int	ft_cut_operator(t_token **tokens, t_state *state, char *input)
-{
-	char	c;
-
-	c = input[state->i];
-	if (ft_add_token(tokens, state->start, state->i, input) == 1)
-	{
-		ft_lstclear_msh(tokens, &free);
-		ft_fprintf(2, "System error. Malloc failed.\n");
-		return (1);
-	}
-	state->start = state->i;
-	if ((c == '<' || c == '>') && c == input[state->i + 1])
-		state->i++;
-	if (ft_add_token(tokens, state->start, state->i + 1, input) == 1)
-	{
-		ft_lstclear_msh(tokens, &free);
-		ft_fprintf(2, "System error. Malloc failed.\n");
-		return (1);
-	}
-	state->start = state->i + 1;
-	return (0);
-}
-
-int	ft_cut_blank(t_token **tokens, t_state *state, char *input)
-{
-	if (ft_add_token(tokens, state->start, state->i, input) == 1)
-	{
-		ft_lstclear_msh(tokens, &free);
-		ft_fprintf(2, "System error. Malloc failed.\n");
-		return (1);
-	}
-	while (input[state->i + 1] == ' ')
-		state->i++;
-	state->start = state->i + 1;
 	return (0);
 }
