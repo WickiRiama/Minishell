@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:39:25 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/12 16:37:21 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/13 10:37:57 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <fcntl.h>
 #include <string.h>
 #include <errno.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 #include "minishell.h"
 #include "libft.h"
@@ -59,5 +61,55 @@ t_dlist	*ft_cmd_orga(t_dlist *tokens, t_dlist **pipes)
 			tokens = tokens->next;
 		}
 	}
+	return (blocks);
+}
+
+t_dlist	*ft_parsing1(t_dlist *tokens)
+{
+	char	*input;
+
+	input = NULL;
+	while (1)
+	{
+		free(input);
+		input = readline("$> ");
+		if (!input)
+			return (NULL);
+		if (input[0] == '\0')
+			continue ;
+		tokens = ft_tokenisation(input);
+		if (!tokens)
+		{
+			free(input);
+			return (NULL);
+		}
+		if (ft_token_types(tokens))
+		{
+			ft_lstclear_msh(&tokens, ft_del_token);
+			g_exitcode = 2;
+			continue ;
+		}
+		return (tokens);
+	}
+}
+
+t_dlist	*ft_parsing(t_dlist **pipes, char **env)
+{
+	t_dlist	*tokens;
+	t_dlist	*blocks;
+
+	tokens = NULL;
+	tokens = ft_parsing1(tokens);
+	if (!tokens)
+		return (NULL);
+	if (ft_wexpanse(&tokens, env))
+		return (NULL);
+	blocks = ft_cmd_orga(tokens, pipes);
+	if (!blocks)
+	{
+		ft_lstclear_msh(&tokens, ft_del_token);
+		return (NULL);
+	}
+	ft_lstclear_msh(&tokens, ft_del_token);
 	return (blocks);
 }

@@ -6,14 +6,11 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/12 17:36:53 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/13 10:37:48 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //Use with --suppressions=.ignore_readline to ignore readline leaks
-
-#include <readline/readline.h>
-#include <readline/history.h>
 
 #include "minishell.h"
 #include "libft.h"
@@ -69,9 +66,7 @@ void	found_and_run_cmd(t_dlist **tokens, char *input, char **env)
 
 int	main(int ac, char **av, char **envp)
 {
-	char	*input;
 	char	**env;
-	t_dlist	*tokens;
 	t_dlist	*blocks;
 	t_dlist	*pipes;
 
@@ -83,47 +78,16 @@ int	main(int ac, char **av, char **envp)
 		return (1);
 	while (1)
 	{
-		input = readline("$> ");
-		if (!input)
-			break ;
-		if (input[0] == '\0')
-		{
-			free(input);
-			continue ;
-		}
-		tokens = ft_tokenisation(input);
-		if (!tokens)
-		{
-			free(input);
-			free_tab(env);
-			return (1);
-		}
-		if (ft_token_types(tokens))
-		{
-			ft_lstclear_msh(&tokens, &free);
-			free(input);
-			continue ;
-		}
-		if (ft_wexpanse(&tokens, env))
-		{
-			ft_lstclear_msh(&tokens, &free);
-			free(input);
-			free_tab(env);
-			return (1);
-		}
 		pipes = NULL;
-		blocks = ft_cmd_orga(tokens, &pipes);
+		blocks = ft_parsing(&pipes, env);
 		if (!blocks)
 		{
-			ft_lstclear_msh(&tokens, &free);
-			free(input);
+			ft_lstclear_msh(&pipes, &ft_del_pipes);
 			free_tab(env);
 			return (1);
 		}
 		// found_and_run_cmd(&tokens, input, env);
 		ft_print_list(blocks, pipes);
-		free(input);
-		ft_lstclear_msh(&tokens, &ft_del_token);
 		ft_lstclear_msh(&blocks, &ft_del_blocks);
 		ft_lstclear_msh(&pipes, &ft_del_pipes);
 	}

@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/12 17:35:46 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/13 10:02:40 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ int		ft_copy_tab(char **dest, char **src);
 void	ft_del_blocks(void *content);
 void	ft_del_pipes(void *content);
 void	ft_open_redir(t_dlist *tokens, t_exec *blocks);
+t_dlist	*ft_parsing(t_dlist **pipes, char **env);
 char	**ft_update_cmd(char **cmd, char *new);
 
 #endif
