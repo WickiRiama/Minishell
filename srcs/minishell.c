@@ -64,6 +64,38 @@ void	found_and_run_cmd(t_token **tokens, char *input, t_env *env)
 	free_tab(path);
 }
 
+nt	main(int ac, char **av, char **envp)
+{
+	t_env	**env;
+	t_dlist	*blocks;
+	t_dlist	*pipes;
+
+	if (ac != 1)
+		return (1);
+	(void) av;
+	get_env_var(envp, &env);
+	// if (!env)
+	// 	return (1);
+	while (1)
+	{
+		pipes = NULL;
+		blocks = ft_parsing(&pipes, env);
+		if (!blocks)
+		{
+			ft_lstclear_msh(&pipes, &ft_del_pipes);
+			free_tab(env);
+			return (1);
+		}
+		// found_and_run_cmd(&tokens, input, env);
+		ft_print_list(blocks, pipes);
+		ft_lstclear_msh(&blocks, &ft_del_blocks);
+		ft_lstclear_msh(&pipes, &ft_del_pipes);
+	}
+	free_tab(env);
+	return (0);
+}
+
+/*
 int	main(int ac, char **av, char **envp)
 {
 	t_dlist	*blocks;
@@ -94,3 +126,4 @@ int	main(int ac, char **av, char **envp)
 	ft_lstclear_env(&env, &free);
 	return (0);
 }
+*/
