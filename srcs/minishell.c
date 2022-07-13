@@ -42,20 +42,6 @@ void	ft_print_list(t_dlist *list, t_dlist *pipes)
 	}
 }
 
-void	found_and_run_cmd(char **cmd, t_env *env, t_dlist **blocks,
-t_dlist **pipes)
-{
-	if (ft_strcmp(cmd[0], "cd") == 0)
-		ft_cd(cmd, &env);
-	else if (ft_strcmp(cmd[0], "echo") == 0)
-		ft_echo(cmd);
-	else if (ft_strcmp(cmd[0], "pwd") == 0)
-		ft_pwd();
-	else if (ft_strcmp(cmd[0], "env") == 0)
-		display_env(env);
-	else if (ft_strcmp(cmd[0], "exit") == 0)
-		ft_exit(cmd, blocks, pipes, &env);
-}
 
 int	main(int ac, char **av, char **envp)
 {

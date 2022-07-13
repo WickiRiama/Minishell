@@ -149,4 +149,11 @@ void	ft_open_redir(t_dlist *tokens, t_exec *blocks);
 t_dlist	*ft_parsing(t_dlist **pipes, t_env **env);
 char	**ft_update_cmd(char **cmd, char *new);
 
+//==============================================================================
+// executor
+//==============================================================================
+
+int		ft_run_builtin(char **cmd, t_env *env, t_dlist **blocks,
+			t_dlist **pipes);
+
 #endif
