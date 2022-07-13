@@ -90,7 +90,7 @@ typedef struct s_env
 int		ft_pwd(void);
 int		ft_cd(char **path, t_env **env);
 int		ft_echo(char **input);
-int		ft_exit(t_token **tokens, char **input, t_env **env);
+int		ft_exit(char **cmd, t_dlist **blocks, t_dlist **pipes, t_env **env);
 char	*get_env_var(char **envp, t_env **env);
 void	display_env(t_env *env);
 
@@ -115,10 +115,10 @@ void	free_tab(char **tab);
 //==============================================================================
 
 char	*ft_extd_token(char *src, char *env_var, int start_var, int end_var);
-char	*ft_find_var(char *var, char **envp);
+char	*ft_find_var(char *var, t_env **envp);
 int		ft_is_name(char c, t_state *state);
 char	*ft_rm_quote(char *token);
-int		ft_wexpanse(t_token **tokens, t_env **envp);
+int		ft_wexpanse(t_dlist **tokens, t_env **envp);
 
 //==============================================================================
 // Parsing
@@ -146,7 +146,7 @@ int		ft_copy_tab(char **dest, char **src);
 void	ft_del_blocks(void *content);
 void	ft_del_pipes(void *content);
 void	ft_open_redir(t_dlist *tokens, t_exec *blocks);
-t_dlist	*ft_parsing(t_dlist **pipes, char **env);
+t_dlist	*ft_parsing(t_dlist **pipes, t_env **env);
 char	**ft_update_cmd(char **cmd, char *new);
 
 #endif

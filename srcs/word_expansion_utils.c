@@ -13,28 +13,32 @@
 #include "minishell.h"
 #include "libft.h"
 
-char	*ft_find_var(char *var, char **envp)
+char	*ft_find_var(char *var, t_env **envp)
 {
-	int		i;
-	int		j;
+	// int		i;
+	// int		j;
+	(void)var;
+	(void)envp;
+	
 	char	*result;
 
 	result = ft_calloc(sizeof(char), 1);
-	i = 0;
-	while (envp && envp[i])
-	{
-		j = 0;
-		while (var[j] == envp[i][j])
-			j++;
-		if (var[j] == '\0' && envp[i][j] == '=')
-		{
-			free(result);
-			result = ft_substr(envp[i], j + 1, ft_strlen(envp[i]));
-			break ;
-		}
-		i++;
-	}
-	free(var);
+	// ICI FAIRE PARCOURT DE LIST AVEC T_ENV
+
+	// while (envp && envp[i])
+	// {
+	// 	j = 0;
+	// 	while (var[j] == envp[i][j])
+	// 		j++;
+	// 	if (var[j] == '\0' && envp[i][j] == '=')
+	// 	{
+	// 		free(result);
+	// 		result = ft_substr(envp[i], j + 1, ft_strlen(envp[i]));
+	// 		break ;
+	// 	}
+	// 	i++;
+	// }
+	// free(var);
 	return (result);
 }
 

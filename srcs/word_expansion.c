@@ -23,7 +23,7 @@ static void	ft_clean(char *error, void *ptr1, void *ptr2, void *ptr3)
 	free (ptr3);
 }
 
-char	*ft_exp_env(char *src, t_state *state, char **envp)
+char	*ft_exp_env(char *src, t_state *state, t_env **envp)
 {
 	char	*result;
 	char	*env_var;
@@ -64,7 +64,7 @@ char	*ft_exp_exitcode(char *src, t_state *state)
 	return (result);
 }
 
-char	*ft_token_expanse(char *token, char **envp)
+char	*ft_token_expanse(char *token, t_env **envp)
 {
 	t_state	state;
 
@@ -88,7 +88,7 @@ char	*ft_token_expanse(char *token, char **envp)
 	return (token);
 }
 
-int	ft_wexpanse(t_dlist **tokens, char **envp)
+int	ft_wexpanse(t_dlist **tokens, t_env	**envp)
 {
 	t_dlist	*temp;
 

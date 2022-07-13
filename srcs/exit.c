@@ -57,15 +57,15 @@ int	check_arg_and_get_status(char **input)
 	return (0);
 }
 
-int	ft_exit(t_token **tokens, char **input, t_env **env)
+int	ft_exit(char **cmd, t_dlist **blocks, t_dlist **pipes, t_env **env)
 {
 	(void)env;
 	int	status;
 
 	ft_printf("exit\n");
-	status = check_arg_and_get_status(input);
-	ft_lstclear_msh(tokens, &free);
-	free_tab(input);
-	// ft_lstclear_env(env, &free);
+	status = check_arg_and_get_status(cmd);
+	ft_lstclear_msh(blocks, &ft_del_blocks);
+	ft_lstclear_msh(pipes, ft_del_pipes);
+	ft_lstclear_env(env, &free);
 	exit(status);
 }

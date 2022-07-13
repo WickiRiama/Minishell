@@ -42,31 +42,26 @@ void	ft_print_list(t_dlist *list, t_dlist *pipes)
 	}
 }
 
-void	found_and_run_cmd(t_token **tokens, char *input, t_env *env)
+void	found_and_run_cmd(char **cmd, t_env *env, t_dlist **blocks,
+t_dlist **pipes)
 {
-	char	**path = ft_split(input, ' ');
 
-	if (!path)
-		return ;
-	if (ft_strcmp(path[0], "cd") == 0)
-		ft_cd(path, &env);
-	else if (ft_strcmp(path[0], "echo") == 0)
-		ft_echo(path);
-	else if (ft_strcmp(path[0], "pwd") == 0)
+	if (ft_strcmp(cmd[0], "cd") == 0)
+		ft_cd(cmd, &env);
+	else if (ft_strcmp(cmd[0], "echo") == 0)
+		ft_echo(cmd);
+	else if (ft_strcmp(cmd[0], "pwd") == 0)
 		ft_pwd();
-	else if (ft_strcmp(path[0], "env") == 0)
+	else if (ft_strcmp(cmd[0], "env") == 0)
 		display_env(env);
-	else if (ft_strcmp(path[0], "exit") == 0)
-	{
-		ft_exit(tokens, path, &env);
-		// free_tab(path);
-	}
-	free_tab(path);
+	else if (ft_strcmp(cmd[0], "exit") == 0)
+		ft_exit(cmd, blocks, pipes, &env);
+	free_tab(cmd);
 }
 
-nt	main(int ac, char **av, char **envp)
+int	main(int ac, char **av, char **envp)
 {
-	t_env	**env;
+	t_env	*env;
 	t_dlist	*blocks;
 	t_dlist	*pipes;
 
@@ -76,22 +71,21 @@ nt	main(int ac, char **av, char **envp)
 	get_env_var(envp, &env);
 	// if (!env)
 	// 	return (1);
-	while (1)
 	{
 		pipes = NULL;
-		blocks = ft_parsing(&pipes, env);
+		blocks = ft_parsing(&pipes, &env);
 		if (!blocks)
 		{
 			ft_lstclear_msh(&pipes, &ft_del_pipes);
-			free_tab(env);
+			ft_lstclear_env(&env, &free);
 			return (1);
 		}
-		// found_and_run_cmd(&tokens, input, env);
-		ft_print_list(blocks, pipes);
+		found_and_run_cmd(((t_exec *)blocks->cont)->cmd, env, &blocks, &pipes);
+		// ft_print_list(blocks, pipes);
 		ft_lstclear_msh(&blocks, &ft_del_blocks);
 		ft_lstclear_msh(&pipes, &ft_del_pipes);
 	}
-	free_tab(env);
+	ft_lstclear_env(&env, &free);
 	return (0);
 }
 

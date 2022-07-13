@@ -93,7 +93,7 @@ t_dlist	*ft_parsing1(t_dlist *tokens)
 	}
 }
 
-t_dlist	*ft_parsing(t_dlist **pipes, char **env)
+t_dlist	*ft_parsing(t_dlist **pipes, t_env **env)
 {
 	t_dlist	*tokens;
 	t_dlist	*blocks;
