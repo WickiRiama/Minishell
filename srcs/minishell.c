@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/13 13:42:49 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/14 15:15:38 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,6 @@ void	ft_print_list(t_dlist *list, t_dlist *pipes)
 	}
 }
 
-void	found_and_run_cmd(char **cmd, t_env *env, t_dlist **blocks,
-t_dlist **pipes)
-{
-	if (ft_strcmp(cmd[0], "cd") == 0)
-		ft_cd(cmd, &env);
-	else if (ft_strcmp(cmd[0], "echo") == 0)
-		ft_echo(cmd);
-	else if (ft_strcmp(cmd[0], "pwd") == 0)
-		ft_pwd();
-	else if (ft_strcmp(cmd[0], "env") == 0)
-		display_env(env);
-	else if (ft_strcmp(cmd[0], "exit") == 0)
-		ft_exit(cmd, blocks, pipes, &env);
-}
 
 int	main(int ac, char **av, char **envp)
 {
@@ -80,8 +66,9 @@ int	main(int ac, char **av, char **envp)
 			ft_lstclear_env(&env, &free);
 			return (1);
 		}
-		found_and_run_cmd(((t_exec *)blocks->cont)->cmd, env, &blocks, &pipes);
+		// found_and_run_cmd(((t_exec *)blocks->cont)->cmd, env, &blocks, &pipes);
 		// ft_print_list(blocks, pipes);
+		ft_executor(blocks, pipes, env, envp);
 		ft_lstclear_msh(&blocks, &ft_del_blocks);
 		ft_lstclear_msh(&pipes, &ft_del_pipes);
 	}

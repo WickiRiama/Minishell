@@ -6,7 +6,7 @@
 #    By: mriant <mriant@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 13:49:10 by mriant            #+#    #+#              #
-#    Updated: 2022/07/12 16:27:07 by mriant           ###   ########.fr        #
+#    Updated: 2022/07/14 14:25:10 by mriant           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ LIBFT = libft/libft.a
 
 SRCS = ${addprefix srcs/, \
 	blocks_list.c \
+	executor.c \
 	is_token.c \
 	list.c \
 	list_utils.c \
