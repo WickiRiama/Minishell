@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils_list_env.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sle-huec <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 16:13:00 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/07/12 16:13:09 by sle-huec         ###   ########.fr       */
+/*   Updated: 2022/07/14 15:25:22 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "minishell.h"
+#include "libft.h"
 
 t_env	*ft_lstnew_env(char *env_var)
 {
@@ -20,7 +21,12 @@ t_env	*ft_lstnew_env(char *env_var)
 	new = malloc(sizeof(t_env));
 	if (!new)
 		return (NULL);
-	new->var = env_var;
+	new->var = ft_strdup(env_var);
+	if (!new->var)
+	{
+		free(new);
+		return (NULL);
+	}
 	new->prev = NULL;
 	new->next = NULL;
 	return (new);

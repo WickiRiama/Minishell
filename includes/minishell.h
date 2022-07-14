@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/13 13:29:35 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/14 14:25:56 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,9 +150,10 @@ t_dlist	*ft_parsing(t_dlist **pipes, t_env **env);
 char	**ft_update_cmd(char **cmd, char *new);
 
 //==============================================================================
-// executor
+// Executor
 //==============================================================================
 
+int		ft_executor(t_dlist	*blocks, t_dlist *pipes, t_env *env, char **envp);
 int		ft_run_builtin(char **cmd, t_env *env, t_dlist **blocks,
 			t_dlist **pipes);
 
