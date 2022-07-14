@@ -15,14 +15,8 @@
 
 /* TEST DE DELONE*/
 
-void	ft_unset(char **cmd, t_env **env)
+int	ft_unset(char **cmd, t_env **env)
 {
-	(void)cmd;
-	t_env *tmp;
-	tmp = *env;
-	tmp = tmp->next;
-	display_env(*env);
-	ft_printf("\n////////////////////////////////////////////////////////\n\n");
-	ft_lstdelone_env(tmp, &free);
-	display_env(*env);
+	ft_lstdelone_env(ft_get_ptr_env_var(cmd[1], *env), &free);
+	return (0);
 }

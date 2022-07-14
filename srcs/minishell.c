@@ -49,12 +49,12 @@ t_dlist **pipes)
 		ft_cd(cmd, &env);
 	else if (ft_strcmp(cmd[0], "echo") == 0)
 		ft_echo(cmd);
-	else if (ft_strcmp(cmd[0], "pwd") == 0)
-		ft_pwd();
-	else if (ft_strcmp(cmd[0], "env") == 0)
+	if (!env)
 		display_env(env);
 	else if (ft_strcmp(cmd[0], "unset") == 0)
 		ft_unset(cmd, &env);
+	// else if (ft_strcmp(cmd[0], "export") == 0)
+	// 	ft_export(cmd, &env);
 	else if (ft_strcmp(cmd[0], "exit") == 0)
 		ft_exit(cmd, blocks, pipes, &env);
 }
@@ -83,43 +83,10 @@ int	main(int ac, char **av, char **envp)
 			return (1);
 		}
 		found_and_run_cmd(((t_exec *)blocks->cont)->cmd, env, &blocks, &pipes);
-		ft_print_list(blocks, pipes);
+		// ft_print_list(blocks, pipes);
 		ft_lstclear_msh(&blocks, &ft_del_blocks);
 		ft_lstclear_msh(&pipes, &ft_del_pipes);
 	}
 	ft_lstclear_env(&env, &free);
 	return (0);
 }
-
-/*
-int	main(int ac, char **av, char **envp)
-{
-	t_dlist	*blocks;
-	t_dlist	*pipes;
-	t_env	*env;
-
-	if (ac != 1)
-		return (1);
-	(void) av;
-	get_env_var(envp, &env);
-	if (!env)
-		return (1);
-	while (1)
-	{
-		pipes = NULL;
-		blocks = ft_parsing(&pipes, env);
-		if (!blocks)
-		{
-			ft_lstclear_msh(&pipes, &ft_del_pipes);
-			ft_lstclear_env(&env, &free);
-			return (1);
-		}
-		// found_and_run_cmd(&tokens, input, env);
-		ft_print_list(blocks, pipes);
-		ft_lstclear_msh(&blocks, &ft_del_blocks);
-		ft_lstclear_msh(&pipes, &ft_del_pipes);
-	}
-	ft_lstclear_env(&env, &free);
-	return (0);
-}
-*/
