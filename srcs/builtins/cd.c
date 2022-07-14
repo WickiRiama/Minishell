@@ -18,7 +18,11 @@
 
 int	ft_cd(char **path, t_env **env)
 {
-	(void)env;
+	t_env	*tmp;
+	t_env	*new_pwd;
+
+	tmp = ft_get_ptr_env_var("OLDPWD", *env);
+	tmp->var = ft_strjoin2("OLDPWD=", getcwd(NULL, 0));
 	if (!path || !path[1])
 		return (1);
 	if (chdir(path[1]) < 0)
@@ -26,5 +30,7 @@ int	ft_cd(char **path, t_env **env)
 		ft_fprintf(2, "cd : %s: %s\n", strerror(errno), *path);
 		return (1);
 	}
+	new_pwd = ft_get_ptr_env_var("PWD", *env);
+	new_pwd->var = ft_strjoin2("PWD=", getcwd(NULL, 0));
 	return (0);
 }

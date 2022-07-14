@@ -12,3 +12,10 @@
 
 // code erreur:
 // bash: export: `1234': not a valid identifier
+
+// #include "minishell.h"
+// #include "libft.h"
+
+// void	ft_export(char **cmd, t_env **env)
+// {
+// }
