@@ -12,6 +12,7 @@
 
 #include <stdlib.h>
 #include "minishell.h"
+#include "libft.h"
 
 void	free_tab(char **tab)
 {
@@ -26,4 +27,18 @@ void	free_tab(char **tab)
 		i++;
 	}
 	free(tab);
+}
+
+char	*ft_strjoin2(char const *s1, char const *s2)
+{
+	char		*new_str;
+	size_t		size;
+
+	size = (ft_strlen(s1) + ft_strlen(s2) + 1);
+	new_str = (char *)malloc(sizeof(char) * size);
+	if (!new_str)
+		return (0);
+	ft_strlcpy(new_str, s1, size);
+	ft_strlcat((char *)new_str, s2, size);
+	return (new_str);
 }

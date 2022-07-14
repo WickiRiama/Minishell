@@ -42,6 +42,26 @@ void	ft_print_list(t_dlist *list, t_dlist *pipes)
 	}
 }
 
+<<<<<<< HEAD
+=======
+void	found_and_run_cmd(char **cmd, t_env *env, t_dlist **blocks,
+t_dlist **pipes)
+{
+	if (ft_strcmp(cmd[0], "cd") == 0)
+		ft_cd(cmd, &env);
+	else if (ft_strcmp(cmd[0], "echo") == 0)
+		ft_echo(cmd);
+	if (!env)
+		display_env(env);
+	else if (ft_strcmp(cmd[0], "unset") == 0)
+		ft_unset(cmd, &env);
+	// else if (ft_strcmp(cmd[0], "export") == 0)
+	// 	ft_export(cmd, &env);
+	else if (ft_strcmp(cmd[0], "exit") == 0)
+		ft_exit(cmd, blocks, pipes, &env);
+}
+
+>>>>>>> cd : MAJ OLDPWD et PWD dans env
 int	main(int ac, char **av, char **envp)
 {
 	t_env	*env;
@@ -106,4 +126,3 @@ int	main(int ac, char **av, char **envp)
 	ft_lstclear_env(&env, &free);
 	return (0);
 }
-*/

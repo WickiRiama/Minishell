@@ -93,7 +93,9 @@ int		ft_echo(char **input);
 int		ft_exit(char **cmd, t_dlist **blocks, t_dlist **pipes, t_env **env);
 char	*get_env_var(char **envp, t_env **env);
 void	display_env(t_env *env);
-void	ft_unset(char **cmd, t_env **env);
+t_env	*ft_get_ptr_env_var(char *var, t_env *env);
+int		ft_unset(char **cmd, t_env **env);
+// int		ft_export(char **cmd, t_env **env);
 
 //==============================================================================
 // utils_list_env
@@ -110,6 +112,7 @@ void	ft_lstdelone_env(t_env *lst, void (*del)(void *));
 //==============================================================================
 
 void	free_tab(char **tab);
+char	*ft_strjoin2(char const *s1, char const *s2);
 
 //==============================================================================
 // Word expansion
