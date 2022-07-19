@@ -16,27 +16,30 @@
 #include "libft.h"
 #include "minishell.h"
 
-int	ft_cd(char **path, t_env **env)
+int	update_env(char *var, char *equal, t_env **env)
 {
-	t_env	*tmp;
-	t_env	*new_pwd;
-	char	*tmp_oldpwd;
-	char	*tmp_pwd;
+	t_env	*env_var;
+	char	*update_pwd;
+	char	*tmp_var;
 
-	tmp = ft_get_ptr_env_var("OLDPWD", *env);
-	tmp_oldpwd = getcwd(NULL, 0);
-	tmp->var = ft_strjoin2("OLDPWD=", tmp_oldpwd);
-	if (!tmp->var)
+	env_var = ft_get_ptr_env_var(var, *env);
+	update_pwd = getcwd(NULL, 0);
+	tmp_var = ft_strjoin2(equal, update_pwd);
+	free(update_pwd);
+	if (!tmp_var)
 	{
 		ft_fprintf(2, "System error. Malloc failed.\n");
-		free(tmp_oldpwd);
 		return (1);
 	}
-	else
-	{
-		free(tmp->var);
-		free(tmp_oldpwd);
-	}
+	free(env_var->var);
+	env_var->var = tmp_var;
+	return (0);
+}
+
+int	ft_cd(char **path, t_env **env)
+{
+	if (update_env("OLDPWD", "OLDPWD=", env) == 1)
+		return (1);
 	if (!path || !path[1])
 		return (1);
 	if (chdir(path[1]) < 0)
@@ -44,19 +47,7 @@ int	ft_cd(char **path, t_env **env)
 		ft_fprintf(2, "cd : %s: %s\n", strerror(errno), *path);
 		return (1);
 	}
-	new_pwd = ft_get_ptr_env_var("PWD", *env);
-	tmp_pwd = getcwd(NULL, 0);
-	new_pwd->var = ft_strjoin2("PWD=", tmp_pwd);
-	if (!new_pwd->var)
-	{
-		ft_fprintf(2, "System error. Malloc failed.\n");
-		free(tmp_pwd);
+	if (update_env("PWD", "PWD=", env) == 1)
 		return (1);
-	}
-	else
-	{
-		free(new_pwd->var);
-		free(tmp_pwd);
-	}
 	return (0);
 }
