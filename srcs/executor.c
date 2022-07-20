@@ -204,7 +204,6 @@ int	ft_run_one_builtin(t_dlist *blocks, t_dlist *pipes, t_env *env)
 		dup2(((t_exec *)blocks->cont)->outfile, STDOUT_FILENO);
 	else if (pipes && ((t_pipe *)pipes->cont)->pipe_to_write_to >= 0)
 		dup2(((t_pipe *)pipes->cont)->pipe_to_write_to, STDOUT_FILENO);
-
 	if (((t_exec *)blocks->cont)->infile >= 0)
 		dup2(((t_exec *)blocks->cont)->infile, STDIN_FILENO);
 	else if (pipes && ((t_pipe *)pipes->cont)->pipe_to_read_from >= 0)
