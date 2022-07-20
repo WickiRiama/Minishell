@@ -44,7 +44,7 @@ int	ft_cd(char **path, t_env **env)
 		return (1);
 	if (chdir(path[1]) < 0)
 	{
-		ft_fprintf(2, "cd : %s: %s\n", strerror(errno), *path);
+		ft_fprintf(2, "cd : %s: %s\n", strerror(errno), path[1]);
 		return (1);
 	}
 	if (update_env("PWD", "PWD=", env) == 1)
