@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/14 14:25:56 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/25 14:19:34 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ t_env	*ft_lstlast_env(t_env *lst);
 void	ft_lstadd_back_env(t_env **alst, t_env *new);
 void	ft_lstclear_env(t_env **lst, void (*del)(void *));
 void	ft_lstdelone_env(t_env *lst, void (*del)(void *));
+int		ft_lstsize_env(t_env *lst);
 
 //==============================================================================
 // utils
@@ -153,7 +154,7 @@ char	**ft_update_cmd(char **cmd, char *new);
 // Executor
 //==============================================================================
 
-int		ft_executor(t_dlist	*blocks, t_dlist *pipes, t_env *env, char **envp);
+int		ft_executor(t_dlist	*blocks, t_dlist *pipes, t_env *env);
 int		ft_run_builtin(char **cmd, t_env *env, t_dlist **blocks,
 			t_dlist **pipes);
 

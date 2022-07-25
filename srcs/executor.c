@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 15:08:27 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/07/14 15:44:38 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/25 14:18:57 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,8 +214,36 @@ int	ft_run_one_builtin(t_dlist *blocks, t_dlist *pipes, t_env *env)
 			env, &blocks, &pipes);
 	return (status);
 }
+char	**ft_list_to_tab(t_env *list)
+{
+	int		size;
+	char	**env;
 
-void	ft_child(t_dlist *blocks, t_dlist *pipes, t_env *env, char **envp)
+	size = ft_lstsize_env(list);
+	env = malloc(sizeof(char *) * (size + 1));
+	if (!env)
+	{
+		ft_fprintf(2, "System error. Malloc failed.\n");
+		return (NULL);
+	}
+	size = 0;
+	while (list)
+	{
+		env[size] = ft_strdup(list->var);
+		if (!env[size])
+		{
+			ft_fprintf(2, "System error. Malloc failed.\n");
+			free_tab(env);
+			return (NULL);
+		}
+		size++;
+		list = list->next;
+	}
+	env[size] = NULL;
+	return (env);
+}
+
+void	ft_child(t_dlist *blocks, t_dlist *pipes, t_env *env, char **env_tab)
 {
 	int	status;
 
@@ -256,7 +284,7 @@ void	ft_child(t_dlist *blocks, t_dlist *pipes, t_env *env, char **envp)
 		exit(127);
 	}
 	if (execve(((t_exec *)blocks->cont)->cmd[0], ((t_exec *)blocks->cont)->cmd,
-			NULL) == -1)
+			env_tab) == -1)
 	{
 		ft_fprintf(2, "%s: %s\n", strerror(errno), ((t_exec *)blocks->cont)->cmd[0]);
 		ft_free_lists(blocks, pipes, env);
@@ -264,20 +292,25 @@ void	ft_child(t_dlist *blocks, t_dlist *pipes, t_env *env, char **envp)
 	}
 }
 
-int	ft_exec(t_dlist	*blocks, t_dlist *pipes, t_env *env, char **envp)
+int	ft_exec(t_dlist	*blocks, t_dlist *pipes, t_env *env)
 {
 	pid_t	pid;
+	char	**env_tab;
 
+	env_tab = ft_list_to_tab(env);
+	if (!env_tab)
+		return (-1);
 	pid = fork();
 	if (pid == -1)
 		ft_fprintf(2, "Fork error: %s\n", strerror(errno));
 	else if (pid == 0)
-		ft_child(blocks, pipes, env, envp);
+		ft_child(blocks, pipes, env, env_tab);
 	ft_close_fd_parent(blocks, pipes);
+	free_tab(env_tab);
 	return (pid);
 }
 
-int	ft_executor(t_dlist	*blocks, t_dlist *pipes, t_env *env, char **envp)
+int	ft_executor(t_dlist	*blocks, t_dlist *pipes, t_env *env)
 {
 	pid_t	pid;
 	int		i;
@@ -290,7 +323,7 @@ int	ft_executor(t_dlist	*blocks, t_dlist *pipes, t_env *env, char **envp)
 	{
 		while (blocks)
 		{
-			pid = ft_exec(blocks, pipes, env, envp);
+			pid = ft_exec(blocks, pipes, env);
 			if (pid == -1)
 			{
 				ft_close_fd_all(blocks, pipes);

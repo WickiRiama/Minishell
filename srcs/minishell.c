@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/14 15:15:38 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/25 14:11:37 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	main(int ac, char **av, char **envp)
 		}
 		// found_and_run_cmd(((t_exec *)blocks->cont)->cmd, env, &blocks, &pipes);
 		// ft_print_list(blocks, pipes);
-		ft_executor(blocks, pipes, env, envp);
+		ft_executor(blocks, pipes, env);
 		ft_lstclear_msh(&blocks, &ft_del_blocks);
 		ft_lstclear_msh(&pipes, &ft_del_pipes);
 	}
