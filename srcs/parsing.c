@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:39:25 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/13 10:37:57 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/25 15:27:09 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,7 @@ t_dlist	*ft_parsing1(t_dlist *tokens)
 	{
 		free(input);
 		input = readline("$> ");
-		if (!input)
-			return (NULL);
-		if (input[0] == '\0')
+		if (input && input[0] == '\0')
 			continue ;
 		tokens = ft_tokenisation(input);
 		if (!tokens)
@@ -89,6 +87,7 @@ t_dlist	*ft_parsing1(t_dlist *tokens)
 			g_exitcode = 2;
 			continue ;
 		}
+		free(input);
 		return (tokens);
 	}
 }

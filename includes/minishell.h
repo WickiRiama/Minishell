@@ -6,12 +6,14 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/14 14:25:56 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/25 16:38:16 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# include <sys/wait.h>
 
 typedef unsigned int	t_ui;
 extern int				g_exitcode;
@@ -103,6 +105,7 @@ t_env	*ft_lstlast_env(t_env *lst);
 void	ft_lstadd_back_env(t_env **alst, t_env *new);
 void	ft_lstclear_env(t_env **lst, void (*del)(void *));
 void	ft_lstdelone_env(t_env *lst, void (*del)(void *));
+int		ft_lstsize_env(t_env *lst);
 
 //==============================================================================
 // utils
@@ -153,8 +156,17 @@ char	**ft_update_cmd(char **cmd, char *new);
 // Executor
 //==============================================================================
 
-int		ft_executor(t_dlist	*blocks, t_dlist *pipes, t_env *env, char **envp);
+void	ft_close_fd_all(t_dlist *blocks, t_dlist *pipes);
+void	ft_close_fd_parent(t_dlist *blocks, t_dlist *pipes);
+int		ft_executor(t_dlist	*blocks, t_dlist *pipes, t_env *env);
+void	ft_free_lists(t_dlist *blocks, t_dlist *pipes, t_env *env, char **tab);
+int		ft_get_path(t_env *env, char **cmd);
+int		ft_is_builtin(char **cmd);
+char	**ft_list_to_tab(t_env *list);
+void	ft_redir(t_dlist *blocks, t_dlist *pipes);
 int		ft_run_builtin(char **cmd, t_env *env, t_dlist **blocks,
 			t_dlist **pipes);
+int		ft_run_one_builtin(t_dlist *blocks, t_dlist *pipes, t_env *env);
+int		ft_wait(pid_t pid);
 
 #endif
