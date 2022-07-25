@@ -188,6 +188,19 @@ void	ft_free_lists(t_dlist *blocks, t_dlist *pipes, t_env *env)
 	ft_lstclear_env(&env, &free);
 }
 
+void	ft_redir(t_dlist *blocks, t_dlist *pipes)
+{
+	if (((t_exec *)blocks->cont)->outfile >= 0)
+		dup2(((t_exec *)blocks->cont)->outfile, STDOUT_FILENO);
+	else if (pipes && ((t_pipe *)pipes->cont)->pipe_to_write_to >= 0)
+		dup2(((t_pipe *)pipes->cont)->pipe_to_write_to, STDOUT_FILENO);
+	if (((t_exec *)blocks->cont)->infile >= 0)
+		dup2(((t_exec *)blocks->cont)->infile, STDIN_FILENO);
+	else if (pipes && ((t_pipe *)pipes->cont)->pipe_to_read_from >= 0)
+		dup2(((t_pipe *)pipes->cont)->pipe_to_read_from, STDIN_FILENO);
+	ft_close_fd_all(blocks, pipes);
+}
+
 int	ft_run_one_builtin(t_dlist *blocks, t_dlist *pipes, t_env *env)
 {
 	int	status;
@@ -200,20 +213,17 @@ int	ft_run_one_builtin(t_dlist *blocks, t_dlist *pipes, t_env *env)
 		ft_free_lists(blocks, pipes, env);
 		return (1);
 	}
-	if (((t_exec *)blocks->cont)->outfile >= 0)
-		dup2(((t_exec *)blocks->cont)->outfile, STDOUT_FILENO);
-	else if (pipes && ((t_pipe *)pipes->cont)->pipe_to_write_to >= 0)
-		dup2(((t_pipe *)pipes->cont)->pipe_to_write_to, STDOUT_FILENO);
-
-	if (((t_exec *)blocks->cont)->infile >= 0)
-		dup2(((t_exec *)blocks->cont)->infile, STDIN_FILENO);
-	else if (pipes && ((t_pipe *)pipes->cont)->pipe_to_read_from >= 0)
-		dup2(((t_pipe *)pipes->cont)->pipe_to_read_from, STDIN_FILENO);
-	ft_close_fd_all(blocks, pipes);
+	ft_redir(blocks, pipes);
 	status = ft_run_builtin(((t_exec *)blocks->cont)->cmd,
 			env, &blocks, &pipes);
 	return (status);
 }
+void	ft_exit_free(t_dlist *blocks, t_dlist *pipes, t_env *env, int status)
+{
+	ft_free_lists(blocks, pipes, env);
+	exit(status);
+}
+
 char	**ft_list_to_tab(t_env *list)
 {
 	int		size;
@@ -247,48 +257,28 @@ void	ft_child(t_dlist *blocks, t_dlist *pipes, t_env *env, char **env_tab)
 {
 	int	status;
 
-	(void) envp;
-	if (!blocks
-		|| ((t_exec *)blocks->cont)->outfile == -1
+	if (!blocks || ((t_exec *)blocks->cont)->outfile == -1
 		|| ((t_exec *)blocks->cont)->infile == -1)
 	{
 		ft_close_fd_all(blocks, pipes);
-		ft_free_lists(blocks, pipes, env);
-		exit(1);
+		ft_exit_free(blocks, pipes, env, 1);
 	}
-	if (((t_exec *)blocks->cont)->outfile >= 0)
-		dup2(((t_exec *)blocks->cont)->outfile, STDOUT_FILENO);
-	else if (pipes && ((t_pipe *)pipes->cont)->pipe_to_write_to >= 0)
-		dup2(((t_pipe *)pipes->cont)->pipe_to_write_to, STDOUT_FILENO);
-
-	if (((t_exec *)blocks->cont)->infile >= 0)
-		dup2(((t_exec *)blocks->cont)->infile, STDIN_FILENO);
-	else if (pipes && ((t_pipe *)pipes->cont)->pipe_to_read_from >= 0)
-		dup2(((t_pipe *)pipes->cont)->pipe_to_read_from, STDIN_FILENO);
-	ft_close_fd_all(blocks, pipes);
+	ft_redir(blocks, pipes);
 	if (ft_is_builtin(((t_exec *)blocks->cont)->cmd))
 	{
 		status = ft_run_builtin(((t_exec *)blocks->cont)->cmd,
 				env, &blocks, &pipes);
-		ft_free_lists(blocks, pipes, env);
-		exit(status);
+		ft_exit_free(blocks, pipes, env, status);
 	}
 	if (ft_get_path(env, ((t_exec *)blocks->cont)->cmd))
-	{
-		ft_free_lists(blocks, pipes, env);
-		exit (1);
-	}
+		ft_exit_free(blocks, pipes, env, 1);
 	if (((t_exec *)blocks->cont)->cmd[0][0] == '\0')
-	{
-		ft_free_lists(blocks, pipes, env);
-		exit(127);
-	}
+		ft_exit_free(blocks, pipes, env, 127);
 	if (execve(((t_exec *)blocks->cont)->cmd[0], ((t_exec *)blocks->cont)->cmd,
 			env_tab) == -1)
 	{
 		ft_fprintf(2, "%s: %s\n", strerror(errno), ((t_exec *)blocks->cont)->cmd[0]);
-		ft_free_lists(blocks, pipes, env);
-		exit(1);
+		ft_exit_free(blocks, pipes, env, 1);
 	}
 }
 
