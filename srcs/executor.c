@@ -6,13 +6,12 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 15:08:27 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/07/25 15:58:16 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/25 16:38:41 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
 #include <errno.h>
-#include <sys/wait.h>
 
 #include "minishell.h"
 #include "libft.h"
