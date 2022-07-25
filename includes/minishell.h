@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/25 14:19:34 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/25 15:50:42 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,8 +154,17 @@ char	**ft_update_cmd(char **cmd, char *new);
 // Executor
 //==============================================================================
 
+void	ft_close_fd_all(t_dlist *blocks, t_dlist *pipes);
+void	ft_close_fd_parent(t_dlist *blocks, t_dlist *pipes);
 int		ft_executor(t_dlist	*blocks, t_dlist *pipes, t_env *env);
+void	ft_free_lists(t_dlist *blocks, t_dlist *pipes, t_env *env, char **tab);
+int		ft_get_path(t_env *env, char **cmd);
+int		ft_is_builtin(char **cmd);
+char	**ft_list_to_tab(t_env *list);
+void	ft_redir(t_dlist *blocks, t_dlist *pipes);
 int		ft_run_builtin(char **cmd, t_env *env, t_dlist **blocks,
 			t_dlist **pipes);
+int		ft_run_one_builtin(t_dlist *blocks, t_dlist *pipes, t_env *env);
+int		ft_wait(pid_t pid);
 
 #endif
