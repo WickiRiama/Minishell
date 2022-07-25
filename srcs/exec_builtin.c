@@ -6,48 +6,44 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:41:31 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/25 15:53:25 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/25 16:38:29 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <sys/wait.h>
 
 #include "minishell.h"
 #include "libft.h"
 
 int	ft_run_builtin(char **cmd, t_env *env, t_dlist **blocks, t_dlist **pipes)
 {
+	int	result;
+
+	result = 133;
 	if (ft_strcmp(cmd[0], "cd") == 0)
 	{
 		ft_cd(cmd, &env);
-		// return (ft_cd(cmd, &env));
-		return (133);
+		// result =  return (ft_cd(cmd, &env));
 	}
 	else if (ft_strcmp(cmd[0], "echo") == 0)
 	{
 		ft_echo(cmd);
-		// return (ft_echo(cmd));
-		return (133);
+		// result = return (ft_echo(cmd));
 	}
 	else if (ft_strcmp(cmd[0], "pwd") == 0)
 	{
 		ft_pwd();
-		// return (ft_pwd());
-		return (133);
+		// result = return (ft_pwd());
 	}
 	else if (ft_strcmp(cmd[0], "env") == 0)
 	{
 		display_env(env);
-		// return (display_env(env));
-		return (133);
+		// result = return (display_env(env));
 	}
 	else if (ft_strcmp(cmd[0], "exit") == 0)
 	{
 		ft_exit(cmd, blocks, pipes, &env);
-		// return (ft_exit(cmd, blocks, pipes, &env));
-		return (133);
+		// result = return (ft_exit(cmd, blocks, pipes, &env));
 	}
-	return (133);
+	return (result);
 }
 
 int	ft_is_builtin(char **cmd)

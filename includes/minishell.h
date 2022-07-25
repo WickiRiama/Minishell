@@ -6,12 +6,14 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/25 15:50:42 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/25 16:38:16 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# include <sys/wait.h>
 
 typedef unsigned int	t_ui;
 extern int				g_exitcode;
