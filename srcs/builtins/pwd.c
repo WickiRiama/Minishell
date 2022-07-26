@@ -13,6 +13,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
+#include <errno.h>
 #include "libft.h"
 #include "minishell.h"
 
@@ -22,7 +23,10 @@ int	ft_pwd(void)
 
 	ft_pwd = getcwd(NULL, 0);
 	if (!ft_pwd)
+	{
+		ft_fprintf(2, "pwd : %s, errno: %d\n", strerror(errno), errno);
 		return (1);
+	}
 	ft_fprintf(2, "%s\n", ft_pwd);
 	free (ft_pwd);
 	return (0);
