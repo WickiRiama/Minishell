@@ -6,7 +6,7 @@
 #    By: mriant <mriant@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 13:49:10 by mriant            #+#    #+#              #
-#    Updated: 2022/07/25 15:45:44 by mriant           ###   ########.fr        #
+#    Updated: 2022/07/26 11:06:36 by mriant           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,32 +14,38 @@ NAME = minishell
 LIBFT = libft/libft.a
 
 SRCS = ${addprefix srcs/, \
-	blocks_list.c \
-	executor.c \
+	minishell.c \
+	utils.c}
+SRCS += ${addprefix srcs/builtins/, \
+	cd.c \
+	echo.c \
+	env.c \
+	exit.c \
+	export.c \
+	pwd.c \
+	unset.c}
+SRCS += ${addprefix srcs/exec/, \
 	exec_builtin.c \
 	exec_clean.c \
 	exec_utils.c \
-	is_token.c \
-	list.c \
-	list_utils.c \
-	list_env.c \
+	executor.c}
+SRCS += ${addprefix srcs/lists/, \
 	list_env_utils.c \
-	minishell.c \
+	list_env.c \
+	list_utils.c \
+	list.c}
+SRCS += ${addprefix srcs/parsing/, \
+	blocks_list.c \
+	parsing.c \
+	pipes_list.c}
+SRCS += ${addprefix srcs/parsing/tokenisation/, \
+	is_token.c \
 	token_types.c \
 	token_utils.c \
-	tokenisation.c \
-	pwd.c \
-	cd.c \
-	env.c \
-	export.c \
-	unset.c \
-	exit.c \
-	echo.c \
-	parsing.c \
-	pipes_list.c \
-	utils.c \
-	word_expansion.c \
-	word_expansion_utils.c}
+	tokenisation.c}
+SRCS += ${addprefix srcs/parsing/word_expansion/, \
+	word_expansion_utils.c \
+	word_expansion.c}
 
 OBJS = ${SRCS:srcs/%.c=build/%.o}
 DEPS = ${SRCS:srcs/%.c=build/%.d}
@@ -56,7 +62,7 @@ ${LIBFT}:
 	make -C libft
 
 build/%.o: srcs/%.c
-	mkdir -p build
+	mkdir -p ${dir $@}
 	${CC} ${CFLAGS} -c $< -o $@ ${IFLAGS}
 
 .PHONY: clean
