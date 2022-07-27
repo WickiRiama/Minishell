@@ -6,11 +6,14 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/25 16:01:37 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/27 14:27:20 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //Use with --suppressions=.ignore_readline to ignore readline leaks
+
+#include <readline/readline.h>
+#include <readline/history.h>
 
 #include "minishell.h"
 #include "libft.h"
@@ -63,6 +66,7 @@ int	main(int ac, char **av, char **envp)
 		{
 			ft_lstclear_msh(&pipes, &ft_del_pipes);
 			ft_lstclear_env(&env, &free);
+			rl_clear_history();
 			return (1);
 		}
 		ft_executor(blocks, pipes, env);
@@ -70,5 +74,6 @@ int	main(int ac, char **av, char **envp)
 		ft_lstclear_msh(&pipes, &ft_del_pipes);
 	}
 	ft_lstclear_env(&env, &free);
+	rl_clear_history();
 	return (0);
 }

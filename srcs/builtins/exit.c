@@ -6,13 +6,16 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 13:25:07 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/07/11 10:30:52 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/27 14:20:26 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+
 #include "libft.h"
 #include "minishell.h"
 
@@ -67,5 +70,6 @@ int	ft_exit(char **cmd, t_dlist **blocks, t_dlist **pipes, t_env **env)
 	ft_lstclear_msh(blocks, &ft_del_blocks);
 	ft_lstclear_msh(pipes, ft_del_pipes);
 	ft_lstclear_env(env, &free);
+	rl_clear_history();
 	exit(status);
 }
