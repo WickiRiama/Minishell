@@ -66,12 +66,10 @@ int	ft_run_one_builtin(t_dlist *blocks, t_dlist *pipes, t_env *env)
 	int	temp_stdin;
 	int	temp_stdout;
 
-	if (!blocks
-		|| ((t_exec *)blocks->cont)->outfile == -1
+	if (!blocks || ((t_exec *)blocks->cont)->outfile == -1
 		|| ((t_exec *)blocks->cont)->infile == -1)
 	{
 		ft_close_fd_all(blocks, pipes);
-		ft_free_lists(blocks, pipes, env, NULL);
 		return (1);
 	}
 	temp_stdin = dup(0);
