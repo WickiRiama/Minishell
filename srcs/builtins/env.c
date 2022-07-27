@@ -13,6 +13,22 @@
 #include "libft.h"
 #include "minishell.h"
 
+t_env	*ft_get_ptr_env_var(char *var, t_env *env)
+{
+	int		j;
+
+	while (env)
+	{
+		j = 0;
+		while (var[j] == env->var[j])
+			j++;
+		if (var[j] == '\0' && env->var[j] == '=')
+			return (env);
+		env = env->next;
+	}
+	return (NULL);
+}
+
 char	*get_env_var(char **envp, t_env **env)
 {
 	int		i;

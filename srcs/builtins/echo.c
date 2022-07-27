@@ -13,14 +13,35 @@
 #include "libft.h"
 #include "minishell.h"
 
+int	ft_is_nl(char *str)
+{
+	int	i;
+
+	if (ft_strcmp(str, "-n") == 0)
+		return (1);
+	if (str[0] == '-')
+	{
+		i = 1;
+		while (str[i])
+		{
+			if (str[i] == 'n')
+				i++;
+			else
+				return (0);
+		}
+		return (1);
+	}
+	return (0);
+}
+
 int	ft_echo(char **input)
-{	
+{
 	int	nl;
 	int	i;
 
 	nl = 0;
 	i = 1;
-	if (ft_strcmp(input[1], "-n") == 0)
+	while (ft_is_nl(input[i]))
 	{
 		nl = 1;
 		i++;

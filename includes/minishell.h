@@ -95,6 +95,9 @@ int		ft_echo(char **input);
 int		ft_exit(char **cmd, t_dlist **blocks, t_dlist **pipes, t_env **env);
 char	*get_env_var(char **envp, t_env **env);
 void	display_env(t_env *env);
+t_env	*ft_get_ptr_env_var(char *var, t_env *env);
+int		ft_unset(char **cmd, t_env **env);
+// int		ft_export(char **cmd, t_env **env);
 
 //==============================================================================
 // utils_list_env
@@ -112,6 +115,7 @@ int		ft_lstsize_env(t_env *lst);
 //==============================================================================
 
 void	free_tab(char **tab);
+char	*ft_strjoin2(char const *s1, char const *s2);
 
 //==============================================================================
 // Word expansion
@@ -131,16 +135,12 @@ typedef struct s_pipe
 {
 	int				pipe_to_read_from;
 	int				pipe_to_write_to;
-	struct s_pipe	*prev;
-	struct s_pipe	*next;
 }				t_pipe;
 typedef struct s_exec
 {
 	char			**cmd;
 	int				infile;
 	int				outfile;
-	struct s_exec	*prev;
-	struct s_exec	*next;
 }			t_exec;
 int		ft_add_block(t_dlist *tokens, t_dlist **blocks);
 int		ft_add_pipe(t_dlist **pipes);

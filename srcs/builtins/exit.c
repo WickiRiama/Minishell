@@ -59,9 +59,9 @@ int	check_arg_and_get_status(char **input)
 
 int	ft_exit(char **cmd, t_dlist **blocks, t_dlist **pipes, t_env **env)
 {
-	(void)env;
 	int	status;
 
+	(void)env;
 	ft_printf("exit\n");
 	status = check_arg_and_get_status(cmd);
 	ft_lstclear_msh(blocks, &ft_del_blocks);
