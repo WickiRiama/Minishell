@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:41:31 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/25 16:38:29 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/27 12:13:53 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,28 @@ int	ft_is_builtin(char **cmd)
 int	ft_run_one_builtin(t_dlist *blocks, t_dlist *pipes, t_env *env)
 {
 	int	status;
+	int	temp_stdin;
+	int	temp_stdout;
 
-	if (!blocks
-		|| ((t_exec *)blocks->cont)->outfile == -1
+	if (!blocks || ((t_exec *)blocks->cont)->outfile == -1
 		|| ((t_exec *)blocks->cont)->infile == -1)
 	{
 		ft_close_fd_all(blocks, pipes);
-		ft_free_lists(blocks, pipes, env, NULL);
 		return (1);
+	}
+	temp_stdin = dup(0);
+	temp_stdout = dup(1);
+	if (ft_strcmp("exit", ((t_exec *)blocks->cont)->cmd[0]) == 0)
+	{
+		close(temp_stdin);
+		close(temp_stdout);
 	}
 	ft_redir(blocks, pipes);
 	status = ft_run_builtin(((t_exec *)blocks->cont)->cmd,
 			env, &blocks, &pipes);
+	dup2(temp_stdin, 0);
+	dup2(temp_stdout, 1);
+	close(temp_stdin);
+	close(temp_stdout);
 	return (status);
 }
