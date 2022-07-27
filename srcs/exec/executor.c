@@ -6,12 +6,14 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 15:08:27 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/07/25 16:38:41 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/27 14:24:24 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
 #include <errno.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 #include "minishell.h"
 #include "libft.h"
@@ -27,11 +29,13 @@ void	ft_child_bis(t_dlist *blocks, t_dlist *pipes, t_env *env,
 		status = ft_run_builtin(((t_exec *)blocks->cont)->cmd,
 				env, &blocks, &pipes);
 		ft_free_lists(blocks, pipes, env, env_tab);
+		rl_clear_history();
 		exit(status);
 	}
 	if (ft_get_path(env, ((t_exec *)blocks->cont)->cmd))
 	{
 		ft_free_lists(blocks, pipes, env, env_tab);
+		rl_clear_history();
 		exit(1);
 	}
 }
@@ -46,6 +50,7 @@ void	ft_child(t_dlist *blocks, t_dlist *pipes, t_env *env, char **env_tab)
 	{
 		ft_close_fd_all(blocks, pipes);
 		ft_free_lists(blocks, pipes, env, env_tab);
+		rl_clear_history();
 		exit(1);
 	}
 	ft_child_bis(blocks, pipes, env, env_tab);
@@ -58,6 +63,7 @@ void	ft_child(t_dlist *blocks, t_dlist *pipes, t_env *env, char **env_tab)
 		status = 1;
 	}
 	ft_free_lists(blocks, pipes, env, env_tab);
+	rl_clear_history();
 	exit(status);
 }
 
@@ -95,6 +101,7 @@ int	ft_executor(t_dlist	*blocks, t_dlist *pipes, t_env *env)
 			{
 				ft_close_fd_all(blocks, pipes);
 				ft_free_lists(blocks, pipes, env, NULL);
+				rl_clear_history();
 				exit(1);
 			}
 			blocks = blocks->next;
