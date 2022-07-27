@@ -27,7 +27,7 @@ int	ft_pwd(void)
 		ft_fprintf(2, "pwd : %s, errno: %d\n", strerror(errno), errno);
 		return (1);
 	}
-	ft_fprintf(2, "%s\n", ft_pwd);
+	ft_fprintf(1, "%s\n", ft_pwd);
 	free (ft_pwd);
 	return (0);
 }

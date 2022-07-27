@@ -13,8 +13,7 @@
 #include "minishell.h"
 #include "libft.h"
 
-
-
+/*
 // int	ft_unset(char **path, t_env **env)
 // {
 // 	int	i;
@@ -29,9 +28,7 @@
 
 // 	}
 
-
-
-
 // 	ft_lstdelone_env(ft_get_ptr_env_var(path[1], *env), &free);
 // 	return (0);
 // }
+*/
