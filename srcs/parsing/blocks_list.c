@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:30:22 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/12 16:28:15 by mriant           ###   ########.fr       */
+/*   Updated: 2022/07/27 15:25:27 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,16 @@ int	ft_fill_block(t_dlist *tokens, t_exec *new_block)
 		if (!new_block->cmd)
 			return (1);
 	}
-	else if (((t_token *)tokens->cont)->type == INFILE
-		|| ((t_token *)tokens->cont)->type == OUTFILE
-		|| ((t_token *)tokens->cont)->type == APP_FILE)
+	else if ((((t_token *)tokens->cont)->type == INFILE
+			|| ((t_token *)tokens->cont)->type == OUTFILE
+			|| ((t_token *)tokens->cont)->type == APP_FILE)
+		&& new_block->infile != -1)
 	{
 		ft_open_redir(tokens, new_block);
+		if (new_block->infile == -1)
+			new_block->outfile = -1;
+		else if (new_block->outfile == -1)
+			new_block->infile = -1;
 	}
 	return (0);
 }
