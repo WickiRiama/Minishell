@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:39:25 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/27 14:13:58 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/01 15:08:21 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ t_dlist	*ft_parsing1(t_dlist *tokens)
 		if (ft_token_types(tokens))
 		{
 			ft_lstclear_msh(&tokens, ft_del_token);
-			g_exitcode = 2;
 			continue ;
 		}
 		free(input);

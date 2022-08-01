@@ -6,7 +6,7 @@
 #    By: mriant <mriant@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 13:49:10 by mriant            #+#    #+#              #
-#    Updated: 2022/07/26 11:06:36 by mriant           ###   ########.fr        #
+#    Updated: 2022/08/01 15:14:57 by mriant           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,5 +76,9 @@ fclean: clean
 .PHONY: re
 re: fclean
 	make -C.
+
+.PHONY: grind
+grind: ${NAME}
+	valgrind --suppressions=.ignore_readline --track-fds=yes --trace-children=yes ./minishell
 
 -include ${DEP}
