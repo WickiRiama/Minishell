@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:42:00 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/25 16:38:35 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/01 15:50:00 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_get_cmdpath(char **cmd, char **paths)
 	char	*s;
 
 	i = 0;
-	while (paths && paths[i])
+	while (paths && paths[i] && cmd && cmd[0] && cmd[0][0])
 	{
 		s = ft_strjoin(paths[i], cmd[0], "/");
 		if (!s)
@@ -35,7 +35,7 @@ int	ft_get_cmdpath(char **cmd, char **paths)
 	}
 	if (!ft_strchr(cmd[0], '/') || access(cmd[0], X_OK) == -1)
 	{
-		ft_fprintf(2, "%s: %s\n", "command not found", cmd[0]);
+		ft_fprintf(2, "%s: '%s'\n", "command not found", cmd[0]);
 		cmd[0][0] = '\0';
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:38:12 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/11 16:41:29 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/01 14:56:10 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,26 +35,24 @@ void	ft_del_token(void *content)
 t_dlist	*ft_trim_empty_token(t_dlist *tokens)
 {
 	t_dlist	*temp;
-	t_dlist	*last;
+	t_dlist	*start;
 
-	last = NULL;
+	start = tokens;
 	while (tokens)
 	{
-		if (((t_token *)tokens->cont)->text[0] == '\0')
+		if (((t_token *)tokens->cont)->text[0] == '\0'
+			&& ft_lstsize_msh(start) > 1)
 		{
 			temp = tokens;
 			tokens = tokens->next;
+			if (!temp->prev)
+				start = tokens;
 			ft_lstdelone_msh(temp, &ft_del_token);
 		}
 		else
-		{
-			last = tokens;
 			tokens = tokens->next;
-		}
 	}
-	while (last->prev)
-		last = last->prev;
-	return (last);
+	return (start);
 }
 
 t_token	*ft_init_token(t_ui start, t_ui i, char *input)

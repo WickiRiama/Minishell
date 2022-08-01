@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/25 16:38:16 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/01 14:46:19 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	ft_lstclear_msh(t_dlist **lst, void (*del)(void *));
 void	ft_lstdelone_msh(t_dlist *lst, void (*del)(void *));
 t_dlist	*ft_lstlast_msh(t_dlist *lst);
 t_dlist	*ft_lstnew_msh(void *content);
+int		ft_lstsize_msh(t_dlist *lst);
 
 //==============================================================================
 // Tokenisation

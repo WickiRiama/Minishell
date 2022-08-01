@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 12:11:49 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/07 13:59:08 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/01 16:27:01 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,13 @@ void	ft_check_token(t_dlist **tokens, t_state *state)
 	{
 		ft_fprintf(2, "Syntax error: unclosed quote '''.\n");
 		((t_token *)(*tokens)->cont)->type = QUOTE_ERR;
+		g_exitcode = 2;
 	}
 	else if (state->dquoted == 1)
 	{
 		ft_fprintf(2, "Syntax error: unclosed quote '\"'.\n");
 		((t_token *)(*tokens)->cont)->type = QUOTE_ERR;
+		g_exitcode = 2;
 	}
 	else
 		*tokens = ft_trim_empty_token(*tokens);
