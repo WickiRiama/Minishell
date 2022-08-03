@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:24:59 by mriant            #+#    #+#             */
-/*   Updated: 2022/08/03 14:33:56 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/03 17:17:07 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	ft_here_doc(t_dlist *tokens, t_env **env)
 	ft_find_here_name("here_doc00", name);
 	fd = open(name, O_WRONLY | O_CREAT, 00644);
 	if (fd == -1)
+		// ERROR message
 		return (fd);
 	input = readline("here_doc > ");
 	if (!input)
@@ -61,5 +62,6 @@ int	ft_here_doc(t_dlist *tokens, t_env **env)
 	write(fd, "\n", 1);
 	close(fd);
 	fd = open(name, O_RDONLY);
+	unlink(name);
 	return (fd);
 }
