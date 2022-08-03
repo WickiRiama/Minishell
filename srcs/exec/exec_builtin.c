@@ -42,6 +42,7 @@ int	ft_run_builtin(char **cmd, t_env *env, t_dlist **blocks, t_dlist **pipes)
 	{
 		ft_exit(cmd, blocks, pipes, &env);
 		// result = return (ft_exit(cmd, blocks, pipes, &env));
+		result = g_exitcode;
 	}
 	return (result);
 }
