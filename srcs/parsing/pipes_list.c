@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:46:19 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/27 15:46:43 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/03 14:14:57 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ void	ft_open_redir(t_dlist *tokens, t_exec *blocks)
 	else if (((t_token *)tokens->cont)->type == APP_FILE)
 		blocks->outfile = open(((t_token *)tokens->cont)->text, \
 			O_WRONLY | O_CREAT | O_APPEND, 00644);
+	else if (((t_token *)tokens->cont)->type == DELIM)
+		blocks->infile = ft_here_doc(tokens, env);
 	if (blocks->infile == -1 || blocks->outfile == -1)
 		ft_fprintf(2, "%s: %s\n", \
 			strerror(errno), ((t_token *)tokens->cont)->text);
