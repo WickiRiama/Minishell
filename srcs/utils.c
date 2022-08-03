@@ -42,3 +42,15 @@ char	*ft_strjoin2(char const *s1, char const *s2)
 	ft_strlcat((char *)new_str, s2, size);
 	return (new_str);
 }
+
+int	len_arg_tab(char **input)
+{
+	int	i;
+
+	i = 0;
+	while (input && input[i])
+	{
+		i++;
+	}
+	return (i);
+}

@@ -93,7 +93,6 @@ int		ft_pwd(void);
 int		ft_cd(char **path, t_env **env);
 int		ft_echo(char **input);
 int		ft_exit(char **cmd, t_dlist **blocks, t_dlist **pipes, t_env **env);
-int		len_arg_tab(char **input);
 char	*get_env_var(char **envp, t_env **env);
 void	display_env(t_env *env);
 t_env	*ft_get_ptr_env_var(char *var, t_env *env);
@@ -117,6 +116,7 @@ int		ft_lstsize_env(t_env *lst);
 
 void	free_tab(char **tab);
 char	*ft_strjoin2(char const *s1, char const *s2);
+int		len_arg_tab(char **input);
 
 //==============================================================================
 // Word expansion
