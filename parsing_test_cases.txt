@@ -10,3 +10,12 @@ Hi"Hello pouet"Hi
 $USERi $USER/test test$USER
 h"hello"i "pouet'hi'" 'pouet' '"hi"'
 echo a > $USER
+exit 256
+exit 255
+exit +42
+exit -42
+exit ++++++++42
+exit --------42
+exit 123a
+exit a 1 2
+exit 1 2 3

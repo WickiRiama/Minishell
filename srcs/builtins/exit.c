@@ -31,34 +31,13 @@ int	len_arg_tab(char **input)
 	return (i);
 }
 
-// int	check_arg_and_get_status(char **input)
-// {
-// 	int	i;
-// 	int	len;
-
-// 	i = 0;
-// 	while (input[1])
-// 	{
-// 		if (!ft_isdigit(input[1][i]))
-// 		{
-// 			ft_fprintf(2, "%s: %s: numeric argument required\n", input[0],
-// 				input[1]);
-// 			return (2);
-// 		}
-// 		else
-// 		{
-// 			len = len_arg_tab(input);
-// 			if (len > 2)
-// 			{
-// 				ft_fprintf(2, "%s: too many arguments\n", input[0]);
-// 				return (1);
-// 			}
-// 			return (ft_atoi(input[1]));
-// 		}
-// 		i++;
-// 	}
-// 	return (0);
-// }
+int	is_pos_or_neg(char c)
+{
+	if (c == '+' || c == '-')
+		return (1);
+	else
+		return (0);
+}
 
 int	check_arg_and_get_status(char **input)
 {
@@ -67,10 +46,30 @@ int	check_arg_and_get_status(char **input)
 
 	i = 0;
 	len = len_arg_tab(input);
-	while (input[1])
+	if (len > 2)
 	{
-		
+		ft_fprintf(2, "%s: too many arguments\n", input[0]);
+		// g_exitcode = 1;
+		return (1);
 	}
+	else if (input[1])
+	{
+		if (is_pos_or_neg(input[1][i]))
+			i++;
+		while (input[1][i])
+		{
+			if (!ft_isdigit(input[1][i]))
+			{
+				ft_fprintf(2, "%s: %s: numeric argument required\n", input[0],
+					input[1]);
+				return (2);
+			}
+			i++;
+		}
+		return (ft_atoi(input[1]));
+	}
+	else
+		return (g_exitcode);
 }
 
 int	ft_exit(char **cmd, t_dlist **blocks, t_dlist **pipes, t_env **env)
@@ -85,5 +84,11 @@ int	ft_exit(char **cmd, t_dlist **blocks, t_dlist **pipes, t_env **env)
 	ft_lstclear_env(env, &free);
 	rl_clear_history();
 	//close fd?
-	exit(status);
+	
+	//PSEUDO CODE
+	// if (status !=1)
+		exit(status);
+	// else
+		// printf too many argument
+	//FIN DU PSEUDO CODE
 }
