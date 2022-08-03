@@ -56,6 +56,7 @@ int	ft_here_doc(t_dlist *tokens, t_env **env)
 		ft_fprintf(2, 
 			"warning: here-document delimited by end-of-file (wanted '%s')\n", 
 			((t_token *)tokens->cont)->text);
+	ft_token_expanse(input, env);
 	write(fd, input, ft_strlen(input));
 	write(fd, "\n", 1);
 	close(fd);

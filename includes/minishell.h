@@ -144,13 +144,13 @@ typedef struct s_exec
 	int				infile;
 	int				outfile;
 }			t_exec;
-int		ft_add_block(t_dlist *tokens, t_dlist **blocks);
+int		ft_add_block(t_dlist *tokens, t_dlist **blocks, t_env **env);
 int		ft_add_pipe(t_dlist **pipes);
-t_dlist	*ft_cmd_orga(t_dlist *tokens, t_dlist **pipes);
+t_dlist	*ft_cmd_orga(t_dlist *tokens, t_dlist **pipes, t_env **env);
 int		ft_copy_tab(char **dest, char **src);
 void	ft_del_blocks(void *content);
 void	ft_del_pipes(void *content);
-void	ft_open_redir(t_dlist *tokens, t_exec *blocks);
+void	ft_open_redir(t_dlist *tokens, t_exec *blocks, t_env **env);
 t_dlist	*ft_parsing(t_dlist **pipes, t_env **env);
 char	**ft_update_cmd(char **cmd, char *new);
 

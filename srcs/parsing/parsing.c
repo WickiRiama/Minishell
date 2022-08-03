@@ -35,14 +35,14 @@ int	ft_copy_tab(char **dest, char **src)
 	return (0);
 }
 
-t_dlist	*ft_cmd_orga(t_dlist *tokens, t_dlist **pipes)
+t_dlist	*ft_cmd_orga(t_dlist *tokens, t_dlist **pipes, t_env **env)
 {
 	t_dlist	*blocks;
 
 	blocks = NULL;
 	while (tokens)
 	{
-		if (ft_add_block(tokens, &blocks) == 1)
+		if (ft_add_block(tokens, &blocks, env) == 1)
 		{
 			ft_lstclear_msh(&blocks, &ft_del_blocks);
 			ft_lstclear_msh(pipes, &ft_del_pipes);
@@ -103,7 +103,7 @@ t_dlist	*ft_parsing(t_dlist **pipes, t_env **env)
 		return (NULL);
 	if (ft_wexpanse(&tokens, env))
 		return (NULL);
-	blocks = ft_cmd_orga(tokens, pipes);
+	blocks = ft_cmd_orga(tokens, pipes, env);
 	if (!blocks)
 	{
 		ft_lstclear_msh(&tokens, ft_del_token);

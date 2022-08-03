@@ -101,7 +101,7 @@ int	ft_add_pipe(t_dlist **pipes)
 	return (0);
 }
 
-void	ft_open_redir(t_dlist *tokens, t_exec *blocks)
+void	ft_open_redir(t_dlist *tokens, t_exec *blocks, t_env **env)
 {
 	if (((t_token *)tokens->cont)->type == INFILE)
 		blocks->infile = open(((t_token *)tokens->cont)->text, O_RDONLY);
