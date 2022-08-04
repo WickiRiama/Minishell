@@ -19,13 +19,9 @@ int	ft_run_builtin(char **cmd, t_env *env, t_dlist **blocks, t_dlist **pipes)
 
 	result = 133;
 	if (ft_strcmp(cmd[0], "cd") == 0)
-	{
 		result = (ft_cd(cmd, &env));
-	}
 	else if (ft_strcmp(cmd[0], "echo") == 0)
-	{
 		result = (ft_echo(cmd));
-	}
 	else if (ft_strcmp(cmd[0], "pwd") == 0)
 	{
 		ft_pwd();
@@ -37,9 +33,9 @@ int	ft_run_builtin(char **cmd, t_env *env, t_dlist **blocks, t_dlist **pipes)
 		// result =  (display_env(env));
 	}
 	else if (ft_strcmp(cmd[0], "exit") == 0)
-	{
 		result = ft_exit(cmd, blocks, pipes, &env);
-	}
+	else if (ft_strcmp(cmd[0], "unset") == 0)
+		result = (ft_unset(cmd, &env));
 	return (result);
 }
 
