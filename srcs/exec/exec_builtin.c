@@ -20,29 +20,25 @@ int	ft_run_builtin(char **cmd, t_env *env, t_dlist **blocks, t_dlist **pipes)
 	result = 133;
 	if (ft_strcmp(cmd[0], "cd") == 0)
 	{
-		ft_cd(cmd, &env);
-		// result =  return (ft_cd(cmd, &env));
+		result = (ft_cd(cmd, &env));
 	}
 	else if (ft_strcmp(cmd[0], "echo") == 0)
 	{
-		ft_echo(cmd);
-		// result = return (ft_echo(cmd));
+		result = (ft_echo(cmd));
 	}
 	else if (ft_strcmp(cmd[0], "pwd") == 0)
 	{
 		ft_pwd();
-		// result = return (ft_pwd());
+		// result =  (ft_pwd());
 	}
 	else if (ft_strcmp(cmd[0], "env") == 0)
 	{
 		display_env(env);
-		// result = return (display_env(env));
+		// result =  (display_env(env));
 	}
 	else if (ft_strcmp(cmd[0], "exit") == 0)
 	{
-		ft_exit(cmd, blocks, pipes, &env);
-		// result = return (ft_exit(cmd, blocks, pipes, &env));
-		result = g_exitcode;
+		result = ft_exit(cmd, blocks, pipes, &env);
 	}
 	return (result);
 }

@@ -73,7 +73,6 @@ int	ft_exit(char **cmd, t_dlist **blocks, t_dlist **pipes, t_env **env)
 	if (status == -1)
 	{
 		ft_fprintf(2, "%s: too many arguments\n", cmd[0]);
-		g_exitcode = 1;
 		return (1);
 	}
 	else
@@ -82,7 +81,6 @@ int	ft_exit(char **cmd, t_dlist **blocks, t_dlist **pipes, t_env **env)
 		ft_lstclear_msh(pipes, ft_del_pipes);
 		ft_lstclear_env(env, &free);
 		rl_clear_history();
-		ft_close_fd_all(*blocks, *pipes);
 		g_exitcode = status;
 		exit(status);
 	}
