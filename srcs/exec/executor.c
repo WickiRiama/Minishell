@@ -110,6 +110,7 @@ int	ft_executor(t_dlist	*blocks, t_dlist *pipes, t_env *env)
 		}
 		result = ft_wait(pid);
 	}
-	g_exitcode = WEXITSTATUS(result);
-	return (WEXITSTATUS(result));
+	g_exitcode = result;
+	// return (WEXITSTATUS(result));
+	return (result);
 }
