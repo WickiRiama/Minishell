@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:41:31 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/27 12:13:53 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/04 10:27:02 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ int	ft_run_one_builtin(t_dlist *blocks, t_dlist *pipes, t_env *env)
 	}
 	temp_stdin = dup(0);
 	temp_stdout = dup(1);
-	if (ft_strcmp("exit", ((t_exec *)blocks->cont)->cmd[0]) == 0)
+	if (ft_strcmp("exit", ((t_exec *)blocks->cont)->cmd[0]) == 0
+		&& len_arg_tab(((t_exec *)blocks->cont)->cmd) < 2)
 	{
 		close(temp_stdin);
 		close(temp_stdout);
