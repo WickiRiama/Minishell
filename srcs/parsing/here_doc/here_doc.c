@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:24:59 by mriant            #+#    #+#             */
-/*   Updated: 2022/08/03 17:17:07 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/05 10:54:31 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ void	ft_find_here_name(char *s1, char name[11])
 	int		i;
 
 	i = 0;
-	while(i < 10 && s1[i])
+	while (i < 10 && s1[i])
 	{
 		name[i] = s1[i];
 		i++;
 	}
 	name[i] = '\0';
 	i = 1;
-	while(i < 100 && access(name, F_OK) == 0)
+	while (i < 100 && access(name, F_OK) == 0)
 	{
 		name[8] = '0' + i / 10;
 		name[9] = '0' + i % 10;
@@ -41,25 +41,38 @@ void	ft_find_here_name(char *s1, char name[11])
 	}
 }
 
+void	ft_write_here_doc(int fd, t_dlist *tokens, t_env **env)
+{
+	char	*input;
+
+	input = readline("here_doc > ");
+	while (input && ft_strcmp(input, ((t_token *)tokens->cont)->text) != 0)
+	{
+		input = ft_token_expanse(input, env);
+		if (!input)
+			return ;
+		write(fd, input, ft_strlen(input));
+		write(fd, "\n", 1);
+		free(input);
+		input = readline("here_doc > ");
+	}
+	if (!input)
+		ft_fprintf(2,
+			"\rwarning: here-document delimited by end-of-file (wanted '%s')\n",
+			((t_token *)tokens->cont)->text);
+	free(input);
+}
+
 int	ft_here_doc(t_dlist *tokens, t_env **env)
 {
 	char	name[11];
-	char	*input;
 	int		fd;
 
 	ft_find_here_name("here_doc00", name);
 	fd = open(name, O_WRONLY | O_CREAT, 00644);
 	if (fd == -1)
-		// ERROR message
 		return (fd);
-	input = readline("here_doc > ");
-	if (!input)
-		ft_fprintf(2, 
-			"warning: here-document delimited by end-of-file (wanted '%s')\n", 
-			((t_token *)tokens->cont)->text);
-	ft_token_expanse(input, env);
-	write(fd, input, ft_strlen(input));
-	write(fd, "\n", 1);
+	ft_write_here_doc(fd, tokens, env);
 	close(fd);
 	fd = open(name, O_RDONLY);
 	unlink(name);

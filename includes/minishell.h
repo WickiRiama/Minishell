@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/08/03 14:06:37 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/05 10:47:37 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,11 +171,10 @@ int		ft_run_builtin(char **cmd, t_env *env, t_dlist **blocks,
 int		ft_run_one_builtin(t_dlist *blocks, t_dlist *pipes, t_env *env);
 int		ft_wait(pid_t pid);
 
-
 //==============================================================================
 // Here Document
 //==============================================================================
 
-int	ft_here_doc(t_dlist *tokens, t_env **env);
+int		ft_here_doc(t_dlist *tokens, t_env **env);
 
 #endif
