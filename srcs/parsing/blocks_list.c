@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:30:22 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/27 15:25:27 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/03 14:01:16 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "minishell.h"
 #include "libft.h"
 
-int	ft_fill_block(t_dlist *tokens, t_exec *new_block)
+int	ft_fill_block(t_dlist *tokens, t_exec *new_block, t_env **env)
 {
 	if (((t_token *)tokens->cont)->type == WORD)
 	{
@@ -26,10 +26,11 @@ int	ft_fill_block(t_dlist *tokens, t_exec *new_block)
 	}
 	else if ((((t_token *)tokens->cont)->type == INFILE
 			|| ((t_token *)tokens->cont)->type == OUTFILE
-			|| ((t_token *)tokens->cont)->type == APP_FILE)
+			|| ((t_token *)tokens->cont)->type == APP_FILE
+			|| ((t_token *)tokens->cont)->type == DELIM)
 		&& new_block->infile != -1)
 	{
-		ft_open_redir(tokens, new_block);
+		ft_open_redir(tokens, new_block, env);
 		if (new_block->infile == -1)
 			new_block->outfile = -1;
 		else if (new_block->outfile == -1)
@@ -38,7 +39,7 @@ int	ft_fill_block(t_dlist *tokens, t_exec *new_block)
 	return (0);
 }
 
-t_exec	*ft_init_block(t_dlist *tokens)
+t_exec	*ft_init_block(t_dlist *tokens, t_env **env)
 {
 	t_exec	*block;
 
@@ -53,7 +54,7 @@ t_exec	*ft_init_block(t_dlist *tokens)
 	block->outfile = -2;
 	while (tokens && ((t_token *)tokens->cont)->type != PIPE)
 	{
-		if (ft_fill_block(tokens, block) == 1)
+		if (ft_fill_block(tokens, block, env) == 1)
 		{
 			ft_del_blocks((void *)block);
 			ft_fprintf(2, "System error. Malloc failed.\n");
@@ -77,12 +78,12 @@ void	ft_del_blocks(void *content)
 	free(content);
 }
 
-int	ft_add_block(t_dlist *tokens, t_dlist **blocks)
+int	ft_add_block(t_dlist *tokens, t_dlist **blocks, t_env **env)
 {
 	t_exec	*block_struct;
 	t_dlist	*new_block;
 
-	block_struct = ft_init_block(tokens);
+	block_struct = ft_init_block(tokens, env);
 	if (!block_struct)
 		return (1);
 	new_block = ft_lstnew_msh((void *)block_struct);
