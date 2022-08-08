@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 13:25:07 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/07/27 14:20:26 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/08 17:14:54 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,15 @@ int	ft_exit(char **cmd, t_dlist **blocks, t_dlist **pipes, t_env **env)
 	ft_lstclear_env(env, &free);
 	rl_clear_history();
 	exit(status);
+}
+
+void	ft_exit_ctrld(t_dlist **pipes, t_env **env)
+{
+	char	*cmd_tab[2];
+	char	cmd[5];
+
+	ft_strlcpy(cmd, "exit", 5);
+	cmd_tab[0] = cmd;
+	cmd_tab[1] = NULL;
+	ft_exit(cmd_tab, NULL, pipes, env);
 }

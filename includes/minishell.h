@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/08/08 14:05:39 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/08 17:13:59 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int		ft_pwd(void);
 int		ft_cd(char **path, t_env **env);
 int		ft_echo(char **input);
 int		ft_exit(char **cmd, t_dlist **blocks, t_dlist **pipes, t_env **env);
+void	ft_exit_ctrld(t_dlist **pipes, t_env **env);
 char	*get_env_var(char **envp, t_env **env);
 void	display_env(t_env *env);
 t_env	*ft_get_ptr_env_var(char *var, t_env *env);
