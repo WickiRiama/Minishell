@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:42:00 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/25 16:38:35 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/08 12:01:43 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,5 +125,5 @@ int	ft_wait(pid_t pid)
 			result = status;
 		i = wait(&status);
 	}
-	return (result);
+	return (WEXITSTATUS(result));
 }
