@@ -6,7 +6,7 @@
 #    By: mriant <mriant@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 13:49:10 by mriant            #+#    #+#              #
-#    Updated: 2022/08/08 14:26:27 by mriant           ###   ########.fr        #
+#    Updated: 2022/08/08 17:07:34 by mriant           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,6 +82,6 @@ re: fclean
 
 .PHONY: grind
 grind: ${NAME}
-	valgrind --suppressions=.ignore_readline --track-fds=yes --trace-children=yes ./minishell
+	valgrind --suppressions=.ignore_readline --track-fds=yes --trace-children=yes --leak-check=full --show-leak-kinds=all ./minishell
 
 -include ${DEP}

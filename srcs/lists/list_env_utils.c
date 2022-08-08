@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 16:13:00 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/07/25 13:54:45 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/08 16:59:23 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	ft_lstclear_env(t_env **lst, void (*del)(void *))
 	t_env	*temp1;
 	t_env	*temp2;
 
+	if (!lst)
+		return ;
 	temp2 = *lst;
 	while (temp2)
 	{
