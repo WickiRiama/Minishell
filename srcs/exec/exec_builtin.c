@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:41:31 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/27 12:13:53 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/08 10:31:49 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	ft_run_builtin(char **cmd, t_env *env, t_dlist **blocks, t_dlist **pipes)
 
 int	ft_is_builtin(char **cmd)
 {
+	if (!cmd)
+		return (0);
 	if (ft_strcmp(cmd[0], "cd") == 0
 		|| ft_strcmp(cmd[0], "echo") == 0
 		|| ft_strcmp(cmd[0], "pwd") == 0

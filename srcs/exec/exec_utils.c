@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:42:00 by mriant            #+#    #+#             */
-/*   Updated: 2022/08/01 15:50:00 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/08 11:06:24 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ int	ft_wait(pid_t pid)
 	int	status;
 	int	result;
 
+	if (pid == -2)
+		return (0);
 	i = wait(&status);
 	while (i > 0)
 	{
