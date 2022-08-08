@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:30:22 by mriant            #+#    #+#             */
-/*   Updated: 2022/08/03 14:01:16 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/08 14:27:00 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	ft_fill_block(t_dlist *tokens, t_exec *new_block, t_env **env)
 			|| ((t_token *)tokens->cont)->type == DELIM)
 		&& new_block->infile != -1)
 	{
+		ft_close_old_redir(tokens, new_block);
 		ft_open_redir(tokens, new_block, env);
 		if (new_block->infile == -1)
 			new_block->outfile = -1;

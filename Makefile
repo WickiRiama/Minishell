@@ -6,7 +6,7 @@
 #    By: mriant <mriant@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 13:49:10 by mriant            #+#    #+#              #
-#    Updated: 2022/08/03 11:03:58 by mriant           ###   ########.fr        #
+#    Updated: 2022/08/08 14:26:27 by mriant           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,8 @@ SRCS += ${addprefix srcs/lists/, \
 SRCS += ${addprefix srcs/parsing/, \
 	blocks_list.c \
 	parsing.c \
-	pipes_list.c}
+	pipes_list.c \
+	redir.c}
 SRCS += ${addprefix srcs/parsing/here_doc/, \
 	here_doc.c}
 SRCS += ${addprefix srcs/parsing/tokenisation/, \
