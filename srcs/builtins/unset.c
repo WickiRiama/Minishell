@@ -29,7 +29,7 @@
 // 		return (0);
 // }
 
-// int	get_ret(char *input, t_env **env)
+// int	get_return_value(char *input, t_env **env)
 // {
 // 	int	i;
 
@@ -79,11 +79,27 @@
 // 	return (0);
 // }
 
+int	check_arg(char **input)
+{
+	if (input[1])
+	{
+		if (check_digit(input))
+			return (2);
+		if (len > 2)
+			return (-1);
+		else
+			return (ft_atoi(input[1]));
+	}
+	else
+		return (g_exitcode);
+}
+
 int	ft_unset(char **input, t_env **env)
 {
 	int	i;
 
 	i = 1;
+
 	while ((input[i]) && (i <= len_arg_tab(input)))
 	{
 		if (ft_get_ptr_env_var(input[i], *env) != NULL)
