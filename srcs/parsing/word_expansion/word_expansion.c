@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 11:32:25 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/13 13:29:57 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/01 17:33:15 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,9 @@ int	ft_wexpanse(t_dlist **tokens, t_env	**envp)
 	temp = *tokens;
 	while (temp)
 	{
-		((t_token *)temp->cont)->text = \
-			ft_token_expanse(((t_token *)temp->cont)->text, envp);
+		if (((t_token *)temp->cont)->type != DELIM)
+			((t_token *)temp->cont)->text = \
+				ft_token_expanse(((t_token *)temp->cont)->text, envp);
 		if (!((t_token *)temp->cont)->text)
 		{
 			ft_lstclear_msh(tokens, &ft_del_token);

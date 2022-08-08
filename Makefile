@@ -6,7 +6,7 @@
 #    By: mriant <mriant@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 13:49:10 by mriant            #+#    #+#              #
-#    Updated: 2022/07/26 11:06:36 by mriant           ###   ########.fr        #
+#    Updated: 2022/08/08 17:07:34 by mriant           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,10 @@ SRCS += ${addprefix srcs/lists/, \
 SRCS += ${addprefix srcs/parsing/, \
 	blocks_list.c \
 	parsing.c \
-	pipes_list.c}
+	pipes_list.c \
+	redir.c}
+SRCS += ${addprefix srcs/parsing/here_doc/, \
+	here_doc.c}
 SRCS += ${addprefix srcs/parsing/tokenisation/, \
 	is_token.c \
 	token_types.c \
@@ -76,5 +79,9 @@ fclean: clean
 .PHONY: re
 re: fclean
 	make -C.
+
+.PHONY: grind
+grind: ${NAME}
+	valgrind --suppressions=.ignore_readline --track-fds=yes --trace-children=yes --leak-check=full --show-leak-kinds=all ./minishell
 
 -include ${DEP}

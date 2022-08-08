@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 09:22:11 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/07 13:57:56 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/01 15:10:04 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 void	ft_synt_err(char *token)
 {
 	ft_fprintf(2, "Syntax error near unexpected token '%s'\n", token);
+	g_exitcode = 2;
 }
 
 int	ft_redirin_type(t_dlist *tokens)
@@ -82,7 +83,8 @@ int	ft_token_types(t_dlist *tokens)
 	int	ret;
 
 	ret = 0;
-	if (((t_token *)tokens->cont)->type == QUOTE_ERR)
+	if (((t_token *)tokens->cont)->type == QUOTE_ERR
+		|| ((t_token *)tokens->cont)->text[0] == '\0')
 		return (1);
 	while (tokens)
 	{

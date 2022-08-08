@@ -41,6 +41,8 @@ int	ft_run_builtin(char **cmd, t_env *env, t_dlist **blocks, t_dlist **pipes)
 
 int	ft_is_builtin(char **cmd)
 {
+	if (!cmd)
+		return (0);
 	if (ft_strcmp(cmd[0], "cd") == 0
 		|| ft_strcmp(cmd[0], "echo") == 0
 		|| ft_strcmp(cmd[0], "pwd") == 0

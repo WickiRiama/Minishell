@@ -19,7 +19,7 @@ int	ft_get_cmdpath(char **cmd, char **paths)
 	char	*s;
 
 	i = 0;
-	while (paths && paths[i])
+	while (paths && paths[i] && cmd && cmd[0] && cmd[0][0])
 	{
 		s = ft_strjoin(paths[i], cmd[0], "/");
 		if (!s)
@@ -35,7 +35,7 @@ int	ft_get_cmdpath(char **cmd, char **paths)
 	}
 	if (!ft_strchr(cmd[0], '/') || access(cmd[0], X_OK) == -1)
 	{
-		ft_fprintf(2, "%s: %s\n", "command not found", cmd[0]);
+		ft_fprintf(2, "%s: '%s'\n", "command not found", cmd[0]);
 		cmd[0][0] = '\0';
 	}
 	return (0);
@@ -118,6 +118,8 @@ int	ft_wait(pid_t pid)
 	int	status;
 	int	result;
 
+	if (pid == -2)
+		return (0);
 	i = wait(&status);
 	while (i > 0)
 	{

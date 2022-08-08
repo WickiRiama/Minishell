@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/25 16:38:16 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/08 17:13:59 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,29 @@ void	ft_lstclear_msh(t_dlist **lst, void (*del)(void *));
 void	ft_lstdelone_msh(t_dlist *lst, void (*del)(void *));
 t_dlist	*ft_lstlast_msh(t_dlist *lst);
 t_dlist	*ft_lstnew_msh(void *content);
+int		ft_lstsize_msh(t_dlist *lst);
+
+//==============================================================================
+// builtins
+//==============================================================================
+
+typedef struct s_env
+{
+	char			*var;
+	struct s_env	*next;
+	struct s_env	*prev;
+}			t_env;
+
+int		ft_pwd(void);
+int		ft_cd(char **path, t_env **env);
+int		ft_echo(char **input);
+int		ft_exit(char **cmd, t_dlist **blocks, t_dlist **pipes, t_env **env);
+void	ft_exit_ctrld(t_dlist **pipes, t_env **env);
+char	*get_env_var(char **envp, t_env **env);
+void	display_env(t_env *env);
+t_env	*ft_get_ptr_env_var(char *var, t_env *env);
+int		ft_unset(char **cmd, t_env **env);
+// int		ft_export(char **cmd, t_env **env);
 
 //==============================================================================
 // Tokenisation
@@ -73,31 +96,11 @@ void	ft_init_state(t_state *state);
 int		ft_is_blank(char c);
 int		ft_is_operator(char c);
 void	ft_isquoted(char c, t_state *state);
+char	*ft_token_expanse(char *token, t_env **envp);
 int		ft_token_types(t_dlist *tokens);
 t_dlist	*ft_tokenisation(char *input);
 int		ft_dlist_types(t_dlist *tokens);
 t_dlist	*ft_trim_empty_token(t_dlist *tokens);
-
-//==============================================================================
-// builtins
-//==============================================================================
-
-typedef struct s_env
-{
-	char			*var;
-	struct s_env	*next;
-	struct s_env	*prev;
-}			t_env;
-
-int		ft_pwd(void);
-int		ft_cd(char **path, t_env **env);
-int		ft_echo(char **input);
-int		ft_exit(char **cmd, t_dlist **blocks, t_dlist **pipes, t_env **env);
-char	*get_env_var(char **envp, t_env **env);
-void	display_env(t_env *env);
-t_env	*ft_get_ptr_env_var(char *var, t_env *env);
-int		ft_unset(char **cmd, t_env **env);
-// int		ft_export(char **cmd, t_env **env);
 
 //==============================================================================
 // utils_list_env
@@ -143,13 +146,14 @@ typedef struct s_exec
 	int				infile;
 	int				outfile;
 }			t_exec;
-int		ft_add_block(t_dlist *tokens, t_dlist **blocks);
+int		ft_add_block(t_dlist *tokens, t_dlist **blocks, t_env **env);
 int		ft_add_pipe(t_dlist **pipes);
-t_dlist	*ft_cmd_orga(t_dlist *tokens, t_dlist **pipes);
+void	ft_close_old_redir(t_dlist *tokens, t_exec *blocks);
+t_dlist	*ft_cmd_orga(t_dlist *tokens, t_dlist **pipes, t_env **env);
 int		ft_copy_tab(char **dest, char **src);
 void	ft_del_blocks(void *content);
 void	ft_del_pipes(void *content);
-void	ft_open_redir(t_dlist *tokens, t_exec *blocks);
+void	ft_open_redir(t_dlist *tokens, t_exec *blocks, t_env **env);
 t_dlist	*ft_parsing(t_dlist **pipes, t_env **env);
 char	**ft_update_cmd(char **cmd, char *new);
 
@@ -169,5 +173,11 @@ int		ft_run_builtin(char **cmd, t_env *env, t_dlist **blocks,
 			t_dlist **pipes);
 int		ft_run_one_builtin(t_dlist *blocks, t_dlist *pipes, t_env *env);
 int		ft_wait(pid_t pid);
+
+//==============================================================================
+// Here Document
+//==============================================================================
+
+int		ft_here_doc(t_dlist *tokens, t_env **env);
 
 #endif

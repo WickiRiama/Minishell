@@ -6,14 +6,11 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:46:19 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/27 15:46:43 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/08 16:19:10 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include <errno.h>
-#include <fcntl.h>
-#include <unistd.h>
 #include <string.h>
 
 #include "minishell.h"
@@ -99,19 +96,4 @@ int	ft_add_pipe(t_dlist **pipes)
 	}
 	ft_lstadd_back_msh(pipes, new_pipe);
 	return (0);
-}
-
-void	ft_open_redir(t_dlist *tokens, t_exec *blocks)
-{
-	if (((t_token *)tokens->cont)->type == INFILE)
-		blocks->infile = open(((t_token *)tokens->cont)->text, O_RDONLY);
-	else if (((t_token *)tokens->cont)->type == OUTFILE)
-		blocks->outfile = open(((t_token *)tokens->cont)->text, \
-			O_WRONLY | O_CREAT | O_TRUNC, 00644);
-	else if (((t_token *)tokens->cont)->type == APP_FILE)
-		blocks->outfile = open(((t_token *)tokens->cont)->text, \
-			O_WRONLY | O_CREAT | O_APPEND, 00644);
-	if (blocks->infile == -1 || blocks->outfile == -1)
-		ft_fprintf(2, "%s: %s\n", \
-			strerror(errno), ((t_token *)tokens->cont)->text);
 }

@@ -14,9 +14,26 @@
 #include <errno.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <fcntl.h>
 
 #include "minishell.h"
 #include "libft.h"
+
+void	ft_check_dir(t_dlist *blocks, t_dlist *pipes, t_env *env,
+	char **env_tab)
+{
+	int	fd;
+
+	fd = open(((t_exec *)blocks->cont)->cmd[0], O_DIRECTORY);
+	if (fd != -1)
+	{
+		ft_fprintf(2, "%s: Is a directory\n", ((t_exec *)blocks->cont)->cmd[0]);
+		close(fd);
+		ft_free_lists(blocks, pipes, env, env_tab);
+		rl_clear_history();
+		exit(126);
+	}
+}
 
 void	ft_child_bis(t_dlist *blocks, t_dlist *pipes, t_env *env,
 	char **env_tab)
@@ -38,6 +55,7 @@ void	ft_child_bis(t_dlist *blocks, t_dlist *pipes, t_env *env,
 		rl_clear_history();
 		exit(1);
 	}
+	ft_check_dir(blocks, pipes, env, env_tab);
 }
 
 void	ft_child(t_dlist *blocks, t_dlist *pipes, t_env *env, char **env_tab)
@@ -72,6 +90,8 @@ int	ft_exec(t_dlist	*blocks, t_dlist *pipes, t_env *env)
 	pid_t	pid;
 	char	**env_tab;
 
+	if (!((t_exec *)blocks->cont)->cmd)
+		return (-2);
 	env_tab = ft_list_to_tab(env);
 	if (!env_tab)
 		return (-1);

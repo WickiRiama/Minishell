@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 16:03:34 by mriant            #+#    #+#             */
-/*   Updated: 2022/07/07 13:55:10 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/08 17:00:36 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	ft_lstclear_msh(t_dlist **lst, void (*del)(void *))
 	t_dlist	*temp1;
 	t_dlist	*temp2;
 
+	if (!lst)
+		return ;
 	temp2 = *lst;
 	while (temp2)
 	{
