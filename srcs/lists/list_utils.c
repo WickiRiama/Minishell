@@ -30,6 +30,8 @@ void	ft_lstclear_msh(t_dlist **lst, void (*del)(void *))
 	t_dlist	*temp1;
 	t_dlist	*temp2;
 
+	if (!lst)
+		return ;
 	temp2 = *lst;
 	while (temp2)
 	{

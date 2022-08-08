@@ -43,6 +43,8 @@ void	ft_lstclear_env(t_env **lst, void (*del)(void *))
 	t_env	*temp1;
 	t_env	*temp2;
 
+	if (!lst)
+		return ;
 	temp2 = *lst;
 	while (temp2)
 	{
