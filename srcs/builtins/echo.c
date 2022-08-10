@@ -41,6 +41,11 @@ int	ft_echo(char **input)
 
 	nl = 0;
 	i = 1;
+	if (input[i] == NULL)
+	{
+		write(1, "\n", 1);
+		return (0);
+	}
 	while (ft_is_nl(input[i]))
 	{
 		nl = 1;

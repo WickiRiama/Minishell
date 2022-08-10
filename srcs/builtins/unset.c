@@ -13,22 +13,57 @@
 #include "minishell.h"
 #include "libft.h"
 
-/*
-// int	ft_unset(char **path, t_env **env)
-// {
-// 	int	i;
-// 	int	j;
+int	is_invalid_option(char **input)
+{
+	if (input && input[1])
+	{
+		if ((input[1][0] == '-') && (input[1][1]))
+		{
+			ft_fprintf(2, "%s: %s: invalid option\n", input[0],
+				input[1]);
+			return (1);
+		}
+		else
+			return (0);
+	}
+	return (0);
+}
 
-// 	while (path[i])
-// 	{
-// 		while(path[i][j])
-// 		{
-// 			if(ft_is_digit(path[i][j]) || 
-// 		}
+int	get_return_value(char **all_input, char *input)
+{
+	if (is_invalid_option(all_input))
+		return (2);
+	else
+	{
+		if ((input && input[0]) && (!ft_isalpha(input[0])))
+		{
+			ft_fprintf(2, "%s: %s: not a valid identifier\n", all_input[0],
+				input);
+			return (1);
+		}
+		else
+			return (0);
+	}
+	return (0);
+}
 
-// 	}
+int	ft_unset(char **input, t_env **env)
+{
+	int	i;
+	int	ret;
 
-// 	ft_lstdelone_env(ft_get_ptr_env_var(path[1], *env), &free);
-// 	return (0);
-// }
-*/
+	i = 1;
+	ret = 0;
+	while ((input[i]) && (i <= len_arg_tab(input)))
+	{
+		if (ft_get_ptr_env_var(input[i], *env) != NULL)
+		{
+			ft_lstdelone_env(ft_get_ptr_env_var(input[i], *env), &free);
+			ret = 0;
+		}
+		else
+			ret = get_return_value(input, input[i]);
+		i++;
+	}
+	return (ret);
+}

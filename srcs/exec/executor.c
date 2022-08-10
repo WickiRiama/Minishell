@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 15:08:27 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/08/08 11:13:21 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/04 11:40:39 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,6 @@ int	ft_executor(t_dlist	*blocks, t_dlist *pipes, t_env *env)
 		}
 		result = ft_wait(pid);
 	}
-	g_exitcode = WEXITSTATUS(result);
-	return (WEXITSTATUS(result));
+	g_exitcode = (result);
+	return ((result));
 }

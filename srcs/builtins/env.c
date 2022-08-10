@@ -49,11 +49,18 @@ char	*get_env_var(char **envp, t_env **env)
 	return (0);
 }
 
-void	display_env(t_env *env)
+int	display_env(char **input, t_env *env)
 {
+	if (input[1])
+	{
+		ft_fprintf(2, "%s: %s: No such a file or directory\n", input[0],
+			input[1]);
+		return (g_exitcode);
+	}
 	while (env)
 	{
 		ft_printf("%s\n", env->var);
 		env = env->next;
 	}
+	return (0);
 }
