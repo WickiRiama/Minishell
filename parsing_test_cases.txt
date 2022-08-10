@@ -10,24 +10,6 @@ Hi"Hello pouet"Hi
 $USERi $USER/test test$USER
 h"hello"i "pouet'hi'" 'pouet' '"hi"'
 echo a > $USER
-#exit 256
-#echo $?
-#exit 255
-#echo $?
-#exit +42
-#echo $?
-#exit -42
-#echo $?
-#exit ++++++++42
-#echo $?
-#exit --------42
-#echo $?
-#exit 123a
-#echo $?
-#exit a 1 2
-#echo $?
-#exit 1 2 3
-#echo $?
 echo $LS_COLORS
 unset LS_COLORS
 echo $?
@@ -55,3 +37,19 @@ echo $?
 echo $OLDPWD
 unset ...yey
 echo $?
+cd srcs/builtins/
+echo $OLDPWD
+echo $PWD
+mkdir test
+cd test
+pwd
+mkdir pouet
+cd pouet
+rm -r ../../test
+cd ..
+pwd
+cd $HOME
+pwd
+echo $OLDPWD
+echo $PWD
+cd Minishell
