@@ -17,10 +17,12 @@
 #include "libft.h"
 #include "minishell.h"
 
-int	ft_pwd(void)
+int	ft_pwd(char **input)
 {
 	char	*ft_pwd;
 
+	if (is_invalid_option(input))
+		return (2);
 	ft_pwd = getcwd(NULL, 0);
 	if (!ft_pwd)
 	{

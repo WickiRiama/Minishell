@@ -30,6 +30,7 @@ unset 666
 echo $?
 unset m4rd3 666 GNOME_DESKTOP_SESSION
 echo $?
+echo $GNOME_DESKTOP_SESSION
 unset 0ups
 echo $?
 unset oldpwd
@@ -53,3 +54,16 @@ pwd
 echo $OLDPWD
 echo $PWD
 cd Minishell
+cd -p
+pwd -p
+echo
+echo pouet
+echo echo
+echo -n pouet
+echo -n -n -n -n -n -n pouet
+echo -nnnnnnnnnnnnnnnn pouet
+echo -nnnnnnnj pouet
+echo -n -n -n pouet -n 
+echo pouet -n
+echo pouet -nnnnnnnnnnnnnnnn
+echo -p

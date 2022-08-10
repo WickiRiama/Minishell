@@ -23,15 +23,9 @@ int	ft_run_builtin(char **cmd, t_env *env, t_dlist **blocks, t_dlist **pipes)
 	else if (ft_strcmp(cmd[0], "echo") == 0)
 		result = (ft_echo(cmd));
 	else if (ft_strcmp(cmd[0], "pwd") == 0)
-	{
-		ft_pwd();
-		// result =  (ft_pwd());
-	}
+		result = (ft_pwd(cmd));
 	else if (ft_strcmp(cmd[0], "env") == 0)
-	{
-		display_env(env);
-		// result =  (display_env(env));
-	}
+		result = (display_env(cmd, env));
 	else if (ft_strcmp(cmd[0], "exit") == 0)
 		result = ft_exit(cmd, blocks, pipes, &env);
 	else if (ft_strcmp(cmd[0], "unset") == 0)

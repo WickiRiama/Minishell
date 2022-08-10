@@ -45,6 +45,8 @@ int	ft_cd(char **path, t_env **env)
 		return (1);
 	if (!path || !path[1])
 		return (1);
+	if (is_invalid_option(path))
+		return (2);
 	len = len_arg_tab(path);
 	if (len > 3)
 	{

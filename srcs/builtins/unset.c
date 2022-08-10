@@ -13,30 +13,36 @@
 #include "minishell.h"
 #include "libft.h"
 
-int	is_invalid_option(char *input)
+int	is_invalid_option(char **input)
 {
-	if ((input[0] == '-') && (input[1]))
-		return (1);
-	else
-		return (0);
+	if (input && input[1])
+	{
+		if ((input[1][0] == '-') && (input[1][1]))
+		{
+			ft_fprintf(2, "%s: %s: invalid option\n", input[0],
+				input[1]);
+			return (1);
+		}
+		else
+			return (0);
+	}
+	return (0);
 }
 
-int	get_return_value(char *input)
+int	get_return_value(char **all_input, char *input)
 {
-	int	i;
-
-	i = 0;
-
-	if (is_invalid_option(input))
+	if (is_invalid_option(all_input))
 		return (2);
 	else
 	{
-		while (input[i])
+		if ((input && input[0]) && (!ft_isalpha(input[0])))
 		{
-			if (!ft_isalpha(input[i]))
-				return (1);
-			i++;
+			ft_fprintf(2, "%s: %s: not a valid identifier\n", all_input[0],
+				input);
+			return (1);
 		}
+		else
+			return (0);
 	}
 	return (0);
 }
@@ -56,7 +62,7 @@ int	ft_unset(char **input, t_env **env)
 			ret = 0;
 		}
 		else
-			ret = get_return_value(input[i]);
+			ret = get_return_value(input, input[i]);
 		i++;
 	}
 	return (ret);
