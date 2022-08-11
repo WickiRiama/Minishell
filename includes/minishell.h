@@ -50,7 +50,7 @@ int		ft_pwd(char **input);
 int		ft_cd(char **path, t_env **env);
 int		ft_echo(char **input);
 int		ft_exit(char **cmd, t_dlist **blocks, t_dlist **pipes, t_env **env);
-void	ft_exit_ctrld(t_dlist **pipes, t_env **env);
+void	ft_exit_ctrld(t_dlist **blocks, t_dlist **pipes, t_env **env);
 char	*get_env_var(char **envp, t_env **env);
 int		display_env(char **input, t_env *env);
 t_env	*ft_get_ptr_env_var(char *var, t_env *env);

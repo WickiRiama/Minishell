@@ -72,10 +72,7 @@ int	ft_unset(char **input, t_env **env)
 	while ((input[i]) && (i <= len_arg_tab(input)))
 	{
 		if (ft_get_ptr_env_var(input[i], *env) != NULL)
-		{
 			ft_lstdelone_env(ft_get_ptr_env_var(input[i], *env), &free);
-			ret = 0;
-		}
 		else
 			ret = get_return_value(input, input[i]);
 		i++;

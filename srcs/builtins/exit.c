@@ -86,7 +86,7 @@ int	ft_exit(char **cmd, t_dlist **blocks, t_dlist **pipes, t_env **env)
 	}
 }
 
-void	ft_exit_ctrld(t_dlist **pipes, t_env **env)
+void	ft_exit_ctrld(t_dlist **blocks, t_dlist **pipes, t_env **env)
 {
 	char	*cmd_tab[2];
 	char	cmd[5];
@@ -94,5 +94,5 @@ void	ft_exit_ctrld(t_dlist **pipes, t_env **env)
 	ft_strlcpy(cmd, "exit", 5);
 	cmd_tab[0] = cmd;
 	cmd_tab[1] = NULL;
-	ft_exit(cmd_tab, NULL, pipes, env);
+	ft_exit(cmd_tab, blocks, pipes, env);
 }

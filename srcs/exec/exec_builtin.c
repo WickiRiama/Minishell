@@ -32,7 +32,10 @@ int	ft_run_builtin(char **cmd, t_env *env, t_dlist **blocks, t_dlist **pipes)
 		result = (ft_unset(cmd, &env));
 	else if (ft_strcmp(cmd[0], "export") == 0)
 		result = (ft_export(cmd, &env));
+	if (result == 15)
+		ft_exit_ctrld(blocks, pipes, &env);
 	return (result);
+
 }
 
 int	ft_is_builtin(char **cmd)
