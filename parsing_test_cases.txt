@@ -38,6 +38,10 @@ echo $?
 echo $OLDPWD
 unset ...yey
 echo $?
+unset _salut_toi
+echo $?
+unset salut+toi
+echo $?
 cd srcs/builtins/
 echo $OLDPWD
 echo $PWD

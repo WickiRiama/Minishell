@@ -56,7 +56,9 @@ int		display_env(char **input, t_env *env);
 t_env	*ft_get_ptr_env_var(char *var, t_env *env);
 int		ft_unset(char **cmd, t_env **env);
 int		is_invalid_option(char **input);
-// int		ft_export(char **cmd, t_env **env);
+int		is_variable_sh(char *input);
+int		get_return_value(char **all_input, char *input);
+int		ft_export(char **input, t_env **env);
 
 //==============================================================================
 // Tokenisation
