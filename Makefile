@@ -84,4 +84,8 @@ re: fclean
 grind: ${NAME}
 	valgrind --suppressions=.ignore_readline --track-fds=yes --trace-children=yes --leak-check=full --show-leak-kinds=all ./minishell
 
+.PHONY: malloc_test
+malloc_test: ${LIBFT} ${OBJS}
+	${CC} ${CFLAGS} -fsanitize=undefined -rdynamic ${OBJS} -o $@ ${LFLAGS} -ldl -L. -lmallocator
+
 -include ${DEP}

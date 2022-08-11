@@ -57,6 +57,8 @@ void	ft_lstclear_env(t_env **lst, void (*del)(void *))
 
 void	ft_lstdelone_env(t_env *lst, void (*del)(void *))
 {
+	if (!lst)
+		return ;
 	if (del)
 		del(lst->var);
 	if (lst->prev)

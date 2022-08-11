@@ -16,6 +16,8 @@
 
 void	ft_lstdelone_msh(t_dlist *lst, void (*del)(void *))
 {
+	if (!lst)
+		return ;
 	if (del)
 		del(lst->cont);
 	if (lst->prev)

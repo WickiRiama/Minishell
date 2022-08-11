@@ -5,3 +5,4 @@ minishell
 .vscode
 test
 test.c
+ft_mallocator

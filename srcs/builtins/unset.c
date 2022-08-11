@@ -29,20 +29,35 @@ int	is_invalid_option(char **input)
 	return (0);
 }
 
+int	is_variable_sh(char *input)
+{
+	int	i;
+
+	i = 1;
+	if (input[0] != '_' && (!ft_isalpha(input[0])))
+		return (0);
+	else
+	{
+		while (input[i])
+		{
+			if (ft_isalnum(input[i]) || input[i] == '_')
+				i++;
+			else
+				return (0);
+		}
+	}
+	return (1);
+}
+
 int	get_return_value(char **all_input, char *input)
 {
 	if (is_invalid_option(all_input))
 		return (2);
-	else
+	else if (!is_variable_sh(input))
 	{
-		if ((input && input[0]) && (!ft_isalpha(input[0])))
-		{
-			ft_fprintf(2, "%s: %s: not a valid identifier\n", all_input[0],
-				input);
-			return (1);
-		}
-		else
-			return (0);
+		ft_fprintf(2, "%s: %s: not a valid identifier\n", all_input[0],
+			input);
+		return (1);
 	}
 	return (0);
 }
@@ -57,10 +72,7 @@ int	ft_unset(char **input, t_env **env)
 	while ((input[i]) && (i <= len_arg_tab(input)))
 	{
 		if (ft_get_ptr_env_var(input[i], *env) != NULL)
-		{
 			ft_lstdelone_env(ft_get_ptr_env_var(input[i], *env), &free);
-			ret = 0;
-		}
 		else
 			ret = get_return_value(input, input[i]);
 		i++;

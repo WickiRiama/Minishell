@@ -1,0 +1,30 @@
+cd srcs/builtins/
+echo $OLDPWD
+echo $PWD
+mkdir test
+cd test
+pwd
+mkdir pouet
+cd pouet
+rm -r ../../test
+cd ..
+pwd
+cd $HOME
+pwd
+echo $OLDPWD
+echo $PWD
+cd $HOME
+cd -p
+pwd -p
+echo
+echo pouet
+echo echo
+echo -n pouet
+echo -n -n -n -n -n -n pouet
+echo -nnnnnnnnnnnnnnnn pouet
+echo -nnnnnnnj pouet
+echo -n -n -n pouet -n 
+echo pouet -n
+echo pouet -nnnnnnnnnnnnnnnn
+echo -p
+echo $USER

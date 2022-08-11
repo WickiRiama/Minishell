@@ -55,7 +55,8 @@ int	main(int ac, char **av, char **envp)
 		return (1);
 	(void) av;
 	env = NULL;
-	get_env_var(envp, &env);
+	if (get_env_var(envp, &env) == 1)
+		return (1);
 	if (!env)
 		return (1);
 	while (1)
@@ -63,7 +64,7 @@ int	main(int ac, char **av, char **envp)
 		pipes = NULL;
 		blocks = ft_parsing(&pipes, &env);
 		if (!blocks)
-			ft_exit_ctrld(&pipes, &env);
+			ft_exit_ctrld(NULL, &pipes, &env);
 		ft_executor(blocks, pipes, env);
 		ft_lstclear_msh(&blocks, &ft_del_blocks);
 		ft_lstclear_msh(&pipes, &ft_del_pipes);

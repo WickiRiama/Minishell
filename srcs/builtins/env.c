@@ -29,7 +29,7 @@ t_env	*ft_get_ptr_env_var(char *var, t_env *env)
 	return (NULL);
 }
 
-char	*get_env_var(char **envp, t_env **env)
+int	get_env_var(char **envp, t_env **env)
 {
 	int		i;
 	t_env	*env_var;
@@ -41,7 +41,7 @@ char	*get_env_var(char **envp, t_env **env)
 		if (!env_var)
 		{
 			ft_fprintf(2, "System error. Malloc failed.\n");
-			return (NULL);
+			return (1);
 		}
 		ft_lstadd_back_env(env, env_var);
 		i++;
@@ -55,7 +55,7 @@ int	display_env(char **input, t_env *env)
 	{
 		ft_fprintf(2, "%s: %s: No such a file or directory\n", input[0],
 			input[1]);
-		return (g_exitcode);
+		return (127);
 	}
 	while (env)
 	{
