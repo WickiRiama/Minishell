@@ -85,7 +85,7 @@ grind: ${NAME}
 	valgrind --suppressions=.ignore_readline --track-fds=yes --trace-children=yes --leak-check=full --show-leak-kinds=all ./minishell
 
 .PHONY: malloc_test
-malloc_test: $(OBJS) ${LIBFT}
-	$(CC) $(CFLAGS) -fsanitize=undefined -rdynamic -o $@ ${OBJS} -L. -lmallocator -ldl $(LFLAGS)
+malloc_test: ${LIBFT} ${OBJS}
+	${CC} ${CFLAGS} -fsanitize=undefined -rdynamic ${OBJS} -o $@ ${LFLAGS} -ldl -L. -lmallocator
 
 -include ${DEP}
