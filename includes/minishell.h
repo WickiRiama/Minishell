@@ -49,9 +49,10 @@ typedef struct s_env
 int		ft_pwd(char **input);
 int		ft_cd(char **path, t_env **env);
 int		ft_echo(char **input);
-int		ft_exit(char **cmd, t_dlist **blocks, t_dlist **pipes, t_env **env);
+int		ft_exit(char **cmd, t_dlist **blocks, t_dlist **pipes, t_env **env,
+			int temp_std[2]);
 void	ft_exit_ctrld(t_dlist **blocks, t_dlist **pipes, t_env **env);
-char	*get_env_var(char **envp, t_env **env);
+int		get_env_var(char **envp, t_env **env);
 int		display_env(char **input, t_env *env);
 t_env	*ft_get_ptr_env_var(char *var, t_env *env);
 int		ft_unset(char **cmd, t_env **env);
@@ -59,6 +60,8 @@ int		is_invalid_option(char **input);
 int		is_variable_sh(char *input);
 int		get_return_value(char **all_input, char *input);
 int		ft_export(char **input, t_env **env);
+int		ft_replace_env_var(char *input, t_env **env);
+int		new_env_var(char *input, t_env **env);
 
 //==============================================================================
 // Tokenisation
@@ -173,7 +176,7 @@ int		ft_is_builtin(char **cmd);
 char	**ft_list_to_tab(t_env *list);
 void	ft_redir(t_dlist *blocks, t_dlist *pipes);
 int		ft_run_builtin(char **cmd, t_env *env, t_dlist **blocks,
-			t_dlist **pipes);
+			t_dlist **pipes, int tmp_std[2]);
 int		ft_run_one_builtin(t_dlist *blocks, t_dlist *pipes, t_env *env);
 int		ft_wait(pid_t pid);
 

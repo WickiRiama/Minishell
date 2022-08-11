@@ -55,7 +55,8 @@ int	main(int ac, char **av, char **envp)
 		return (1);
 	(void) av;
 	env = NULL;
-	get_env_var(envp, &env);
+	if (get_env_var(envp, &env) == 1)
+		return (1);
 	if (!env)
 		return (1);
 	while (1)

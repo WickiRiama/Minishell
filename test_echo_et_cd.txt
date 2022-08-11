@@ -13,7 +13,7 @@ cd $HOME
 pwd
 echo $OLDPWD
 echo $PWD
-cd Minishell
+cd $HOME
 cd -p
 pwd -p
 echo
@@ -27,4 +27,4 @@ echo -n -n -n pouet -n
 echo pouet -n
 echo pouet -nnnnnnnnnnnnnnnn
 echo -p
-echo $LS_COLORS
+echo $USER

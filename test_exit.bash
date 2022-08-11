@@ -63,6 +63,7 @@ test_exit()
 	#celui de droite
 	bash <<<"exit ${VAL}" 2>&1
 	EXPECT="$?"
+	echo $EXPECT
 	echo ">> MINISHELL <<"
 	# <<< extension bash qui permet d envoyer une chaine en input de la commande
 	./minishell <<<"exit ${VAL}"
@@ -84,3 +85,4 @@ test_exit "a 1 2"
 test_exit "1 2 3"
 test_exit "\"1 2 3\""
 test_exit 123456789123456789123
+test_exit 9223372036854775808
