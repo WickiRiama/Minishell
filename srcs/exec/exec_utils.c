@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:42:00 by mriant            #+#    #+#             */
-/*   Updated: 2022/08/08 12:01:43 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/12 13:55:09 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,17 @@ int	ft_get_path(t_env *env, char **cmd)
 	return (0);
 }
 
-void	ft_redir(t_dlist *blocks, t_dlist *pipes)
+void	ft_redir(t_dlist *blocks)
 {
 	if (((t_exec *)blocks->cont)->outfile >= 0)
 		dup2(((t_exec *)blocks->cont)->outfile, STDOUT_FILENO);
-	else if (pipes && ((t_pipe *)pipes->cont)->pipe_to_write_to >= 0)
-		dup2(((t_pipe *)pipes->cont)->pipe_to_write_to, STDOUT_FILENO);
+	else if (((t_exec *)blocks->cont)->pipe_to_write_to >= 0)
+		dup2(((t_exec *)blocks->cont)->pipe_to_write_to, STDOUT_FILENO);
 	if (((t_exec *)blocks->cont)->infile >= 0)
 		dup2(((t_exec *)blocks->cont)->infile, STDIN_FILENO);
-	else if (pipes && ((t_pipe *)pipes->cont)->pipe_to_read_from >= 0)
-		dup2(((t_pipe *)pipes->cont)->pipe_to_read_from, STDIN_FILENO);
-	ft_close_fd_all(blocks, pipes);
+	else if (((t_exec *)blocks->cont)->pipe_to_read_from >= 0)
+		dup2(((t_exec *)blocks->cont)->pipe_to_read_from, STDIN_FILENO);
+	ft_close_fd_all(blocks);
 }
 
 char	**ft_list_to_tab(t_env *list)

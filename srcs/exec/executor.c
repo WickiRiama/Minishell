@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 15:08:27 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/08/04 11:40:39 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/12 14:16:20 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@
 #include "minishell.h"
 #include "libft.h"
 
-void	ft_check_dir(t_dlist *blocks, t_dlist *pipes, t_env *env,
-	char **env_tab)
+void	ft_check_dir(t_dlist *blocks, t_env *env, char **env_tab)
 {
 	int	fd;
 
@@ -29,36 +28,35 @@ void	ft_check_dir(t_dlist *blocks, t_dlist *pipes, t_env *env,
 	{
 		ft_fprintf(2, "%s: Is a directory\n", ((t_exec *)blocks->cont)->cmd[0]);
 		close(fd);
-		ft_free_lists(blocks, pipes, env, env_tab);
+		ft_free_lists(blocks, env, env_tab);
 		rl_clear_history();
 		exit(126);
 	}
 }
 
-void	ft_child_bis(t_dlist *blocks, t_dlist *pipes, t_env *env,
-	char **env_tab)
+void	ft_child_bis(t_dlist *blocks, t_env *env, char **env_tab)
 {
 	int	status;
 
-	ft_redir(blocks, pipes);
+	ft_redir(blocks);
 	if (ft_is_builtin(((t_exec *)blocks->cont)->cmd))
 	{
-		status = ft_run_builtin(((t_exec *)blocks->cont)->cmd,
-				env, &blocks, &pipes);
-		ft_free_lists(blocks, pipes, env, env_tab);
+		status = ft_run_builtin(((t_exec *)blocks->cont)->cmd, env, &blocks,
+			NULL);
+		ft_free_lists(blocks, env, env_tab);
 		rl_clear_history();
 		exit(status);
 	}
 	if (ft_get_path(env, ((t_exec *)blocks->cont)->cmd))
 	{
-		ft_free_lists(blocks, pipes, env, env_tab);
+		ft_free_lists(blocks, env, env_tab);
 		rl_clear_history();
 		exit(1);
 	}
-	ft_check_dir(blocks, pipes, env, env_tab);
+	ft_check_dir(blocks, env, env_tab);
 }
 
-void	ft_child(t_dlist *blocks, t_dlist *pipes, t_env *env, char **env_tab)
+void	ft_child(t_dlist *blocks, t_env *env, char **env_tab)
 {
 	int	status;
 
@@ -66,12 +64,12 @@ void	ft_child(t_dlist *blocks, t_dlist *pipes, t_env *env, char **env_tab)
 	if (!blocks || ((t_exec *)blocks->cont)->outfile == -1
 		|| ((t_exec *)blocks->cont)->infile == -1)
 	{
-		ft_close_fd_all(blocks, pipes);
-		ft_free_lists(blocks, pipes, env, env_tab);
+		ft_close_fd_all(blocks);
+		ft_free_lists(blocks, env, env_tab);
 		rl_clear_history();
 		exit(1);
 	}
-	ft_child_bis(blocks, pipes, env, env_tab);
+	ft_child_bis(blocks, env, env_tab);
 	if (((t_exec *)blocks->cont)->cmd[0][0] != '\0')
 	{
 		execve(((t_exec *)blocks->cont)->cmd[0], ((t_exec *)blocks->cont)->cmd,
@@ -80,12 +78,12 @@ void	ft_child(t_dlist *blocks, t_dlist *pipes, t_env *env, char **env_tab)
 			strerror(errno), ((t_exec *)blocks->cont)->cmd[0]);
 		status = 1;
 	}
-	ft_free_lists(blocks, pipes, env, env_tab);
+	ft_free_lists(blocks, env, env_tab);
 	rl_clear_history();
 	exit(status);
 }
 
-int	ft_exec(t_dlist	*blocks, t_dlist *pipes, t_env *env)
+int	ft_exec(t_dlist	*blocks, t_env *env)
 {
 	pid_t	pid;
 	char	**env_tab;
@@ -99,34 +97,32 @@ int	ft_exec(t_dlist	*blocks, t_dlist *pipes, t_env *env)
 	if (pid == -1)
 		ft_fprintf(2, "Fork error: %s\n", strerror(errno));
 	else if (pid == 0)
-		ft_child(blocks, pipes, env, env_tab);
-	ft_close_fd_parent(blocks, pipes);
+		ft_child(blocks, env, env_tab);
+	ft_close_fd_parent(blocks);
 	free_tab(env_tab);
 	return (pid);
 }
 
-int	ft_executor(t_dlist	*blocks, t_dlist *pipes, t_env *env)
+int	ft_executor(t_dlist	*blocks, t_env *env)
 {
 	pid_t	pid;
 	int		result;
 
-	if (pipes == NULL && ft_is_builtin(((t_exec *)blocks->cont)->cmd))
-		result = ft_run_one_builtin(blocks, pipes, env);
+	if (blocks->next == NULL && ft_is_builtin(((t_exec *)blocks->cont)->cmd))
+		result = ft_run_one_builtin(blocks, env);
 	else
 	{
 		while (blocks)
 		{
-			pid = ft_exec(blocks, pipes, env);
+			pid = ft_exec(blocks, env);
 			if (pid == -1)
 			{
-				ft_close_fd_all(blocks, pipes);
-				ft_free_lists(blocks, pipes, env, NULL);
+				ft_close_fd_all(blocks);
+				ft_free_lists(blocks, env, NULL);
 				rl_clear_history();
 				exit(1);
 			}
 			blocks = blocks->next;
-			if (pipes)
-				pipes = pipes->next;
 		}
 		result = ft_wait(pid);
 	}

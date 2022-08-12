@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:30:22 by mriant            #+#    #+#             */
-/*   Updated: 2022/08/08 14:27:00 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/12 13:32:47 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ t_exec	*ft_init_block(t_dlist *tokens, t_env **env)
 	block->cmd = NULL;
 	block->infile = -2;
 	block->outfile = -2;
+	block->pipe_to_read_from = -2;
+	block->pipe_to_write_to = -2;
 	while (tokens && ((t_token *)tokens->cont)->type != PIPE)
 	{
 		if (ft_fill_block(tokens, block, env) == 1)
@@ -76,6 +78,10 @@ void	ft_del_blocks(void *content)
 		block->infile = close(block->infile) - 2;
 	if (block->outfile >= 0)
 		block->outfile = close(block->outfile) - 2;
+	if (block->pipe_to_read_from >= 0)
+		block->pipe_to_read_from = close(block->pipe_to_read_from) - 2;
+	if (block->pipe_to_write_to >= 0)
+		block->pipe_to_write_to = close(block->pipe_to_write_to) - 2;
 	free(content);
 }
 
