@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 13:25:07 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/08/04 10:35:06 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/12 13:44:43 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,7 @@ int	check_arg_and_get_status(char **input)
 		return (g_exitcode);
 }
 
-int	ft_exit(char **cmd, t_dlist **blocks, t_dlist **pipes, t_env **env,
-	int temp_std[2])
+int	ft_exit(char **cmd, t_dlist **blocks, t_env **env, int temp_std[2])
 {
 	int	status;
 
@@ -87,7 +86,6 @@ int	ft_exit(char **cmd, t_dlist **blocks, t_dlist **pipes, t_env **env,
 	else
 	{
 		ft_lstclear_msh(blocks, &ft_del_blocks);
-		ft_lstclear_msh(pipes, ft_del_pipes);
 		ft_lstclear_env(env, &free);
 		if (temp_std)
 		{
@@ -99,7 +97,7 @@ int	ft_exit(char **cmd, t_dlist **blocks, t_dlist **pipes, t_env **env,
 	}
 }
 
-void	ft_exit_ctrld(t_dlist **blocks, t_dlist **pipes, t_env **env)
+void	ft_exit_ctrld(t_dlist **blocks, t_env **env)
 {
 	char	*cmd_tab[2];
 	char	cmd[5];
@@ -107,5 +105,5 @@ void	ft_exit_ctrld(t_dlist **blocks, t_dlist **pipes, t_env **env)
 	ft_strlcpy(cmd, "exit", 5);
 	cmd_tab[0] = cmd;
 	cmd_tab[1] = NULL;
-	ft_exit(cmd_tab, blocks, pipes, env, NULL);
+	ft_exit(cmd_tab, blocks, env, NULL);
 }

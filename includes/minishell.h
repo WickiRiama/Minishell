@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/08/08 17:13:59 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/12 14:17:47 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ typedef struct s_env
 int		ft_pwd(char **input);
 int		ft_cd(char **path, t_env **env);
 int		ft_echo(char **input);
-int		ft_exit(char **cmd, t_dlist **blocks, t_dlist **pipes, t_env **env,
+int		ft_exit(char **cmd, t_dlist **blocks, t_env **env,
 			int temp_std[2]);
-void	ft_exit_ctrld(t_dlist **blocks, t_dlist **pipes, t_env **env);
+void	ft_exit_ctrld(t_dlist **blocks, t_env **env);
 int		get_env_var(char **envp, t_env **env);
 int		display_env(char **input, t_env *env);
 t_env	*ft_get_ptr_env_var(char *var, t_env *env);
@@ -141,43 +141,40 @@ int		ft_wexpanse(t_dlist **tokens, t_env **envp);
 // Parsing
 //==============================================================================
 
-typedef struct s_pipe
-{
-	int				pipe_to_read_from;
-	int				pipe_to_write_to;
-}				t_pipe;
 typedef struct s_exec
 {
 	char			**cmd;
 	int				infile;
 	int				outfile;
+	int				pipe_to_read_from;
+	int				pipe_to_write_to;
 }			t_exec;
 int		ft_add_block(t_dlist *tokens, t_dlist **blocks, t_env **env);
-int		ft_add_pipe(t_dlist **pipes);
+int		ft_add_pipe(t_dlist *blocks);
 void	ft_close_old_redir(t_dlist *tokens, t_exec *blocks);
-t_dlist	*ft_cmd_orga(t_dlist *tokens, t_dlist **pipes, t_env **env);
+t_dlist	*ft_cmd_orga(t_dlist *tokens, t_env **env);
 int		ft_copy_tab(char **dest, char **src);
 void	ft_del_blocks(void *content);
 void	ft_del_pipes(void *content);
 void	ft_open_redir(t_dlist *tokens, t_exec *blocks, t_env **env);
-t_dlist	*ft_parsing(t_dlist **pipes, t_env **env);
+t_dlist	*ft_parsing(t_env **env);
 char	**ft_update_cmd(char **cmd, char *new);
 
 //==============================================================================
 // Executor
 //==============================================================================
 
-void	ft_close_fd_all(t_dlist *blocks, t_dlist *pipes);
-void	ft_close_fd_parent(t_dlist *blocks, t_dlist *pipes);
-int		ft_executor(t_dlist	*blocks, t_dlist *pipes, t_env *env);
-void	ft_free_lists(t_dlist *blocks, t_dlist *pipes, t_env *env, char **tab);
+void	ft_close_fd_all(t_dlist *blocks);
+void	ft_close_fd_parent(t_dlist *blocks);
+int		ft_executor(t_dlist	*blocks, t_env *env);
+void	ft_free_lists(t_dlist *blocks, t_env *env, char **tab);
 int		ft_get_path(t_env *env, char **cmd);
 int		ft_is_builtin(char **cmd);
 char	**ft_list_to_tab(t_env *list);
-void	ft_redir(t_dlist *blocks, t_dlist *pipes);
+void	ft_redir(t_dlist *blocks);
 int		ft_run_builtin(char **cmd, t_env *env, t_dlist **blocks,
-			t_dlist **pipes, int tmp_std[2]);
-int		ft_run_one_builtin(t_dlist *blocks, t_dlist *pipes, t_env *env);
+			int tmp_std[2]);
+int		ft_run_one_builtin(t_dlist *blocks, t_env *env);
 int		ft_wait(pid_t pid);
 
 //==============================================================================
