@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 15:08:27 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/08/12 14:16:20 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/12 17:25:08 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_child_bis(t_dlist *blocks, t_env *env, char **env_tab)
 	if (ft_is_builtin(((t_exec *)blocks->cont)->cmd))
 	{
 		status = ft_run_builtin(((t_exec *)blocks->cont)->cmd, env, &blocks,
-			NULL);
+				NULL);
 		ft_free_lists(blocks, env, env_tab);
 		rl_clear_history();
 		exit(status);

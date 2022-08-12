@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:41:31 by mriant            #+#    #+#             */
-/*   Updated: 2022/08/12 14:16:24 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/12 17:25:24 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	ft_run_one_builtin(t_dlist *blocks, t_env *env)
 	temp_std[1] = dup(1);
 	ft_redir(blocks);
 	status = ft_run_builtin(((t_exec *)blocks->cont)->cmd, env, &blocks,
-		temp_std);
+			temp_std);
 	dup2(temp_std[0], 0);
 	dup2(temp_std[1], 1);
 	close(temp_std[0]);
