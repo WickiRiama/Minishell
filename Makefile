@@ -49,6 +49,8 @@ SRCS += ${addprefix srcs/parsing/tokenisation/, \
 SRCS += ${addprefix srcs/parsing/word_expansion/, \
 	word_expansion_utils.c \
 	word_expansion.c}
+SRCS += ${addprefix srcs/signals/, \
+	signals.c}
 
 OBJS = ${SRCS:srcs/%.c=build/%.o}
 DEPS = ${SRCS:srcs/%.c=build/%.d}

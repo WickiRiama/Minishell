@@ -16,6 +16,7 @@
 #include <errno.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <signal.h>
 
 #include "minishell.h"
 #include "libft.h"
@@ -63,13 +64,14 @@ t_dlist	*ft_cmd_orga(t_dlist *tokens, t_env **env)
 	return (blocks);
 }
 
-t_dlist	*ft_parsing1(t_dlist *tokens)
+t_dlist	*ft_parsing1(t_dlist *tokens, t_sas *all_sa)
 {
-	char	*input;
+	char				*input;
 
 	input = NULL;
 	while (1)
 	{
+		ft_set_sa(&all_sa->new_sa, &all_sa->old_sigint, &all_sa->old_sigquit);
 		free(input);
 		input = readline("$> ");
 		if (input && input[0] == '\0')
@@ -91,13 +93,15 @@ t_dlist	*ft_parsing1(t_dlist *tokens)
 	}
 }
 
-t_dlist	*ft_parsing(t_env **env)
+t_dlist	*ft_parsing(t_env **env, t_sas *all_sa)
 {
 	t_dlist	*tokens;
 	t_dlist	*blocks;
 
+	ft_init_all_sas(all_sa);
+	all_sa->new_sa.sa_handler = &ft_handle_sigint;
 	tokens = NULL;
-	tokens = ft_parsing1(tokens);
+	tokens = ft_parsing1(tokens, all_sa);
 	if (!tokens)
 		return (NULL);
 	if (ft_wexpanse(&tokens, env))

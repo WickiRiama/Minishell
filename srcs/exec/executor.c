@@ -15,6 +15,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <fcntl.h>
+#include <signal.h>
 
 #include "minishell.h"
 #include "libft.h"
@@ -56,10 +57,12 @@ void	ft_child_bis(t_dlist *blocks, t_env *env, char **env_tab)
 	ft_check_dir(blocks, env, env_tab);
 }
 
-void	ft_child(t_dlist *blocks, t_env *env, char **env_tab)
+void	ft_child(t_dlist *blocks, t_env *env, char **env_tab, t_sas *all_sa)
 {
 	int	status;
 
+	sigaction(SIGINT, &all_sa->old_sigint, NULL);
+	sigaction(SIGQUIT, &all_sa->old_sigquit, NULL);
 	status = 127;
 	if (!blocks || ((t_exec *)blocks->cont)->outfile == -1
 		|| ((t_exec *)blocks->cont)->infile == -1)
@@ -83,7 +86,7 @@ void	ft_child(t_dlist *blocks, t_env *env, char **env_tab)
 	exit(status);
 }
 
-int	ft_exec(t_dlist	*blocks, t_env *env)
+int	ft_exec(t_dlist	*blocks, t_env *env, t_sas *all_sas)
 {
 	pid_t	pid;
 	char	**env_tab;
@@ -97,24 +100,26 @@ int	ft_exec(t_dlist	*blocks, t_env *env)
 	if (pid == -1)
 		ft_fprintf(2, "Fork error: %s\n", strerror(errno));
 	else if (pid == 0)
-		ft_child(blocks, env, env_tab);
+		ft_child(blocks, env, env_tab, all_sas);
 	ft_close_fd_parent(blocks);
 	free_tab(env_tab);
 	return (pid);
 }
 
-int	ft_executor(t_dlist	*blocks, t_env *env)
+int	ft_executor(t_dlist	*blocks, t_env *env, t_sas *all_sa)
 {
 	pid_t	pid;
 	int		result;
 
+	all_sa->new_sa.sa_handler = &ft_handle_ignore;
+	ft_set_sa(&all_sa->new_sa, NULL, NULL);
 	if (blocks->next == NULL && ft_is_builtin(((t_exec *)blocks->cont)->cmd))
 		result = ft_run_one_builtin(blocks, env);
 	else
 	{
 		while (blocks)
 		{
-			pid = ft_exec(blocks, env);
+			pid = ft_exec(blocks, env, all_sa);
 			if (pid == -1)
 			{
 				ft_close_fd_all(blocks);

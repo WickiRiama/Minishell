@@ -42,21 +42,11 @@ void	ft_print_list(t_dlist *list)
 	}
 }
 
-void	ft_handle_sigint(int sig, siginfo_t *info, void *context)
-{
-	(void) info;
-	(void) context;
-	if (sig == SIGINT)
-		ft_fprintf(2, "Stop is not allowed\n");
-	else if (sig == SIGQUIT)
-		return ;
-}
-
 int	main(int ac, char **av, char **envp)
 {
-	t_env				*env;
-	t_dlist				*blocks;
-	struct sigaction	new_sa;
+	t_env	*env;
+	t_dlist	*blocks;
+	t_sas	all_sa;
 
 	if (ac != 1)
 		return (1);
@@ -66,15 +56,12 @@ int	main(int ac, char **av, char **envp)
 		return (1);
 	if (!env)
 		return (1);
-	new_sa.sa_sigaction = &ft_handle_sigint;
 	while (1)
 	{
-		sigaction(SIGINT, &new_sa, NULL);
-		sigaction(SIGQUIT, &new_sa, NULL);
-		blocks = ft_parsing(&env);
+		blocks = ft_parsing(&env, &all_sa);
 		if (!blocks)
 			ft_exit_ctrld(NULL, &env);
-		ft_executor(blocks, env);
+		ft_executor(blocks, env, &all_sa);
 		ft_lstclear_msh(&blocks, &ft_del_blocks);
 	}
 	ft_lstclear_env(&env, &free);

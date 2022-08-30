@@ -15,8 +15,9 @@
 
 # include <sys/wait.h>
 
-typedef unsigned int	t_ui;
-extern int				g_exitcode;
+typedef unsigned int		t_ui;
+typedef struct sigaction	t_sigaction;
+extern int					g_exitcode;
 
 //==============================================================================
 // Lists
@@ -34,6 +35,22 @@ void	ft_lstdelone_msh(t_dlist *lst, void (*del)(void *));
 t_dlist	*ft_lstlast_msh(t_dlist *lst);
 t_dlist	*ft_lstnew_msh(void *content);
 int		ft_lstsize_msh(t_dlist *lst);
+
+//==============================================================================
+// Signals
+//==============================================================================
+
+typedef struct s_sas
+{
+	t_sigaction	new_sa;
+	t_sigaction	old_sigint;
+	t_sigaction	old_sigquit;
+}				t_sas;
+void	ft_handle_sigint(int sig);
+void	ft_handle_ignore(int sig);
+void	ft_init_all_sas(t_sas *all_sas);
+void	ft_set_sa(t_sigaction *new_sa, t_sigaction *old_sa_sigint,
+			t_sigaction *old_sa_sigquit);
 
 //==============================================================================
 // builtins
@@ -158,7 +175,7 @@ int		ft_copy_tab(char **dest, char **src);
 void	ft_del_blocks(void *content);
 void	ft_del_pipes(void *content);
 void	ft_open_redir(t_dlist *tokens, t_exec *blocks, t_env **env);
-t_dlist	*ft_parsing(t_env **env);
+t_dlist	*ft_parsing(t_env **env, t_sas *all_sas);
 char	**ft_update_cmd(char **cmd, char *new);
 
 //==============================================================================
@@ -167,7 +184,7 @@ char	**ft_update_cmd(char **cmd, char *new);
 
 void	ft_close_fd_all(t_dlist *blocks);
 void	ft_close_fd_parent(t_dlist *blocks);
-int		ft_executor(t_dlist	*blocks, t_env *env);
+int		ft_executor(t_dlist	*blocks, t_env *env, t_sas *all_sas);
 void	ft_free_lists(t_dlist *blocks, t_env *env, char **tab);
 int		ft_get_path(t_env *env, char **cmd);
 int		ft_is_builtin(char **cmd);
