@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 14:05:36 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/07/06 16:02:48 by sle-huec         ###   ########.fr       */
+/*   Updated: 2022/08/30 13:38:15 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ t_env	*ft_get_ptr_env_var(char *var, t_env *env)
 	while (env)
 	{
 		j = 0;
-		while (var[j] == env->var[j])
+		while (var[j] && var[j] == env->var[j])
 			j++;
-		if (var[j] == '\0' && env->var[j] == '=')
+		if (var[j] == '\0' && (env->var[j] == '=' || env->var[j] == '\0'))
 			return (env);
 		env = env->next;
 	}
@@ -37,7 +37,7 @@ int	get_env_var(char **envp, t_env **env)
 	i = 0;
 	while (envp[i])
 	{
-		env_var = ft_lstnew_env(envp[i]);
+		env_var = ft_lstnew_env(envp[i], 1);
 		if (!env_var)
 		{
 			ft_fprintf(2, "System error. Malloc failed.\n");
@@ -49,7 +49,7 @@ int	get_env_var(char **envp, t_env **env)
 	return (0);
 }
 
-int	display_env(char **input, t_env *env)
+int	display_env(char **input, t_env *env, int print_declared)
 {
 	if (input[1])
 	{
@@ -59,7 +59,10 @@ int	display_env(char **input, t_env *env)
 	}
 	while (env)
 	{
-		ft_printf("%s\n", env->var);
+		if (print_declared == 1)
+			ft_printf("declare -x %s\n", env->var);
+		else if (env->initialized == 1)
+			ft_printf("%s\n", env->var);
 		env = env->next;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:41:31 by mriant            #+#    #+#             */
-/*   Updated: 2022/08/12 17:25:24 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/30 12:15:48 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_run_builtin(char **cmd, t_env *env, t_dlist **blocks, int tmp_std[2])
 	else if (ft_strcmp(cmd[0], "pwd") == 0)
 		result = (ft_pwd(cmd));
 	else if (ft_strcmp(cmd[0], "env") == 0)
-		result = (display_env(cmd, env));
+		result = (display_env(cmd, env, 0));
 	else if (ft_strcmp(cmd[0], "exit") == 0)
 		result = ft_exit(cmd, blocks, &env, tmp_std);
 	else if (ft_strcmp(cmd[0], "unset") == 0)

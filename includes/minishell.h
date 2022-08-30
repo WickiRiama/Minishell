@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/08/12 14:17:47 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/30 12:12:47 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int		ft_lstsize_msh(t_dlist *lst);
 typedef struct s_env
 {
 	char			*var;
+	int				initialized;
 	struct s_env	*next;
 	struct s_env	*prev;
 }			t_env;
@@ -53,7 +54,7 @@ int		ft_exit(char **cmd, t_dlist **blocks, t_env **env,
 			int temp_std[2]);
 void	ft_exit_ctrld(t_dlist **blocks, t_env **env);
 int		get_env_var(char **envp, t_env **env);
-int		display_env(char **input, t_env *env);
+int		display_env(char **input, t_env *env, int print_declared);
 t_env	*ft_get_ptr_env_var(char *var, t_env *env);
 int		ft_unset(char **cmd, t_env **env);
 int		is_invalid_option(char **input);
@@ -112,7 +113,7 @@ t_dlist	*ft_trim_empty_token(t_dlist *tokens);
 // utils_list_env
 //==============================================================================
 
-t_env	*ft_lstnew_env(char *env_var);
+t_env	*ft_lstnew_env(char *env_var, int initialized);
 t_env	*ft_lstlast_env(t_env *lst);
 void	ft_lstadd_back_env(t_env **alst, t_env *new);
 void	ft_lstclear_env(t_env **lst, void (*del)(void *));

@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 16:13:00 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/07/25 13:53:22 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/30 10:26:49 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "minishell.h"
 #include "libft.h"
 
-t_env	*ft_lstnew_env(char *env_var)
+t_env	*ft_lstnew_env(char *env_var, int initialized)
 {
 	t_env	*new;
 
@@ -22,6 +22,7 @@ t_env	*ft_lstnew_env(char *env_var)
 	if (!new)
 		return (NULL);
 	new->var = ft_strdup(env_var);
+	new->initialized = initialized;
 	if (!new->var)
 	{
 		free(new);
