@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:30:22 by mriant            #+#    #+#             */
-/*   Updated: 2022/08/12 13:32:47 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/31 17:16:11 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "minishell.h"
 #include "libft.h"
 
-int	ft_fill_block(t_dlist *tokens, t_exec *new_block, t_env **env)
+int	ft_fill_block(t_dlist *tokens, t_exec *new_block, t_env **env, t_sas *all_sa)
 {
 	if (((t_token *)tokens->cont)->type == WORD)
 	{
@@ -31,18 +31,21 @@ int	ft_fill_block(t_dlist *tokens, t_exec *new_block, t_env **env)
 		&& new_block->infile != -1)
 	{
 		ft_close_old_redir(tokens, new_block);
-		ft_open_redir(tokens, new_block, env);
+		ft_open_redir(tokens, new_block, env, all_sa);
 		if (new_block->infile == -1)
 			new_block->outfile = -1;
 		else if (new_block->outfile == -1)
 			new_block->infile = -1;
+		else if (new_block->outfile == -130 || new_block->outfile == -131)
+			return (2);
 	}
 	return (0);
 }
 
-t_exec	*ft_init_block(t_dlist *tokens, t_env **env)
+t_exec	*ft_init_block(t_dlist *tokens, t_env **env, t_sas *all_sa)
 {
 	t_exec	*block;
+	int		ret;
 
 	block = malloc(sizeof(t_exec) * 1);
 	if (!block)
@@ -57,12 +60,15 @@ t_exec	*ft_init_block(t_dlist *tokens, t_env **env)
 	block->pipe_to_write_to = -2;
 	while (tokens && ((t_token *)tokens->cont)->type != PIPE)
 	{
-		if (ft_fill_block(tokens, block, env) == 1)
+		ret = ft_fill_block(tokens, block, env, all_sa);
+		if (ret == 1)
 		{
 			ft_del_blocks((void *)block);
 			ft_fprintf(2, "System error. Malloc failed.\n");
 			return (NULL);
 		}
+		if (ret == 2)
+			break ;
 		tokens = tokens->next;
 	}
 	return (block);
@@ -85,12 +91,12 @@ void	ft_del_blocks(void *content)
 	free(content);
 }
 
-int	ft_add_block(t_dlist *tokens, t_dlist **blocks, t_env **env)
+int	ft_add_block(t_dlist *tokens, t_dlist **blocks, t_env **env, t_sas *all_sa)
 {
 	t_exec	*block_struct;
 	t_dlist	*new_block;
 
-	block_struct = ft_init_block(tokens, env);
+	block_struct = ft_init_block(tokens, env, all_sa);
 	if (!block_struct)
 		return (1);
 	new_block = ft_lstnew_msh((void *)block_struct);
@@ -101,6 +107,8 @@ int	ft_add_block(t_dlist *tokens, t_dlist **blocks, t_env **env)
 		return (1);
 	}
 	ft_lstadd_back_msh(blocks, new_block);
+	if (block_struct->outfile == -131 || block_struct->outfile == -130)
+		return (2);
 	return (0);
 }
 

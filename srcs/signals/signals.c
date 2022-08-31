@@ -1,4 +1,5 @@
 #include <signal.h>
+#include <readline/readline.h>
 
 #include "minishell.h"
 #include "libft.h"
@@ -7,7 +8,6 @@ void	ft_handle_sigint(int sig)
 {
 	if (sig == SIGINT)
 	{
-		ft_printf("\b\b  ");
 		ft_printf("\n$> ");
 	}
 	else if (sig == SIGQUIT)
@@ -16,8 +16,28 @@ void	ft_handle_sigint(int sig)
 
 void	ft_handle_ignore(int sig)
 {
-	(void) sig;
+	if (sig == SIGQUIT)
+	{
+		g_exitcode = 131;
+		ft_printf("Quit (core dumped)");
+	}
+	if (sig == SIGINT)
+		g_exitcode = 130;
 	ft_printf("\n");
+	return ;
+}
+
+void	ft_handle_here_doc(int sig)
+{
+	if (sig == SIGQUIT)
+		ft_printf("\b\b  \b\b");
+	if (sig == SIGINT)
+	{
+		g_exitcode = 130;
+		close(STDIN_FILENO);
+		rl_replace_line("", 1);
+		ft_printf("\n");
+	}
 	return ;
 }
 
@@ -34,3 +54,4 @@ void	ft_init_all_sas(t_sas *all_sa)
 	ft_memset(&all_sa->old_sigint, 0, sizeof (all_sa->old_sigint));
 	ft_memset(&all_sa->old_sigquit, 0, sizeof (all_sa->old_sigquit));
 }
+

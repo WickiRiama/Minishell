@@ -6,7 +6,7 @@
 #    By: mriant <mriant@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 13:49:10 by mriant            #+#    #+#              #
-#    Updated: 2022/08/08 17:07:34 by mriant           ###   ########.fr        #
+#    Updated: 2022/08/31 11:21:00 by mriant           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,4 +90,4 @@ grind: ${NAME}
 malloc_test: ${LIBFT} ${OBJS}
 	${CC} ${CFLAGS} -fsanitize=undefined -rdynamic ${OBJS} -o $@ ${LFLAGS} -ldl -L. -lmallocator
 
--include ${DEP}
+-include ${DEPS}

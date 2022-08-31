@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/08/30 14:32:23 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/31 17:30:34 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	main(int ac, char **av, char **envp)
 {
 	t_env	*env;
 	t_dlist	*blocks;
+	t_dlist	*last_block;
 	t_sas	all_sa;
 
 	if (ac != 1)
@@ -61,7 +62,9 @@ int	main(int ac, char **av, char **envp)
 		blocks = ft_parsing(&env, &all_sa);
 		if (!blocks)
 			ft_exit_ctrld(NULL, &env);
-		ft_executor(blocks, env, &all_sa);
+		last_block = ft_lstlast_msh(blocks);
+		if (((t_exec *)last_block->cont)->infile > -130)
+			ft_executor(blocks, env, &all_sa);
 		ft_lstclear_msh(&blocks, &ft_del_blocks);
 	}
 	ft_lstclear_env(&env, &free);

@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:24:59 by mriant            #+#    #+#             */
-/*   Updated: 2022/08/05 10:54:31 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/31 17:27:51 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <signal.h>
+#include <errno.h>
 
 #include "minishell.h"
 #include "libft.h"
@@ -56,25 +58,34 @@ void	ft_write_here_doc(int fd, t_dlist *tokens, t_env **env)
 		free(input);
 		input = readline("here_doc > ");
 	}
-	if (!input)
+	if (!input && g_exitcode != 130 && g_exitcode != 131)
 		ft_fprintf(2,
 			"\rwarning: here-document delimited by end-of-file (wanted '%s')\n",
 			((t_token *)tokens->cont)->text);
 	free(input);
 }
 
-int	ft_here_doc(t_dlist *tokens, t_env **env)
+int	ft_here_doc(t_dlist *tokens, t_env **env, t_sas *all_sa)
 {
 	char	name[11];
 	int		fd;
+	int		temp_std;
 
+	temp_std = dup(0);
+	all_sa->new_sa.sa_handler = &ft_handle_here_doc;
+	sigaction(SIGINT, &all_sa->new_sa, NULL);
+	sigaction(SIGQUIT, &all_sa->new_sa, NULL);
 	ft_find_here_name("here_doc00", name);
 	fd = open(name, O_WRONLY | O_CREAT, 00644);
 	if (fd == -1)
 		return (fd);
 	ft_write_here_doc(fd, tokens, env);
+	dup2(temp_std, 0);
 	close(fd);
-	fd = open(name, O_RDONLY);
+	if (g_exitcode != 130 && g_exitcode != 131)
+		fd = open(name, O_RDONLY);
+	else
+		fd = -g_exitcode;
 	unlink(name);
 	return (fd);
 }

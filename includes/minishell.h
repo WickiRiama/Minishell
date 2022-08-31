@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/08/30 12:12:47 by mriant           ###   ########.fr       */
+/*   Updated: 2022/08/31 14:38:33 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_sas
 	t_sigaction	old_sigquit;
 }				t_sas;
 void	ft_handle_sigint(int sig);
+void	ft_handle_here_doc(int sig);
 void	ft_handle_ignore(int sig);
 void	ft_init_all_sas(t_sas *all_sas);
 void	ft_set_sa(t_sigaction *new_sa, t_sigaction *old_sa_sigint,
@@ -167,14 +168,16 @@ typedef struct s_exec
 	int				pipe_to_read_from;
 	int				pipe_to_write_to;
 }			t_exec;
-int		ft_add_block(t_dlist *tokens, t_dlist **blocks, t_env **env);
+int		ft_add_block(t_dlist *tokens, t_dlist **blocks, t_env **env,
+			t_sas *all_sa);
 int		ft_add_pipe(t_dlist *blocks);
 void	ft_close_old_redir(t_dlist *tokens, t_exec *blocks);
-t_dlist	*ft_cmd_orga(t_dlist *tokens, t_env **env);
+t_dlist	*ft_cmd_orga(t_dlist *tokens, t_env **env, t_sas *all_sa);
 int		ft_copy_tab(char **dest, char **src);
 void	ft_del_blocks(void *content);
 void	ft_del_pipes(void *content);
-void	ft_open_redir(t_dlist *tokens, t_exec *blocks, t_env **env);
+void	ft_open_redir(t_dlist *tokens, t_exec *blocks, t_env **env,
+			t_sas *all_sa);
 t_dlist	*ft_parsing(t_env **env, t_sas *all_sas);
 char	**ft_update_cmd(char **cmd, char *new);
 
@@ -199,6 +202,6 @@ int		ft_wait(pid_t pid);
 // Here Document
 //==============================================================================
 
-int		ft_here_doc(t_dlist *tokens, t_env **env);
+int		ft_here_doc(t_dlist *tokens, t_env **env, t_sas *all_sa);
 
 #endif
