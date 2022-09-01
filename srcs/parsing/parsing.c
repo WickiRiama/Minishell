@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:39:25 by mriant            #+#    #+#             */
-/*   Updated: 2022/08/31 17:17:44 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/01 14:54:41 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,38 +34,6 @@ int	ft_copy_tab(char **dest, char **src)
 		i++;
 	}
 	return (0);
-}
-
-t_dlist	*ft_cmd_orga(t_dlist *tokens, t_env **env, t_sas *all_sa)
-{
-	t_dlist	*blocks;
-	int		ret;
-
-	blocks = NULL;
-	while (tokens)
-	{
-		ret = ft_add_block(tokens, &blocks, env, all_sa);
-		if (ret == 1)
-		{
-			ft_lstclear_msh(&blocks, &ft_del_blocks);
-			return (NULL);
-		}
-		if (ret == 2)
-			return (blocks);
-		while (tokens && ((t_token *)tokens->cont)->type != PIPE)
-			tokens = tokens->next;
-		if (tokens)
-			tokens = tokens->next;
-	}
-	if (blocks)
-	{
-		if (ft_add_pipe(blocks) == 1)
-		{
-			ft_lstclear_msh(&blocks, &ft_del_blocks);
-			return (NULL);
-		}
-	}
-	return (blocks);
 }
 
 t_dlist	*ft_parsing1(t_dlist *tokens, t_sas *all_sa)

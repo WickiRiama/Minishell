@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:30:22 by mriant            #+#    #+#             */
-/*   Updated: 2022/08/31 17:16:11 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/01 14:27:29 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 #include "minishell.h"
 #include "libft.h"
 
-int	ft_fill_block(t_dlist *tokens, t_exec *new_block, t_env **env, t_sas *all_sa)
+int	ft_fill_block(t_dlist *tokens, t_exec *new_block, t_env **env,
+	t_sas *all_sa)
 {
 	if (((t_token *)tokens->cont)->type == WORD)
 	{
@@ -42,7 +43,17 @@ int	ft_fill_block(t_dlist *tokens, t_exec *new_block, t_env **env, t_sas *all_sa
 	return (0);
 }
 
-t_exec	*ft_init_block(t_dlist *tokens, t_env **env, t_sas *all_sa)
+void	ft_init_block(t_exec *block)
+{
+	block->cmd = NULL;
+	block->infile = -2;
+	block->outfile = -2;
+	block->pipe_to_read_from = -2;
+	block->pipe_to_write_to = -2;
+}
+
+t_exec	*ft_create_block(t_dlist *tokens, t_env **env,
+	t_sas *all_sa)
 {
 	t_exec	*block;
 	int		ret;
@@ -53,11 +64,7 @@ t_exec	*ft_init_block(t_dlist *tokens, t_env **env, t_sas *all_sa)
 		ft_fprintf(2, "System error. Malloc failed.\n");
 		return (NULL);
 	}
-	block->cmd = NULL;
-	block->infile = -2;
-	block->outfile = -2;
-	block->pipe_to_read_from = -2;
-	block->pipe_to_write_to = -2;
+	ft_init_block(block);
 	while (tokens && ((t_token *)tokens->cont)->type != PIPE)
 	{
 		ret = ft_fill_block(tokens, block, env, all_sa);
@@ -96,7 +103,7 @@ int	ft_add_block(t_dlist *tokens, t_dlist **blocks, t_env **env, t_sas *all_sa)
 	t_exec	*block_struct;
 	t_dlist	*new_block;
 
-	block_struct = ft_init_block(tokens, env, all_sa);
+	block_struct = ft_create_block(tokens, env, all_sa);
 	if (!block_struct)
 		return (1);
 	new_block = ft_lstnew_msh((void *)block_struct);
@@ -110,33 +117,4 @@ int	ft_add_block(t_dlist *tokens, t_dlist **blocks, t_env **env, t_sas *all_sa)
 	if (block_struct->outfile == -131 || block_struct->outfile == -130)
 		return (2);
 	return (0);
-}
-
-char	**ft_update_cmd(char **cmd, char *new)
-{
-	char	**result;
-	int		size;
-
-	size = 0;
-	while (cmd && cmd[size])
-		size++;
-	result = malloc(sizeof(char *) * (size + 2));
-	if (!result || ft_copy_tab(result, cmd) == 1)
-	{
-		free_tab(cmd);
-		free(result);
-		ft_fprintf(2, "System error. Malloc failed.\n");
-		return (NULL);
-	}
-	result[size] = ft_strdup(new);
-	if (!result[size])
-	{
-		free_tab(result);
-		free_tab(cmd);
-		ft_fprintf(2, "System error. Malloc failed.\n");
-		return (NULL);
-	}
-	result[size + 1] = NULL;
-	free_tab(cmd);
-	return (result);
 }

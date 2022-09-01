@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signals.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/01 14:22:56 by mriant            #+#    #+#             */
+/*   Updated: 2022/09/01 14:23:08 by mriant           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <signal.h>
 #include <readline/readline.h>
 
@@ -54,4 +66,3 @@ void	ft_init_all_sas(t_sas *all_sa)
 	ft_memset(&all_sa->old_sigint, 0, sizeof (all_sa->old_sigint));
 	ft_memset(&all_sa->old_sigquit, 0, sizeof (all_sa->old_sigquit));
 }
-
