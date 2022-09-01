@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:42:00 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/07 13:48:47 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/07 13:50:15 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ int	ft_get_path(t_env *env, char **cmd)
 {
 	char	**paths;
 
-	if (!env)
-		return (1);
 	while (env && ft_strncmp(env->var, "PATH=", 5) != 0)
 		env = env->next;
 	if (env)

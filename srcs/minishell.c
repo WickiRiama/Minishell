@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/01 14:52:08 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/07 13:49:47 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ int	main(int ac, char **av, char **envp)
 	(void) av;
 	env = NULL;
 	if (get_env_var(envp, &env) == 1)
-		return (1);
-	if (!env)
 		return (1);
 	while (1)
 	{
