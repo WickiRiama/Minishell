@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:24:59 by mriant            #+#    #+#             */
-/*   Updated: 2022/08/31 17:27:51 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/07 13:20:54 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,27 +65,44 @@ void	ft_write_here_doc(int fd, t_dlist *tokens, t_env **env)
 	free(input);
 }
 
+void	ft_init_here_space(int *temp_std, int *temp_exit, t_sas *all_sa)
+{
+	*temp_std = dup(0);
+	*temp_exit = g_exitcode;
+	g_exitcode = 0;
+	all_sa->new_sa.sa_handler = &ft_handle_here_doc;
+	ft_set_sa(&all_sa->new_sa, NULL, NULL);
+}
+
+void	ft_close_here_space(int *temp_std, int *fd, char name[11],
+	int *temp_exit)
+{
+	dup2(*temp_std, 0);
+	close(*temp_std);
+	close(*fd);
+	if (g_exitcode == 0)
+	{
+		*fd = open(name, O_RDONLY);
+		g_exitcode = *temp_exit;
+	}
+	else
+		*fd = -g_exitcode;
+}
+
 int	ft_here_doc(t_dlist *tokens, t_env **env, t_sas *all_sa)
 {
 	char	name[11];
 	int		fd;
 	int		temp_std;
+	int		temp_exit;
 
-	temp_std = dup(0);
-	all_sa->new_sa.sa_handler = &ft_handle_here_doc;
-	sigaction(SIGINT, &all_sa->new_sa, NULL);
-	sigaction(SIGQUIT, &all_sa->new_sa, NULL);
+	ft_init_here_space(&temp_std, &temp_exit, all_sa);
 	ft_find_here_name("here_doc00", name);
 	fd = open(name, O_WRONLY | O_CREAT, 00644);
 	if (fd == -1)
 		return (fd);
 	ft_write_here_doc(fd, tokens, env);
-	dup2(temp_std, 0);
-	close(fd);
-	if (g_exitcode != 130 && g_exitcode != 131)
-		fd = open(name, O_RDONLY);
-	else
-		fd = -g_exitcode;
+	ft_close_here_space(&temp_std, &fd, name, &temp_exit);
 	unlink(name);
 	return (fd);
 }
