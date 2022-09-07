@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:46:19 by mriant            #+#    #+#             */
-/*   Updated: 2022/08/12 14:22:12 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/01 15:00:46 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_init_pipe(t_dlist *blocks)
 
 int	ft_add_pipe(t_dlist *blocks)
 {
-	while (blocks->next)
+	while (blocks && blocks->next)
 	{
 		if (ft_init_pipe(blocks) == 1)
 			return (1);

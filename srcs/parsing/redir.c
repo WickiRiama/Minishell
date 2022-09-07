@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 14:19:18 by mriant            #+#    #+#             */
-/*   Updated: 2022/08/08 16:20:43 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/01 15:03:01 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	ft_close_old_redir(t_dlist *tokens, t_exec *blocks)
 		blocks->infile = close(blocks->infile) - 2;
 }
 
-void	ft_open_redir(t_dlist *tokens, t_exec *blocks, t_env **env)
+void	ft_open_redir(t_dlist *tokens, t_exec *blocks, t_env **env,
+	t_sas *all_sa)
 {
 	if (((t_token *)tokens->cont)->type == INFILE)
 		blocks->infile = open(((t_token *)tokens->cont)->text, O_RDONLY);
@@ -41,7 +42,7 @@ void	ft_open_redir(t_dlist *tokens, t_exec *blocks, t_env **env)
 		blocks->outfile = open(((t_token *)tokens->cont)->text, \
 			O_WRONLY | O_CREAT | O_APPEND, 00644);
 	else if (((t_token *)tokens->cont)->type == DELIM)
-		blocks->infile = ft_here_doc(tokens, env);
+		blocks->infile = ft_here_doc(tokens, env, all_sa);
 	if (blocks->infile == -1 || blocks->outfile == -1)
 		ft_fprintf(2, "%s: %s\n", \
 			strerror(errno), ((t_token *)tokens->cont)->text);

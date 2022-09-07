@@ -33,3 +33,21 @@ echo $_salut_toi
 export salut+toi=ok
 echo $?
 echo $salut+toi
+export pouet
+env
+export
+export tut=hello
+env
+export
+export tut
+env
+export
+export pouet
+env
+export
+export tut=pouet
+env
+export
+export pouet=hello
+env
+export

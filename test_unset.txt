@@ -32,3 +32,7 @@ unset _salut_toi
 echo $?
 unset salut+toi
 echo $?
+export test
+export
+unset test
+export
