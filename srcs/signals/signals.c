@@ -21,6 +21,7 @@ void	ft_handle_sigint(int sig)
 	if (sig == SIGINT)
 	{
 		ft_printf("\n$> ");
+		g_exitcode = 130;
 	}
 	else if (sig == SIGQUIT)
 		ft_printf("\b\b  \b\b");
