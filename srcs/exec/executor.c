@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 15:08:27 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/09/01 16:54:50 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/08 17:38:07 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,10 @@ void	ft_child(t_dlist *blocks, t_env *env, char **env_tab, t_sas *all_sa)
 {
 	int	status;
 
-	sigaction(SIGINT, &all_sa->old_sigint, NULL);
-	sigaction(SIGQUIT, &all_sa->old_sigquit, NULL);
+	sigemptyset(&all_sa->new_sa.sa_mask);
+	all_sa->new_sa.sa_flags = SA_RESTART;
+	all_sa->new_sa.sa_handler = &ft_handle_ignore;
+	ft_set_sa(&all_sa->new_sa, NULL, NULL);
 	status = 127;
 	if (!blocks || ((t_exec *)blocks->cont)->outfile == -1
 		|| ((t_exec *)blocks->cont)->infile == -1)
@@ -111,7 +113,9 @@ int	ft_executor(t_dlist	*blocks, t_env *env, t_sas *all_sa)
 	pid_t	pid;
 	int		result;
 
-	all_sa->new_sa.sa_handler = &ft_handle_ignore;
+	sigemptyset(&all_sa->new_sa.sa_mask);
+	all_sa->new_sa.sa_flags = SA_RESTART;
+	all_sa->new_sa.sa_handler = SIG_IGN;
 	ft_set_sa(&all_sa->new_sa, NULL, NULL);
 	if (blocks->next == NULL && ft_is_builtin(((t_exec *)blocks->cont)->cmd))
 		result = ft_run_one_builtin(blocks, env);

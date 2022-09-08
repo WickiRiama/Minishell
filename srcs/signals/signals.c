@@ -6,12 +6,13 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 14:22:56 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/01 14:23:08 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/08 17:38:18 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
 #include <readline/readline.h>
+#include <errno.h>
 
 #include "minishell.h"
 #include "libft.h"
@@ -36,7 +37,6 @@ void	ft_handle_ignore(int sig)
 	}
 	if (sig == SIGINT)
 		g_exitcode = 130;
-	ft_printf("\n");
 	return ;
 }
 
@@ -57,8 +57,10 @@ void	ft_handle_here_doc(int sig)
 void	ft_set_sa(t_sigaction *new_sa, t_sigaction *old_sigint,
 	t_sigaction *old_sigquit)
 {
-	sigaction(SIGINT, new_sa, old_sigint);
-	sigaction(SIGQUIT, new_sa, old_sigquit);
+	if (sigaction(SIGINT, new_sa, old_sigint) == -1)
+		ft_fprintf(2, "sigaction %s\n", strerror(errno));
+	if (sigaction(SIGQUIT, new_sa, old_sigquit) == -1)
+		ft_fprintf(2, "sigaction %s\n", strerror(errno));
 }
 
 void	ft_init_all_sas(t_sas *all_sa)
