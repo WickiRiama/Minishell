@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:42:00 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/07 13:50:15 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/12 11:17:34 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,13 @@ int	ft_wait(pid_t pid)
 		i = wait(&status);
 	}
 	if (WIFSIGNALED(status) == 1)
-		return (g_exitcode);
+	{
+		result = 128 + WTERMSIG(status);
+		if (result == 131)
+			ft_printf("Quit (core dumped)");
+		ft_printf("\n");
+		return (result);
+	}
 	else
 		return (WEXITSTATUS(result));
 }

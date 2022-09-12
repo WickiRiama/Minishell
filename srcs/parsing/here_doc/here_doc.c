@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:24:59 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/07 13:20:54 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/12 12:08:04 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,12 @@ void	ft_write_here_doc(int fd, t_dlist *tokens, t_env **env)
 	free(input);
 }
 
-void	ft_init_here_space(int *temp_std, int *temp_exit, t_sas *all_sa)
+void	ft_init_here_space(int *temp_std, int *temp_exit, t_sig *new_sa)
 {
 	*temp_std = dup(0);
 	*temp_exit = g_exitcode;
 	g_exitcode = 0;
-	all_sa->new_sa.sa_handler = &ft_handle_here_doc;
-	ft_set_sa(&all_sa->new_sa, NULL, NULL);
+	ft_set_sa(new_sa, &ft_handle_here_doc);
 }
 
 void	ft_close_here_space(int *temp_std, int *fd, char name[11],
@@ -89,14 +88,14 @@ void	ft_close_here_space(int *temp_std, int *fd, char name[11],
 		*fd = -g_exitcode;
 }
 
-int	ft_here_doc(t_dlist *tokens, t_env **env, t_sas *all_sa)
+int	ft_here_doc(t_dlist *tokens, t_env **env, t_sig *new_sa)
 {
 	char	name[11];
 	int		fd;
 	int		temp_std;
 	int		temp_exit;
 
-	ft_init_here_space(&temp_std, &temp_exit, all_sa);
+	ft_init_here_space(&temp_std, &temp_exit, new_sa);
 	ft_find_here_name("here_doc00", name);
 	fd = open(name, O_WRONLY | O_CREAT, 00644);
 	if (fd == -1)

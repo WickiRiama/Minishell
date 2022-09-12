@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:30:22 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/01 14:27:29 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/12 12:06:34 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "libft.h"
 
 int	ft_fill_block(t_dlist *tokens, t_exec *new_block, t_env **env,
-	t_sas *all_sa)
+	t_sig *new_sa)
 {
 	if (((t_token *)tokens->cont)->type == WORD)
 	{
@@ -32,7 +32,7 @@ int	ft_fill_block(t_dlist *tokens, t_exec *new_block, t_env **env,
 		&& new_block->infile != -1)
 	{
 		ft_close_old_redir(tokens, new_block);
-		ft_open_redir(tokens, new_block, env, all_sa);
+		ft_open_redir(tokens, new_block, env, new_sa);
 		if (new_block->infile == -1)
 			new_block->outfile = -1;
 		else if (new_block->outfile == -1)
@@ -52,8 +52,7 @@ void	ft_init_block(t_exec *block)
 	block->pipe_to_write_to = -2;
 }
 
-t_exec	*ft_create_block(t_dlist *tokens, t_env **env,
-	t_sas *all_sa)
+t_exec	*ft_create_block(t_dlist *tokens, t_env **env, t_sig *new_sa)
 {
 	t_exec	*block;
 	int		ret;
@@ -67,7 +66,7 @@ t_exec	*ft_create_block(t_dlist *tokens, t_env **env,
 	ft_init_block(block);
 	while (tokens && ((t_token *)tokens->cont)->type != PIPE)
 	{
-		ret = ft_fill_block(tokens, block, env, all_sa);
+		ret = ft_fill_block(tokens, block, env, new_sa);
 		if (ret == 1)
 		{
 			ft_del_blocks((void *)block);
@@ -98,12 +97,12 @@ void	ft_del_blocks(void *content)
 	free(content);
 }
 
-int	ft_add_block(t_dlist *tokens, t_dlist **blocks, t_env **env, t_sas *all_sa)
+int	ft_add_block(t_dlist *tokens, t_dlist **blocks, t_env **env, t_sig *new_sa)
 {
 	t_exec	*block_struct;
 	t_dlist	*new_block;
 
-	block_struct = ft_create_block(tokens, env, all_sa);
+	block_struct = ft_create_block(tokens, env, new_sa);
 	if (!block_struct)
 		return (1);
 	new_block = ft_lstnew_msh((void *)block_struct);
