@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 14:22:34 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/01 15:06:57 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/12 12:04:25 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "minishell.h"
 #include "libft.h"
 
-t_dlist	*ft_cmd_orga(t_dlist *tokens, t_env **env, t_sas *all_sa)
+t_dlist	*ft_cmd_orga(t_dlist *tokens, t_env **env, t_sig *new_sa)
 {
 	t_dlist	*blocks;
 	int		ret;
@@ -23,7 +23,7 @@ t_dlist	*ft_cmd_orga(t_dlist *tokens, t_env **env, t_sas *all_sa)
 	blocks = NULL;
 	while (tokens)
 	{
-		ret = ft_add_block(tokens, &blocks, env, all_sa);
+		ret = ft_add_block(tokens, &blocks, env, new_sa);
 		if (ret == 1)
 		{
 			ft_lstclear_msh(&blocks, &ft_del_blocks);

@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:39:25 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/08 17:39:30 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/12 12:02:08 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ int	ft_copy_tab(char **dest, char **src)
 	return (0);
 }
 
-t_dlist	*ft_parsing1(t_dlist *tokens, t_sas *all_sa)
+t_dlist	*ft_parsing1(t_dlist *tokens, t_sig *new_sa)
 {
 	char				*input;
 
 	input = NULL;
 	while (1)
 	{
-		ft_set_sa(&all_sa->new_sa, &all_sa->old_sigint, &all_sa->old_sigquit);
+		ft_set_sa(new_sa, &ft_handle_sig);
 		free(input);
 		input = readline("$> ");
 		if (input && input[0] == '\0')
@@ -65,20 +65,18 @@ t_dlist	*ft_parsing1(t_dlist *tokens, t_sas *all_sa)
 	}
 }
 
-t_dlist	*ft_parsing(t_env **env, t_sas *all_sa)
+t_dlist	*ft_parsing(t_env **env, t_sig *new_sa)
 {
 	t_dlist	*tokens;
 	t_dlist	*blocks;
 
-	ft_init_all_sas(all_sa);
-	all_sa->new_sa.sa_handler = &ft_handle_sigint;
 	tokens = NULL;
-	tokens = ft_parsing1(tokens, all_sa);
+	tokens = ft_parsing1(tokens, new_sa);
 	if (!tokens)
 		return (NULL);
 	if (ft_wexpanse(&tokens, env))
 		return (NULL);
-	blocks = ft_cmd_orga(tokens, env, all_sa);
+	blocks = ft_cmd_orga(tokens, env, new_sa);
 	ft_lstclear_msh(&tokens, ft_del_token);
 	if (!blocks)
 		return (NULL);

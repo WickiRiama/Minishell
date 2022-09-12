@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 15:08:27 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/09/08 17:38:07 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/12 12:13:36 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,11 @@ void	ft_child_bis(t_dlist *blocks, t_env *env, char **env_tab)
 	ft_check_dir(blocks, env, env_tab);
 }
 
-void	ft_child(t_dlist *blocks, t_env *env, char **env_tab, t_sas *all_sa)
+void	ft_child(t_dlist *blocks, t_env *env, char **env_tab, t_sig *new_sa)
 {
 	int	status;
 
-	sigemptyset(&all_sa->new_sa.sa_mask);
-	all_sa->new_sa.sa_flags = SA_RESTART;
-	all_sa->new_sa.sa_handler = &ft_handle_ignore;
-	ft_set_sa(&all_sa->new_sa, NULL, NULL);
+	ft_set_sa(new_sa, SIG_DFL);
 	status = 127;
 	if (!blocks || ((t_exec *)blocks->cont)->outfile == -1
 		|| ((t_exec *)blocks->cont)->infile == -1)
@@ -88,7 +85,7 @@ void	ft_child(t_dlist *blocks, t_env *env, char **env_tab, t_sas *all_sa)
 	exit(status);
 }
 
-int	ft_exec(t_dlist	*blocks, t_env *env, t_sas *all_sas)
+int	ft_exec(t_dlist	*blocks, t_env *env, t_sig *new_sas)
 {
 	pid_t	pid;
 	char	**env_tab;
@@ -102,28 +99,25 @@ int	ft_exec(t_dlist	*blocks, t_env *env, t_sas *all_sas)
 	if (pid == -1)
 		ft_fprintf(2, "Fork error: %s\n", strerror(errno));
 	else if (pid == 0)
-		ft_child(blocks, env, env_tab, all_sas);
+		ft_child(blocks, env, env_tab, new_sas);
 	ft_close_fd_parent(blocks);
 	free_tab(env_tab);
 	return (pid);
 }
 
-int	ft_executor(t_dlist	*blocks, t_env *env, t_sas *all_sa)
+int	ft_executor(t_dlist	*blocks, t_env *env, t_sig *new_sa)
 {
 	pid_t	pid;
 	int		result;
 
-	sigemptyset(&all_sa->new_sa.sa_mask);
-	all_sa->new_sa.sa_flags = SA_RESTART;
-	all_sa->new_sa.sa_handler = SIG_IGN;
-	ft_set_sa(&all_sa->new_sa, NULL, NULL);
+	ft_set_sa(new_sa, SIG_IGN);
 	if (blocks->next == NULL && ft_is_builtin(((t_exec *)blocks->cont)->cmd))
 		result = ft_run_one_builtin(blocks, env);
 	else
 	{
 		while (blocks)
 		{
-			pid = ft_exec(blocks, env, all_sa);
+			pid = ft_exec(blocks, env, new_sa);
 			if (pid == -1)
 			{
 				ft_close_fd_all(blocks);
