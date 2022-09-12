@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:39:25 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/12 12:02:08 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/12 16:20:51 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_dlist	*ft_parsing1(t_dlist *tokens, t_sig *new_sa)
 	{
 		ft_set_sa(new_sa, &ft_handle_sig);
 		free(input);
-		input = readline("$> ");
+		input = readline("🐱 minishell 🐈 $> ");
 		if (input && input[0] == '\0')
 			continue ;
 		tokens = ft_tokenisation(input);
