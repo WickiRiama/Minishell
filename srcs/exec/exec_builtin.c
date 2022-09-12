@@ -13,27 +13,27 @@
 #include "minishell.h"
 #include "libft.h"
 
-int	ft_run_builtin(char **cmd, t_env *env, t_dlist **blocks, int tmp_std[2])
+int	ft_run_builtin(char **cmd, t_env **env, t_dlist **blocks, int tmp_std[2])
 {
 	int	result;
 
 	result = 133;
 	if (ft_strcmp(cmd[0], "cd") == 0)
-		result = (ft_cd(cmd, &env));
+		result = (ft_cd(cmd, env));
 	else if (ft_strcmp(cmd[0], "echo") == 0)
 		result = (ft_echo(cmd));
 	else if (ft_strcmp(cmd[0], "pwd") == 0)
 		result = (ft_pwd(cmd));
 	else if (ft_strcmp(cmd[0], "env") == 0)
-		result = (display_env(cmd, env, 0));
+		result = (display_env(cmd, *env, 0));
 	else if (ft_strcmp(cmd[0], "exit") == 0)
-		result = ft_exit(cmd, blocks, &env, tmp_std);
+		result = ft_exit(cmd, blocks, env, tmp_std);
 	else if (ft_strcmp(cmd[0], "unset") == 0)
-		result = (ft_unset(cmd, &env));
+		result = (ft_unset(cmd, env));
 	else if (ft_strcmp(cmd[0], "export") == 0)
-		result = (ft_export(cmd, &env));
+		result = (ft_export(cmd, env));
 	if (result == 15)
-		ft_exit_ctrld(blocks, &env);
+		ft_exit_ctrld(blocks, env);
 	return (result);
 }
 
@@ -53,7 +53,7 @@ int	ft_is_builtin(char **cmd)
 		return (0);
 }
 
-int	ft_run_one_builtin(t_dlist *blocks, t_env *env)
+int	ft_run_one_builtin(t_dlist *blocks, t_env **env)
 {
 	int	status;
 	int	temp_std[2];

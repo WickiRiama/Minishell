@@ -46,7 +46,7 @@ int	ft_echo(char **input)
 		write(1, "\n", 1);
 		return (0);
 	}
-	while (ft_is_nl(input[i]))
+	while (input[i] && ft_is_nl(input[i]))
 	{
 		nl = 1;
 		i++;

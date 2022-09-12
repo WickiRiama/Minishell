@@ -35,7 +35,7 @@ void	ft_check_dir(t_dlist *blocks, t_env *env, char **env_tab)
 	}
 }
 
-void	ft_child_bis(t_dlist *blocks, t_env *env, char **env_tab)
+void	ft_child_bis(t_dlist *blocks, t_env **env, char **env_tab)
 {
 	int	status;
 
@@ -44,20 +44,20 @@ void	ft_child_bis(t_dlist *blocks, t_env *env, char **env_tab)
 	{
 		status = ft_run_builtin(((t_exec *)blocks->cont)->cmd, env, &blocks,
 				NULL);
-		ft_free_lists(blocks, env, env_tab);
+		ft_free_lists(blocks, *env, env_tab);
 		rl_clear_history();
 		exit(status);
 	}
-	if (ft_get_path(env, ((t_exec *)blocks->cont)->cmd))
+	if (ft_get_path(*env, ((t_exec *)blocks->cont)->cmd))
 	{
-		ft_free_lists(blocks, env, env_tab);
+		ft_free_lists(blocks, *env, env_tab);
 		rl_clear_history();
 		exit(1);
 	}
-	ft_check_dir(blocks, env, env_tab);
+	ft_check_dir(blocks, *env, env_tab);
 }
 
-void	ft_child(t_dlist *blocks, t_env *env, char **env_tab, t_sas *all_sa)
+void	ft_child(t_dlist *blocks, t_env **env, char **env_tab, t_sas *all_sa)
 {
 	int	status;
 
@@ -68,7 +68,7 @@ void	ft_child(t_dlist *blocks, t_env *env, char **env_tab, t_sas *all_sa)
 		|| ((t_exec *)blocks->cont)->infile == -1)
 	{
 		ft_close_fd_all(blocks);
-		ft_free_lists(blocks, env, env_tab);
+		ft_free_lists(blocks, *env, env_tab);
 		rl_clear_history();
 		exit(1);
 	}
@@ -81,19 +81,19 @@ void	ft_child(t_dlist *blocks, t_env *env, char **env_tab, t_sas *all_sa)
 			strerror(errno), ((t_exec *)blocks->cont)->cmd[0]);
 		status = 1;
 	}
-	ft_free_lists(blocks, env, env_tab);
+	ft_free_lists(blocks, *env, env_tab);
 	rl_clear_history();
 	exit(status);
 }
 
-int	ft_exec(t_dlist	*blocks, t_env *env, t_sas *all_sas)
+int	ft_exec(t_dlist	*blocks, t_env **env, t_sas *all_sas)
 {
 	pid_t	pid;
 	char	**env_tab;
 
 	if (!((t_exec *)blocks->cont)->cmd)
 		return (-2);
-	env_tab = ft_list_to_tab(env);
+	env_tab = ft_list_to_tab(*env);
 	if (!env_tab)
 		return (-1);
 	pid = fork();
@@ -106,7 +106,7 @@ int	ft_exec(t_dlist	*blocks, t_env *env, t_sas *all_sas)
 	return (pid);
 }
 
-int	ft_executor(t_dlist	*blocks, t_env *env, t_sas *all_sa)
+int	ft_executor(t_dlist	*blocks, t_env **env, t_sas *all_sa)
 {
 	pid_t	pid;
 	int		result;
@@ -123,7 +123,7 @@ int	ft_executor(t_dlist	*blocks, t_env *env, t_sas *all_sa)
 			if (pid == -1)
 			{
 				ft_close_fd_all(blocks);
-				ft_free_lists(blocks, env, NULL);
+				ft_free_lists(blocks, *env, NULL);
 				rl_clear_history();
 				exit(1);
 			}

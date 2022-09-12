@@ -66,13 +66,19 @@ int	ft_unset(char **input, t_env **env)
 {
 	int	i;
 	int	ret;
+	t_env	*env_var;
 
 	i = 1;
 	ret = 0;
 	while ((input[i]) && (i <= len_arg_tab(input)))
 	{
-		if (ft_get_ptr_env_var(input[i], *env) != NULL)
-			ft_lstdelone_env(ft_get_ptr_env_var(input[i], *env), &free);
+		env_var = ft_get_ptr_env_var(input[i], *env);
+		if (env_var != NULL)
+		{
+			ft_printf("env :%p, env_var:%p\n", *env, env_var);
+			ft_lstdelone_env(env_var, env, &free);
+			ft_printf("env :%p, env_var:%p\n", *env, env_var);
+		}
 		else
 			ret = get_return_value(input, input[i]);
 		i++;

@@ -33,8 +33,10 @@ t_env	*ft_get_env_var_export(char *var, t_env *env)
 int	ft_replace_env_var(char *input, t_env **env)
 {
 	t_env	*new;
+	t_env	*env_var;
 
-	ft_lstdelone_env(ft_get_env_var_export(input, *env), &free);
+	env_var = ft_get_env_var_export(input, *env);
+	ft_lstdelone_env(env_var, env, &free);
 	new = ft_lstnew_env(input, 1);
 	if (!new)
 	{
