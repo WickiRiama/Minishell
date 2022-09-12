@@ -64,8 +64,8 @@ int	get_return_value(char **all_input, char *input)
 
 int	ft_unset(char **input, t_env **env)
 {
-	int	i;
-	int	ret;
+	int		i;
+	int		ret;
 	t_env	*env_var;
 
 	i = 1;

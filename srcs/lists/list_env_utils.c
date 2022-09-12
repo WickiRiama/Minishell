@@ -64,7 +64,8 @@ void	ft_lstdelone_env(t_env *lst, t_env **lst_start, void (*del)(void *))
 	if (!lst->prev)
 	{
 		*lst_start = lst->next;
-		(*lst_start)->prev = NULL;
+		if (*lst_start)
+			(*lst_start)->prev = NULL;
 	}
 	else
 	{

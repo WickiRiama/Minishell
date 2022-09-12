@@ -193,7 +193,7 @@ int		ft_get_path(t_env *env, char **cmd);
 int		ft_is_builtin(char **cmd);
 char	**ft_list_to_tab(t_env *list);
 void	ft_redir(t_dlist *blocks);
-int		ft_run_builtin(char **cmd, t_env **env, t_dlist **blocks, 
+int		ft_run_builtin(char **cmd, t_env **env, t_dlist **blocks,
 			int tmp_std[2]);
 int		ft_run_one_builtin(t_dlist *blocks, t_env **env);
 int		ft_wait(pid_t pid);
