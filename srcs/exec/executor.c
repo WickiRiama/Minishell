@@ -85,11 +85,7 @@ void	ft_child(t_dlist *blocks, t_env **env, char **env_tab, t_sig *new_sa)
 	exit(status);
 }
 
-<<<<<<< HEAD
-int	ft_exec(t_dlist	*blocks, t_env **env, t_sas *all_sas)
-=======
-int	ft_exec(t_dlist	*blocks, t_env *env, t_sig *new_sas)
->>>>>>> origin
+int	ft_exec(t_dlist	*blocks, t_env **env, t_sig *new_sas)
 {
 	pid_t	pid;
 	char	**env_tab;
@@ -109,11 +105,7 @@ int	ft_exec(t_dlist	*blocks, t_env *env, t_sig *new_sas)
 	return (pid);
 }
 
-<<<<<<< HEAD
-int	ft_executor(t_dlist	*blocks, t_env **env, t_sas *all_sa)
-=======
-int	ft_executor(t_dlist	*blocks, t_env *env, t_sig *new_sa)
->>>>>>> origin
+int	ft_executor(t_dlist	*blocks, t_env **env, t_sig *new_sa)
 {
 	pid_t	pid;
 	int		result;

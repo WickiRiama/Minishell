@@ -74,11 +74,7 @@ int	ft_unset(char **input, t_env **env)
 	{
 		env_var = ft_get_ptr_env_var(input[i], *env);
 		if (env_var != NULL)
-		{
-			ft_printf("env :%p, env_var:%p\n", *env, env_var);
 			ft_lstdelone_env(env_var, env, &free);
-			ft_printf("env :%p, env_var:%p\n", *env, env_var);
-		}
 		else
 			ret = get_return_value(input, input[i]);
 		i++;
