@@ -49,21 +49,30 @@ void	ft_lstclear_env(t_env **lst, void (*del)(void *))
 	while (temp2)
 	{
 		temp1 = temp2->next;
-		ft_lstdelone_env(temp2, del);
+		ft_lstdelone_env(temp2, lst, del);
 		temp2 = temp1;
 	}
 	*lst = NULL;
 }
 
-void	ft_lstdelone_env(t_env *lst, void (*del)(void *))
+void	ft_lstdelone_env(t_env *lst, t_env **lst_start, void (*del)(void *))
 {
 	if (!lst)
 		return ;
 	if (del)
 		del(lst->var);
-	if (lst->prev)
+	if (!lst->prev)
+	{
+		*lst_start = lst->next;
+		if (*lst_start)
+			(*lst_start)->prev = NULL;
+	}
+	else
+	{
 		lst->prev->next = lst->next;
-	if (lst->next)
-		lst->next->prev = lst->prev;
+		if (lst->next)
+			lst->next->prev = lst->prev;
+	}
 	free(lst);
+	lst = NULL;
 }

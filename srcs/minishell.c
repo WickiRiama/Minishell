@@ -70,7 +70,7 @@ int	main(int ac, char **av, char **envp)
 		if (!blocks)
 			ft_exit_ctrld(NULL, &env);
 		if (ft_check_last_infile(blocks) == 1)
-			ft_executor(blocks, env, &new_sa);
+			ft_executor(blocks, &env, &new_sa);
 		ft_lstclear_msh(&blocks, &ft_del_blocks);
 	}
 	ft_lstclear_env(&env, &free);

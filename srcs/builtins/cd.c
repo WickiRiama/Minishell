@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 11:03:57 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/07/07 16:39:26 by sle-huec         ###   ########.fr       */
+/*   Updated: 2022/09/08 17:09:13 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_check_arg(char **path)
 	int	len;
 
 	len = len_arg_tab(path);
-	if (len > 3)
+	if (len > 2)
 	{
 		ft_fprintf(2, "%s: too many arguments\n", path[0]);
 		return (1);

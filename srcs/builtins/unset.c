@@ -64,15 +64,17 @@ int	get_return_value(char **all_input, char *input)
 
 int	ft_unset(char **input, t_env **env)
 {
-	int	i;
-	int	ret;
+	int		i;
+	int		ret;
+	t_env	*env_var;
 
 	i = 1;
 	ret = 0;
 	while ((input[i]) && (i <= len_arg_tab(input)))
 	{
-		if (ft_get_ptr_env_var(input[i], *env) != NULL)
-			ft_lstdelone_env(ft_get_ptr_env_var(input[i], *env), &free);
+		env_var = ft_get_ptr_env_var(input[i], *env);
+		if (env_var != NULL)
+			ft_lstdelone_env(env_var, env, &free);
 		else
 			ret = get_return_value(input, input[i]);
 		i++;
