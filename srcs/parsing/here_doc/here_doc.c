@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:24:59 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/12 16:24:51 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/12 18:08:02 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_write_here_doc(int fd, t_dlist *tokens, t_env **env)
 {
 	char	*input;
 
-	input = readline("🦎 here_doc 🦎 $> ");
+	input = readline("🦎 in_doc 🦎 $> ");
 	while (input && ft_strcmp(input, ((t_token *)tokens->cont)->text) != 0)
 	{
 		input = ft_token_expanse(input, env);
@@ -56,7 +56,7 @@ void	ft_write_here_doc(int fd, t_dlist *tokens, t_env **env)
 		write(fd, input, ft_strlen(input));
 		write(fd, "\n", 1);
 		free(input);
-		input = readline("🦎 here_doc 🦎 $> ");
+		input = readline("🦎 in_doc 🦎 $> ");
 	}
 	if (!input && g_exitcode != 130 && g_exitcode != 131)
 		ft_fprintf(2,
