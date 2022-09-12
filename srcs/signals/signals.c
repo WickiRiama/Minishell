@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 14:22:56 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/12 12:14:27 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/12 16:21:52 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_handle_sig(int sig)
 {
 	if (sig == SIGINT)
 	{
-		ft_printf("\n$> ");
+		ft_printf("\n🐱 minishell 🐈 $> ");
 		g_exitcode = 130;
 	}
 	else if (sig == SIGQUIT)
