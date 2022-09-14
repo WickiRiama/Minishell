@@ -6,7 +6,7 @@
 #    By: mriant <mriant@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 13:49:10 by mriant            #+#    #+#              #
-#    Updated: 2022/09/01 15:06:29 by mriant           ###   ########.fr        #
+#    Updated: 2022/09/14 10:45:31 by mriant           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,9 @@ SRCS += ${addprefix srcs/parsing/word_expansion/, \
 	word_expansion.c}
 SRCS += ${addprefix srcs/signals/, \
 	signals.c}
+SRCS += ${addprefix srcs/Get_next_line/, \
+	get_next_line.c \
+	get_next_line_utils.c}
 
 OBJS = ${SRCS:srcs/%.c=build/%.o}
 DEPS = ${SRCS:srcs/%.c=build/%.d}
