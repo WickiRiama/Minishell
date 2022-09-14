@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 10:33:21 by mriant            #+#    #+#             */
-/*   Updated: 2022/03/04 15:45:00 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/14 17:01:19 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,11 @@
 # endif
 
 char		*get_next_line(int fd);
-size_t		ft_strlen(const char *s);
-void		ft_bzero(void *s, size_t n);
-void		*ft_calloc(size_t count, size_t size);
-char		*ft_strchr(const char *s, int c);
 char		*ft_strjoin_free(char *s, char const *s2);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
-char		*ft_strdup(const char *s1);
 long int	ft_readline(int fd, char **buf, char **line);
 void		ft_setline(char **line, char **tail);
+int			ft_check_fd(int fd, char *tail[256]);
+void		ft_clean_gnl(char *buf, char *tail, char *line);
 
 #endif
