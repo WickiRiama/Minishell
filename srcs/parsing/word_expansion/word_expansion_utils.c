@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 11:13:46 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/14 11:16:56 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/14 16:34:28 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	*ft_rm_quote(char *token)
 	ft_init_state(&state);
 	while (token && token[state.i])
 	{
-		if (token[state.i] == '"')
+		if (token[state.i] == '"' || token[state.i] == '\'')
 		{
 			ft_isquoted(token[state.i], &state);
 			token = ft_extd_token(token, "\0", state.i + 1, state.i + 1);
@@ -81,16 +81,19 @@ char	*ft_rm_quote(char *token)
 			while (token && state.dquoted && token[state.i + 1]
 				&& token[state.i + 1] != '"')
 				state.i++;
-		}
-		else if (token[state.i] == '\'')
-		{
-			ft_isquoted(token[state.i], &state);
-			token = ft_extd_token(token, "\0", state.i + 1, state.i + 1);
-			state.i--;
 			while (token && state.squoted && token[state.i + 1]
 				&& token[state.i + 1] != '\'')
 				state.i++;
 		}
+		// else if (token[state.i] == '\'')
+		// {
+		// 	ft_isquoted(token[state.i], &state);
+		// 	token = ft_extd_token(token, "\0", state.i + 1, state.i + 1);
+		// 	state.i--;
+		// 	while (token && state.squoted && token[state.i + 1]
+		// 		&& token[state.i + 1] != '\'')
+		// 		state.i++;
+		// }
 		state.i++;
 	}
 	return (token);
