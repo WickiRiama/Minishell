@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/12 12:15:33 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/14 11:24:21 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ int		ft_lstsize_env(t_env *lst);
 // utils
 //==============================================================================
 
+char	*ft_get_input(void);
 void	free_tab(char **tab);
 char	*ft_strjoin2(char const *s1, char const *s2);
 int		len_arg_tab(char **input);

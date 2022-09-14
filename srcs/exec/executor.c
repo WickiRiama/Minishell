@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 15:08:27 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/09/12 12:13:36 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/14 16:18:23 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 #include "minishell.h"
 #include "libft.h"
+#include "get_next_line.h"
 
 void	ft_check_dir(t_dlist *blocks, t_env *env, char **env_tab)
 {
@@ -99,7 +100,11 @@ int	ft_exec(t_dlist	*blocks, t_env **env, t_sig *new_sas)
 	if (pid == -1)
 		ft_fprintf(2, "Fork error: %s\n", strerror(errno));
 	else if (pid == 0)
+	{
+		if (isatty(STDIN_FILENO) == 1 && isatty(STDERR_FILENO) == 1)
+			get_next_line(-1);
 		ft_child(blocks, env, env_tab, new_sas);
+	}
 	ft_close_fd_parent(blocks);
 	free_tab(env_tab);
 	return (pid);

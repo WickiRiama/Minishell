@@ -3,9 +3,9 @@ echo $OLDPWD
 echo $PWD
 mkdir test
 cd test
-pwd
 mkdir pouet
 cd pouet
+pwd
 rm -r ../../test
 cd ..
 pwd

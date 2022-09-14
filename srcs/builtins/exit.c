@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 13:25:07 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/08/12 13:44:43 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/14 16:00:52 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ int	ft_exit(char **cmd, t_dlist **blocks, t_env **env, int temp_std[2])
 	int	status;
 
 	(void)env;
-	ft_printf("exit\n");
+	if (isatty(STDIN_FILENO) == 1 && isatty(STDERR_FILENO) == 1)
+		ft_printf("exit\n");
 	status = check_arg_and_get_status(cmd);
 	if (status == -1)
 	{
