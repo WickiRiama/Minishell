@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 15:08:27 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/09/14 12:21:07 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/14 16:18:23 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,8 @@ int	ft_exec(t_dlist	*blocks, t_env **env, t_sig *new_sas)
 	else if (pid == 0)
 	{
 		if (isatty(STDIN_FILENO) == 1 && isatty(STDERR_FILENO) == 1)
-		{
 			get_next_line(-1);
-			ft_child(blocks, env, env_tab, new_sas);
-		}
+		ft_child(blocks, env, env_tab, new_sas);
 	}
 	ft_close_fd_parent(blocks);
 	free_tab(env_tab);
