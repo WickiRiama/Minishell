@@ -6,7 +6,7 @@
 #    By: mriant <mriant@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 13:49:10 by mriant            #+#    #+#              #
-#    Updated: 2022/09/14 10:45:31 by mriant           ###   ########.fr        #
+#    Updated: 2022/09/14 12:23:25 by mriant           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,7 +89,7 @@ re: fclean
 
 .PHONY: grind
 grind: ${NAME}
-	valgrind --suppressions=.ignore_readline --track-fds=yes --trace-children=yes --leak-check=full --show-leak-kinds=all ./minishell
+	valgrind --suppressions=.ignore_readline --track-fds=yes --trace-children=yes --leak-check=full --show-leak-kinds=all -s ./minishell
 
 .PHONY: malloc_test
 malloc_test: ${LIBFT} ${OBJS}

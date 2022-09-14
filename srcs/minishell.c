@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/12 12:10:07 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/14 15:20:28 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	ft_check_last_infile(t_dlist *blocks)
 {
 	t_dlist	*last_block;
 
+	if (!blocks)
+		return (0);
 	last_block = ft_lstlast_msh(blocks);
 	if (((t_exec *)last_block->cont)->infile > -130)
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:39:25 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/12 16:20:51 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/14 11:32:31 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 #include "minishell.h"
 #include "libft.h"
+#include "get_next_line.h"
 
 int	ft_copy_tab(char **dest, char **src)
 {
@@ -45,7 +46,7 @@ t_dlist	*ft_parsing1(t_dlist *tokens, t_sig *new_sa)
 	{
 		ft_set_sa(new_sa, &ft_handle_sig);
 		free(input);
-		input = readline("🐱 minishell 🐈 $> ");
+		input = ft_get_input();
 		if (input && input[0] == '\0')
 			continue ;
 		tokens = ft_tokenisation(input);

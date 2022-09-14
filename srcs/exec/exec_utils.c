@@ -6,9 +6,12 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:42:00 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/12 11:17:34 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/14 15:31:51 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <string.h>
+#include <errno.h>
 
 #include "minishell.h"
 #include "libft.h"
@@ -117,6 +120,7 @@ int	ft_wait(pid_t pid)
 	int	status;
 	int	result;
 
+	result = -15;
 	if (pid == -2)
 		return (0);
 	i = wait(&status);
@@ -126,7 +130,7 @@ int	ft_wait(pid_t pid)
 			result = status;
 		i = wait(&status);
 	}
-	if (WIFSIGNALED(status) == 1)
+	if (result >= 0 && WIFSIGNALED(result) == 1)
 	{
 		result = 128 + WTERMSIG(status);
 		if (result == 131)
@@ -134,6 +138,7 @@ int	ft_wait(pid_t pid)
 		ft_printf("\n");
 		return (result);
 	}
-	else
+	else if (result >= 0)
 		return (WEXITSTATUS(result));
+	return (result);
 }

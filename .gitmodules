@@ -1,9 +1,3 @@
 [submodule "libft"]
 	path = libft
 	url = git@github.com:WickiRiama/libft.git
-[submodule "Get_next_line"]
-	path = Get_next_line
-	url = git@github.com:WickiRiama/Get_next_line.git
-[submodule "srcs/Get_next_line"]
-	path = srcs/Get_next_line
-	url = git@github.com:WickiRiama/Get_next_line.git

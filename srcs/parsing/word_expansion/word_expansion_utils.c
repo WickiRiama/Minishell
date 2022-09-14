@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 11:13:46 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/12 17:49:48 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/14 11:16:56 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,9 @@ char	*ft_extd_token(char *src, char *env_var, int start_var, int end_var)
 
 char	*ft_rm_quote(char *token)
 {
-	// int		i;
 	t_state	state;
 
 	ft_init_state(&state);
-	// i = 0;
 	while (token && token[state.i])
 	{
 		if (token[state.i] == '"')
