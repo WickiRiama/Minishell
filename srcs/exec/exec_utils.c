@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:42:00 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/14 15:31:51 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/14 17:53:12 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_get_cmdpath(char **cmd, char **paths)
 	if (!paths && access(cmd[0], X_OK) == 0)
 		return (0);
 	i = 0;
-	while (paths && paths[i] && cmd && cmd[0] && cmd[0][0])
+	while (paths && paths[i] && cmd[0][0] && ft_strchr(cmd[0], '/') == 0)
 	{
 		s = ft_strjoin(paths[i], cmd[0], "/");
 		if (!s)
@@ -62,7 +62,7 @@ int	ft_get_path(t_env *env, char **cmd)
 	}
 	else
 		paths = NULL;
-	if (ft_get_cmdpath(cmd, paths))
+	if (cmd && cmd[0] && ft_get_cmdpath(cmd, paths))
 	{
 		free_tab(paths);
 		ft_fprintf(2, "System error. Malloc failed.\n");
