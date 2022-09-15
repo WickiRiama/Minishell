@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/14 15:20:28 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/15 11:56:06 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_print_list(t_dlist *list)
 	{
 		i = 0;
 		ft_printf("command :\n");
-		while (((t_exec *)list->cont)->cmd[i])
+		while (((t_exec *)list->cont)->cmd && ((t_exec *)list->cont)->cmd[i])
 		{
 			ft_printf("   %s\n", ((t_exec *)list->cont)->cmd[i]);
 			i++;

@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 11:32:25 by mriant            #+#    #+#             */
-/*   Updated: 2022/08/01 17:33:15 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/15 12:17:54 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ int	ft_wexpanse(t_dlist **tokens, t_env	**envp)
 			ft_lstclear_msh(tokens, &ft_del_token);
 			return (1);
 		}
+		if (((t_token *)temp->cont)->text[0] == '\0')
+			((t_token *)temp->cont)->type = TO_IGNORE;
 		((t_token *)temp->cont)->text = \
 			ft_rm_quote(((t_token *)temp->cont)->text);
 		if (!((t_token *)temp->cont)->text)
@@ -112,6 +114,5 @@ int	ft_wexpanse(t_dlist **tokens, t_env	**envp)
 		}
 		temp = temp->next;
 	}
-	*tokens = ft_trim_empty_token(*tokens);
 	return (0);
 }

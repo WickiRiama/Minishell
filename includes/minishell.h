@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/14 11:24:21 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/15 12:20:37 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ typedef enum e_types
 	OUTFILE,
 	DELIM,
 	APP_FILE,
-	PIPE
+	PIPE,
+	TO_IGNORE
 }			t_types;
 typedef struct s_token
 {

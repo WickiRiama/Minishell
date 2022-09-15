@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 15:08:27 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/09/14 16:58:32 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/15 12:00:16 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,10 @@ int	ft_exec(t_dlist	*blocks, t_env **env, t_sig *new_sas)
 	char	**env_tab;
 
 	if (!((t_exec *)blocks->cont)->cmd)
+	{
+		ft_close_fd_parent(blocks);
 		return (-2);
+	}
 	env_tab = ft_list_to_tab(*env);
 	if (!env_tab)
 		return (-1);
