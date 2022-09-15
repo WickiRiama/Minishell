@@ -6,15 +6,13 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/15 15:37:50 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/15 16:13:23 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //Use with --suppressions=.ignore_readline to ignore readline leaks
 
 #include <readline/readline.h>
-#include <readline/history.h>
-#include <signal.h>
 
 #include "minishell.h"
 #include "libft.h"

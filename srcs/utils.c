@@ -6,13 +6,11 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:18:56 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/09/15 15:42:33 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/15 16:14:53 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include <readline/readline.h>
-#include <readline/history.h>
 
 #include "minishell.h"
 #include "libft.h"

@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 12:15:00 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/07/06 10:19:12 by sle-huec         ###   ########.fr       */
+/*   Updated: 2022/09/15 15:51:33 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include <string.h>
-#include <stdlib.h>
 #include <errno.h>
+
 #include "libft.h"
 #include "minishell.h"
 

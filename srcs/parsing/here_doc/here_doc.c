@@ -6,19 +6,12 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:24:59 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/14 10:02:07 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/15 16:05:55 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
 #include <readline/readline.h>
-#include <readline/history.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <fcntl.h>
-#include <signal.h>
-#include <errno.h>
 
 #include "minishell.h"
 #include "libft.h"

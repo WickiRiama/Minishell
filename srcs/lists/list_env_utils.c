@@ -6,13 +6,13 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 16:13:00 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/08/08 16:59:23 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/15 16:00:34 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+
 #include "minishell.h"
-#include "libft.h"
 
 int	ft_lstsize_env(t_env *lst)
 {

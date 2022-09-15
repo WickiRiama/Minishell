@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 16:22:05 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/14 16:54:36 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/15 15:59:55 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,29 +40,3 @@ char	*get_next_line(int fd)
 	free(buf);
 	return (line);
 }
-/*
-int	main(void)
-{
-	int		fd1;
-	int		fd2;
-
-	fd1 = open("test_file", O_RDONLY);
-	fd2 = open("test_file_2", O_RDONLY);
-	char	*str = get_next_line(fd1);
-	printf("fd1 :%s", str);
-	free(str);
-	while (str)
-	{
-		str = get_next_line(0);
-		printf("input : %s", str);
-		free(str);
-		str = get_next_line(fd2);
-		printf("fd2 : %s", str);
-		free(str);
-		str = get_next_line(fd1);
-		printf("fd1 : %s", str);
-		free (str);
-	}
-	close (fd1);
-	close (fd2);
-}*/

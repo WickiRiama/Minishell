@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sle-huec <sle-huec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:48:14 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/07/07 16:24:25 by sle-huec         ###   ########.fr       */
+/*   Updated: 2022/09/15 15:45:24 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "minishell.h"
 
 int	ft_is_nl(char *str)
 {

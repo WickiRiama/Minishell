@@ -6,11 +6,9 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:38:12 by mriant            #+#    #+#             */
-/*   Updated: 2022/08/01 14:56:10 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/15 16:07:08 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <stdlib.h>
 
 #include "minishell.h"
 #include "libft.h"
