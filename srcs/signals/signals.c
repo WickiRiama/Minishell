@@ -6,11 +6,10 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 14:22:56 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/12 16:21:52 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/15 16:12:18 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
 #include <readline/readline.h>
 #include <errno.h>
 

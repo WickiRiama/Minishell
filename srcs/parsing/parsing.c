@@ -6,21 +6,14 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:39:25 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/14 11:32:31 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/15 16:10:12 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <fcntl.h>
-#include <string.h>
-#include <errno.h>
-#include <readline/readline.h>
 #include <readline/history.h>
-#include <signal.h>
 
 #include "minishell.h"
 #include "libft.h"
-#include "get_next_line.h"
 
 int	ft_copy_tab(char **dest, char **src)
 {

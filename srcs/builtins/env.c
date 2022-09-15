@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 14:05:36 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/08/30 13:38:15 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/15 15:48:06 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_env	*ft_get_ptr_env_var(char *var, t_env *env)
 	return (NULL);
 }
 
-//get env var from envp
+//Convert envp (environment tab) into env (environment list)
 int	get_env_var(char **envp, t_env **env)
 {
 	int		i;
