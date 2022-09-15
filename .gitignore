@@ -6,3 +6,5 @@ minishell
 test
 test.c
 ft_mallocator
+README*
+tests/

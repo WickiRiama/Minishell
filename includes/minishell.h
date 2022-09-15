@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/15 12:20:37 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/15 15:37:30 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ typedef struct s_exec
 int		ft_add_block(t_dlist *tokens, t_dlist **blocks, t_env **env,
 			t_sig *new_sa);
 int		ft_add_pipe(t_dlist *blocks);
+int		ft_check_last_infile(t_dlist *blocks);
 void	ft_close_old_redir(t_dlist *tokens, t_exec *blocks);
 t_dlist	*ft_cmd_orga(t_dlist *tokens, t_env **env, t_sig *new_sa);
 int		ft_copy_tab(char **dest, char **src);

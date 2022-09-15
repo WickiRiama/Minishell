@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:06:41 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/15 11:56:06 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/15 15:37:50 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,39 +20,6 @@
 #include "libft.h"
 
 int	g_exitcode;
-
-void	ft_print_list(t_dlist *list)
-{
-	int	i;
-
-	while (list)
-	{
-		i = 0;
-		ft_printf("command :\n");
-		while (((t_exec *)list->cont)->cmd && ((t_exec *)list->cont)->cmd[i])
-		{
-			ft_printf("   %s\n", ((t_exec *)list->cont)->cmd[i]);
-			i++;
-		}
-		ft_printf("infile :%d\n", ((t_exec *)list->cont)->infile);
-		ft_printf("outfile :%d\n", ((t_exec *)list->cont)->outfile);
-		ft_printf("pipe write :%d\n", ((t_exec *)list->cont)->pipe_to_write_to);
-		ft_printf("pipe read :%d\n", ((t_exec *)list->cont)->pipe_to_read_from);
-		list = list->next;
-	}
-}
-
-int	ft_check_last_infile(t_dlist *blocks)
-{
-	t_dlist	*last_block;
-
-	if (!blocks)
-		return (0);
-	last_block = ft_lstlast_msh(blocks);
-	if (((t_exec *)last_block->cont)->infile > -130)
-		return (1);
-	return (0);
-}
 
 int	main(int ac, char **av, char **envp)
 {

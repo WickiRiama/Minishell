@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:18:56 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/09/14 16:01:03 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/15 15:42:33 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,16 @@ char	*ft_get_input(void)
 			input[ft_strlen(input) - 1] = '\0';
 	}
 	return (input);
+}
+
+int	ft_check_last_infile(t_dlist *blocks)
+{
+	t_dlist	*last_block;
+
+	if (!blocks)
+		return (0);
+	last_block = ft_lstlast_msh(blocks);
+	if (((t_exec *)last_block->cont)->infile > -130)
+		return (1);
+	return (0);
 }
