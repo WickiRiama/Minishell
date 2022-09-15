@@ -29,6 +29,7 @@ t_env	*ft_get_ptr_env_var(char *var, t_env *env)
 	return (NULL);
 }
 
+//get env var from envp
 int	get_env_var(char **envp, t_env **env)
 {
 	int		i;

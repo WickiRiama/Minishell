@@ -55,7 +55,7 @@ int	get_return_value(char **all_input, char *input)
 		return (2);
 	else if (!is_variable_sh(input))
 	{
-		ft_fprintf(2, "%s: %s: not a valid identifier\n", all_input[0],
+		ft_fprintf(2, "%s: '%s': not a valid identifier\n", all_input[0],
 			input);
 		return (1);
 	}
