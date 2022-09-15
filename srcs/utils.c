@@ -44,6 +44,7 @@ char	*ft_strjoin2(char const *s1, char const *s2)
 		return (0);
 	ft_strlcpy(new_str, s1, size);
 	ft_strlcat((char *)new_str, s2, size);
+	new_str[size - 1] = '\0';
 	return (new_str);
 }
 

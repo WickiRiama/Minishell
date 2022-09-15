@@ -76,7 +76,7 @@ int	new_env_var(char *input, t_env **env)
 	}
 	if (i == 0 || (input[i] != '=' && (input[i] != '\0')))
 	{
-		ft_fprintf(2, "export: %s: not a valid identifier\n", input);
+		ft_fprintf(2, "export: '%s': not a valid identifier\n", input);
 		return (1);
 	}
 	else if (input[i] == '\0')

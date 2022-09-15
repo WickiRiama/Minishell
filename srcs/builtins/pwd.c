@@ -26,7 +26,7 @@ int	ft_pwd(char **input)
 	ft_pwd = getcwd(NULL, 0);
 	if (!ft_pwd)
 	{
-		ft_fprintf(2, "getcwd error : pwd : %s\n", strerror(errno));
+		ft_fprintf(2, "getcwd in pwd: %s\n", strerror(errno));
 		return (1);
 	}
 	ft_fprintf(1, "%s\n", ft_pwd);

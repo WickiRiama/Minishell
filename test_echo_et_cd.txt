@@ -1,6 +1,9 @@
 cd srcs/builtins/
+echo $?
 echo $OLDPWD
+echo $?
 echo $PWD
+echo $?
 mkdir test
 cd test
 mkdir pouet
@@ -8,23 +11,38 @@ cd pouet
 pwd
 rm -r ../../test
 cd ..
+echo $?
 pwd
+echo $?
 cd $HOME
+echo $?
 pwd
 echo $OLDPWD
 echo $PWD
 cd $HOME
 cd -p
+echo $?
 pwd -p
+echo $?
+unset PWD
+cd srcs/
+echo $OLDPWD
+
+
 echo
 echo pouet
 echo echo
 echo -n pouet
 echo -n -n -n -n -n -n pouet
 echo -nnnnnnnnnnnnnnnn pouet
+echo $?
 echo -nnnnnnnj pouet
 echo -n -n -n pouet -n 
 echo pouet -n
+echo $?
 echo pouet -nnnnnnnnnnnnnnnn
+echo $?
 echo -p
+echo $?
 echo $USER
+echo $?

@@ -31,7 +31,7 @@ int	ft_check_arg(char **path)
 	return (0);
 }
 
-int	update_env(char *equal, t_env **env)
+int	ft_update_pwd(char *equal, t_env **env)
 {
 	char	*update_pwd;
 	char	*tmp_var;
@@ -39,8 +39,8 @@ int	update_env(char *equal, t_env **env)
 	update_pwd = getcwd(NULL, 0);
 	if (!update_pwd)
 	{
-		ft_fprintf(2, "getcwd error : cd : %s\n", strerror(errno));
-		return (1);
+		ft_fprintf(2, "getcwd: couldn't update env : %s\n", strerror(errno));
+		return (0);
 	}
 	tmp_var = ft_strjoin2(equal, update_pwd);
 	if (!tmp_var)
@@ -55,6 +55,46 @@ int	update_env(char *equal, t_env **env)
 	return (0);
 }
 
+void	ft_unset_oldpwd(t_env **env)
+{
+	char	*cmd_tab[3];
+	char	cmd_1[6];
+	char	cmd_2[7];
+
+	ft_strlcpy(cmd_1, "unset", 6);
+	cmd_tab[0] = cmd_1;
+	ft_strlcpy(cmd_2, "OLDPWD", 7);
+	cmd_tab[1] = cmd_2;
+	cmd_tab[2] = NULL;
+	ft_unset(cmd_tab, env);
+}
+
+int	ft_update_oldpwd(t_env **env)
+{
+	t_env	*tmp_pwd;
+	char	*update_oldpwd;
+
+	tmp_pwd = ft_get_ptr_env_var("PWD", *env);
+	if (!tmp_pwd)
+	{
+		ft_unset_oldpwd(env);
+		return (0);
+	}
+	update_oldpwd = malloc(sizeof(*update_oldpwd)
+			* (ft_strlen(tmp_pwd->var) + 4));
+	if (!update_oldpwd)
+	{
+		ft_fprintf(2, "System error. Malloc failed.\n");
+		return (15);
+	}
+	ft_strlcpy(update_oldpwd, "OLDPWD=", 8);
+	ft_strlcpy(update_oldpwd + 7, &tmp_pwd->var[4], ft_strlen(tmp_pwd->var));
+	if (new_env_var(update_oldpwd, env) == 15)
+		return (15);
+	free(update_oldpwd);
+	return (0);
+}
+
 int	ft_cd(char **path, t_env **env)
 {
 	int	ret;
@@ -62,16 +102,21 @@ int	ft_cd(char **path, t_env **env)
 	ret = ft_check_arg(path);
 	if (ret > 0)
 		return (ret);
-	ret = update_env("OLDPWD=", env);
-	if (ret > 0)
-		return (ret);
 	if (!path || !path[1])
 		return (1);
 	if (chdir(path[1]) < 0)
 	{
-		ft_fprintf(2, "cd : %s: %s\n", strerror(errno), path[1]);
+		if (errno == 116)
+			ft_fprintf(2, "cd: '%s': No such file or directory\n", path[1]);
+		else
+			ft_fprintf(2, "cd: %s: '%s'\n", path[1], strerror(errno));
 		return (1);
 	}
-	ret = update_env("PWD=", env);
+	ret = ft_update_oldpwd(env);
+	if (ret > 0)
+		return (ret);
+	ret = ft_update_pwd("PWD=", env);
+	if (ret > 0)
+		return (ret);
 	return (ret);
 }
