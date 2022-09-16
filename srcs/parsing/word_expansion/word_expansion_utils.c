@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 11:13:46 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/15 16:08:06 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/16 14:05:16 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,51 @@ char	*ft_extd_token(char *src, char *env_var, int start_var, int end_var)
 	ft_strlcpy(result + start_var + var_len - 1, src + end_var, res_len);
 	free(src);
 	return (result);
+}
+
+int	ft_split_token(t_dlist *token)
+{
+	t_state	state;
+	t_token	*content;
+	t_token	*new_token;
+	t_dlist	*new_link;
+
+	if (!token)
+		return (0);
+	ft_init_state(&state);
+	content = (t_token *)token->cont;
+	while (content->text[state.i])
+	{
+		if (content->text[state.i] == '"' || content->text[state.i] == '\'')
+		{
+			ft_isquoted(content->text[state.i], &state);
+			state.i++;
+		}
+		else if (ft_is_blank(content->text[state.i])
+			&& state.dquoted + state.squoted == 0)
+		{
+			content->text[state.i] = '\0';
+			state.i++;
+			while (ft_is_blank(content->text[state.i]))
+				state.i++;
+			if (content->text[state.i])
+			{
+				new_token = ft_init_token(0, ft_strlen(content->text + state.i),
+					content->text + state.i);
+				//malloc
+				new_link = ft_lstnew_msh(new_token);
+				//malloc;
+				((t_token *)new_link->cont)->type = WORD;
+				ft_lstinsert_msh(token, new_link);
+				ft_split_token(token->next);
+				//malloc
+				content->text[state.i] = '\0';
+			}
+		}
+		else
+			state.i++;
+	}
+	return (0);
 }
 
 char	*ft_rm_quote(char *token)
