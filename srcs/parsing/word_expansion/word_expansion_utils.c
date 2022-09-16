@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 11:13:46 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/16 14:05:16 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/16 14:43:04 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,18 @@ int	ft_split_token(t_dlist *token)
 			{
 				new_token = ft_init_token(0, ft_strlen(content->text + state.i),
 					content->text + state.i);
-				//malloc
+				if (!new_token)
+					return (1);
 				new_link = ft_lstnew_msh(new_token);
-				//malloc;
+				if (!new_link)
+				{
+					ft_del_token(new_token);
+					return (1);
+				}
 				((t_token *)new_link->cont)->type = WORD;
 				ft_lstinsert_msh(token, new_link);
-				ft_split_token(token->next);
-				//malloc
+				if (ft_split_token(token->next) == 1)
+					return (1);
 				content->text[state.i] = '\0';
 			}
 		}
