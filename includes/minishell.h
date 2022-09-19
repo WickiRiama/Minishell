@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/16 12:25:28 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/19 14:02:14 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,10 +141,11 @@ void	ft_print_list(t_dlist *list);
 // Word expansion
 //==============================================================================
 
+int		ft_add_splitted(t_token *content, t_state *state, t_dlist *token);
 char	*ft_extd_token(char *src, char *env_var, int start_var, int end_var);
 char	*ft_find_var(char *var, t_env *envp);
 int		ft_is_name(char c, t_state *state);
-char	*ft_rm_quote(char *token);
+char	*ft_rm_quote(t_token *token);
 int		ft_split_token(t_dlist *token);
 int		ft_wexpanse(t_dlist **tokens, t_env **envp);
 

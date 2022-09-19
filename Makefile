@@ -6,7 +6,7 @@
 #    By: mriant <mriant@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 13:49:10 by mriant            #+#    #+#              #
-#    Updated: 2022/09/16 14:55:31 by mriant           ###   ########.fr        #
+#    Updated: 2022/09/19 11:11:05 by mriant           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ SRCS += ${addprefix srcs/parsing/tokenisation/, \
 	token_utils.c \
 	tokenisation.c}
 SRCS += ${addprefix srcs/parsing/word_expansion/, \
+	word_expansion_split.c \
 	word_expansion_utils.c \
 	word_expansion.c}
 SRCS += ${addprefix srcs/signals/, \
