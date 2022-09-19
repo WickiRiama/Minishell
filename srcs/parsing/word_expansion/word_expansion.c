@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 11:32:25 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/15 16:08:38 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/19 14:03:51 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,23 +90,22 @@ char	*ft_token_expanse(char *token, t_env **envp)
 int	ft_wexpanse(t_dlist **tokens, t_env	**envp)
 {
 	t_dlist	*temp;
+	t_token	*content;
 
 	temp = *tokens;
 	while (temp)
 	{
-		if (((t_token *)temp->cont)->type != DELIM)
-			((t_token *)temp->cont)->text = \
-				ft_token_expanse(((t_token *)temp->cont)->text, envp);
-		if (!((t_token *)temp->cont)->text)
+		content = (t_token *)temp->cont;
+		if (content->type != DELIM)
+			content->text = ft_token_expanse(content->text, envp);
+		if (!content->text
+			|| (content->type == WORD && ft_split_token(temp) == 1))
 		{
 			ft_lstclear_msh(tokens, &ft_del_token);
 			return (1);
 		}
-		if (((t_token *)temp->cont)->text[0] == '\0')
-			((t_token *)temp->cont)->type = TO_IGNORE;
-		((t_token *)temp->cont)->text = \
-			ft_rm_quote(((t_token *)temp->cont)->text);
-		if (!((t_token *)temp->cont)->text)
+		content->text = ft_rm_quote(content);
+		if (!content->text)
 		{
 			ft_lstclear_msh(tokens, &ft_del_token);
 			return (1);

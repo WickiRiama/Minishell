@@ -6,7 +6,7 @@
 #    By: mriant <mriant@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 13:49:10 by mriant            #+#    #+#              #
-#    Updated: 2022/09/15 11:17:18 by mriant           ###   ########.fr        #
+#    Updated: 2022/09/19 11:11:05 by mriant           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ SRCS += ${addprefix srcs/parsing/tokenisation/, \
 	token_utils.c \
 	tokenisation.c}
 SRCS += ${addprefix srcs/parsing/word_expansion/, \
+	word_expansion_split.c \
 	word_expansion_utils.c \
 	word_expansion.c}
 SRCS += ${addprefix srcs/signals/, \
@@ -89,7 +90,7 @@ re: fclean
 
 .PHONY: grind
 grind: ${NAME}
-	valgrind --suppressions=.ignore_readline --track-fds=yes --trace-children=yes --leak-check=full -s ./minishell
+	valgrind --suppressions=.ignore_readline --track-fds=yes --trace-children=yes --leak-check=full --show-leak-kinds=all -s ./minishell
 
 .PHONY: malloc_test
 malloc_test: ${LIBFT} ${OBJS}

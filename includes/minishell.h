@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:02:57 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/15 16:36:43 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/19 14:02:14 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_dlist
 void	ft_lstadd_back_msh(t_dlist **alst, t_dlist *new);
 void	ft_lstclear_msh(t_dlist **lst, void (*del)(void *));
 void	ft_lstdelone_msh(t_dlist *lst, void (*del)(void *));
+void	ft_lstinsert_msh(t_dlist *lst, t_dlist *new);
 t_dlist	*ft_lstlast_msh(t_dlist *lst);
 t_dlist	*ft_lstnew_msh(void *content);
 int		ft_lstsize_msh(t_dlist *lst);
@@ -106,6 +107,7 @@ typedef struct s_state
 int		ft_add_token(t_dlist **tokens, t_ui start, t_ui i, char *input);
 void	ft_del_token(void *content);
 void	ft_init_state(t_state *state);
+t_token	*ft_init_token(t_ui start, t_ui i, char *input);
 int		ft_is_blank(char c);
 int		ft_is_operator(char c);
 void	ft_isquoted(char c, t_state *state);
@@ -133,15 +135,18 @@ char	*ft_get_input(void);
 void	free_tab(char **tab);
 char	*ft_strjoin2(char const *s1, char const *s2);
 int		len_arg_tab(char **input);
+void	ft_print_list(t_dlist *list);
 
 //==============================================================================
 // Word expansion
 //==============================================================================
 
+int		ft_add_splitted(t_token *content, t_state *state, t_dlist *token);
 char	*ft_extd_token(char *src, char *env_var, int start_var, int end_var);
 char	*ft_find_var(char *var, t_env *envp);
 int		ft_is_name(char c, t_state *state);
-char	*ft_rm_quote(char *token);
+char	*ft_rm_quote(t_token *token);
+int		ft_split_token(t_dlist *token);
 int		ft_wexpanse(t_dlist **tokens, t_env **envp);
 
 //==============================================================================

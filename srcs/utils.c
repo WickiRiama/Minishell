@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:18:56 by sle-huec          #+#    #+#             */
-/*   Updated: 2022/09/15 16:14:53 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/16 14:09:50 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,3 +84,14 @@ int	ft_check_last_infile(t_dlist *blocks)
 		return (1);
 	return (0);
 }
+
+/*
+void	ft_print_list(t_dlist *list)
+{
+	while (list)
+	{
+		ft_printf("token :%s\n", ((t_token *)list->cont)->text);
+		ft_printf("type :%d\n", ((t_token *)list->cont)->type);
+		list = list->next;
+	}
+}*/
