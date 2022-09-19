@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 14:22:56 by mriant            #+#    #+#             */
-/*   Updated: 2022/09/15 16:12:18 by mriant           ###   ########.fr       */
+/*   Updated: 2022/09/19 14:18:48 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ void	ft_handle_sig(int sig)
 {
 	if (sig == SIGINT)
 	{
-		ft_printf("\n🐱 minishell 🐈 $> ");
+		ft_printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
 		g_exitcode = 130;
 	}
 	else if (sig == SIGQUIT)
